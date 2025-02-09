@@ -29,6 +29,11 @@ class CategoryViewController: UIViewController {
         setupUI()
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        collectionView.collectionViewLayout = createLayoutForCollection()
+    }
+    
     private func setupCollection() {
         collectionView.delegate = self
         collectionView.dataSource = self
@@ -37,8 +42,9 @@ class CategoryViewController: UIViewController {
     
     private func setupUI() {
         view.addSubview(collectionView)
+
         NSLayoutConstraint.activate([
-  
+            
             collectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
             collectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
             collectionView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20),
@@ -47,7 +53,7 @@ class CategoryViewController: UIViewController {
     }
 }
 
-extension CategoryViewController: UICollectionViewDelegate, UICollectionViewDataSource {
+extension CategoryViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return Category.allCases.count
     }
@@ -65,13 +71,21 @@ extension CategoryViewController: UICollectionViewDelegate, UICollectionViewData
         return cell
     }
     
-    func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
-        guard let cell = collectionView.cellForItem(at: indexPath) as? CategoryCell else {
-            return
-        }
-
-            //...
+    private func createLayoutForCollection() -> UICollectionViewFlowLayout {
+        
+        let layout = UICollectionViewFlowLayout()
+        let basicSpacing: CGFloat = 20
+        let itemsPerRow: CGFloat = 2
+        let paddingWidth = basicSpacing * (itemsPerRow + 1)
+        let availableWidth = collectionView.bounds.width - paddingWidth
+        let widthPerItem = availableWidth / itemsPerRow
+        layout.minimumLineSpacing = basicSpacing
+        layout.minimumInteritemSpacing = basicSpacing
+        layout.sectionInset = UIEdgeInsets(top: basicSpacing, left: basicSpacing, bottom: 0, right: basicSpacing)
+        layout.itemSize = CGSize(width: widthPerItem, height: widthPerItem)
+        return layout
     }
+    
     
 }
 

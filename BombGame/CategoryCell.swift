@@ -28,7 +28,7 @@ class CategoryCell: UICollectionViewCell {
         imageView.contentMode = .scaleAspectFit
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.tintColor = UIColor.black
-        imageView.image = UIImage(named: "checkmark.circle.fill")
+        imageView.image = UIImage(systemName: "checkmark.circle.fill")
         imageView.isHidden = true
         return imageView
     }()
@@ -42,6 +42,18 @@ class CategoryCell: UICollectionViewCell {
         return label
     }()
     
+    var isCellSelected: Bool = false {
+           didSet {
+               if isCellSelected {
+                   roundedView.backgroundColor = UIColor.green
+                   checkView.isHidden = false
+               } else {
+                   roundedView.backgroundColor = .white
+                   checkView.isHidden = true
+               }
+           }
+       }
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         
@@ -53,23 +65,23 @@ class CategoryCell: UICollectionViewCell {
         NSLayoutConstraint.activate([
             roundedView.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
             roundedView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 20),
-            roundedView.widthAnchor.constraint(equalToConstant: 60),
-            roundedView.heightAnchor.constraint(equalToConstant: 60),
+            roundedView.widthAnchor.constraint(equalToConstant: 130),
+            roundedView.heightAnchor.constraint(equalToConstant: 130),
             
             iconView.centerXAnchor.constraint(equalTo: roundedView.centerXAnchor),
             iconView.centerYAnchor.constraint(equalTo: roundedView.centerYAnchor),
-            iconView.widthAnchor.constraint(equalToConstant: 30),
-            iconView.heightAnchor.constraint(equalToConstant: 30),
+            iconView.widthAnchor.constraint(equalToConstant: 50),
+            iconView.heightAnchor.constraint(equalToConstant: 50),
             
             titleLabel.centerXAnchor.constraint(equalTo: roundedView.centerXAnchor),
-            titleLabel.topAnchor.constraint(equalTo: roundedView.bottomAnchor, constant: 6),
+            titleLabel.bottomAnchor.constraint(equalTo: roundedView.bottomAnchor, constant: -16),
             titleLabel.leadingAnchor.constraint(equalTo: roundedView.leadingAnchor, constant: 4),
             titleLabel.trailingAnchor.constraint(equalTo: roundedView.trailingAnchor, constant: -4),
             
-            checkView.leadingAnchor.constraint(equalTo: roundedView.leadingAnchor, constant: 4),
-            checkView.topAnchor.constraint(equalTo: roundedView.topAnchor, constant: 4),
-            checkView.widthAnchor.constraint(equalToConstant: 9),
-            checkView.heightAnchor.constraint(equalToConstant: 9),
+            checkView.leadingAnchor.constraint(equalTo: roundedView.leadingAnchor, constant: 14),
+            checkView.topAnchor.constraint(equalTo: roundedView.topAnchor, constant: 14),
+            checkView.widthAnchor.constraint(equalToConstant: 25),
+            checkView.heightAnchor.constraint(equalToConstant: 25),
         ])
         contentView.backgroundColor = .white
     }
@@ -83,21 +95,9 @@ class CategoryCell: UICollectionViewCell {
         titleLabel.text = category.rawValue
     }
     
-    override var isSelected: Bool {
-        didSet {
-            if isSelected {
-                roundedView.backgroundColor = UIColor.green
-                roundedView.layer.borderColor = UIColor.clear.cgColor
-                iconView.tintColor = UIColor.white
-                checkView.isHidden = false
-                
-            } else {
-                roundedView.backgroundColor = .white
-                roundedView.layer.borderColor = UIColor.black.cgColor
-                iconView.tintColor = UIColor.black
-                checkView.isHidden = true
-            }
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+            super.touchesBegan(touches, with: event)
+            isCellSelected.toggle()
         }
-    }
     
 }
