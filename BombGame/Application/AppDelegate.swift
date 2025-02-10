@@ -10,12 +10,12 @@ import UIKit
 @main
 final class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
-    let appRouter = AppRouter()
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
+        let mainMenuController = MainMenuViewController()
+        let navigationController = UINavigationController(rootViewController: mainMenuController)
         window = UIWindow(frame: UIScreen.main.bounds)
-        window?.rootViewController = appRouter.navigationController
-        appRouter.pushMainMenuViewController()
+        window?.rootViewController = navigationController
         window?.makeKeyAndVisible()
 
         return true
