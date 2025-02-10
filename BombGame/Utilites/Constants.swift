@@ -25,4 +25,16 @@ enum Category: String, CaseIterable {
     case nature = "Природа"
 }
 
-
+enum Sounds {
+    enum Theme: String {
+        case one = "themeOne"
+    }
+    
+    enum Counter: String {
+        case one = "counterOne"
+    }
+    
+    enum Boom: String {
+        case one = "boomOne"
+    }
+}
