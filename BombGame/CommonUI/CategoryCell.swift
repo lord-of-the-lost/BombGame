@@ -38,6 +38,9 @@ class CategoryCell: UICollectionViewCell {
         label.font = UIFont(name: "", size: 15)
         label.textColor = .black
         label.textAlignment = .center
+        label.adjustsFontSizeToFitWidth = true  
+        label.minimumScaleFactor = 0.5
+        label.numberOfLines = 1
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -65,13 +68,13 @@ class CategoryCell: UICollectionViewCell {
         NSLayoutConstraint.activate([
             roundedView.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
             roundedView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 20),
-            roundedView.widthAnchor.constraint(equalToConstant: 130),
-            roundedView.heightAnchor.constraint(equalToConstant: 130),
+            roundedView.widthAnchor.constraint(equalToConstant: 145),
+            roundedView.heightAnchor.constraint(equalToConstant: 145),
             
+            iconView.bottomAnchor.constraint(equalTo: titleLabel.topAnchor, constant: -10),
             iconView.centerXAnchor.constraint(equalTo: roundedView.centerXAnchor),
-            iconView.centerYAnchor.constraint(equalTo: roundedView.centerYAnchor),
-            iconView.widthAnchor.constraint(equalToConstant: 50),
-            iconView.heightAnchor.constraint(equalToConstant: 50),
+            iconView.widthAnchor.constraint(equalToConstant: 80),
+            iconView.heightAnchor.constraint(equalToConstant: 80),
             
             titleLabel.centerXAnchor.constraint(equalTo: roundedView.centerXAnchor),
             titleLabel.bottomAnchor.constraint(equalTo: roundedView.bottomAnchor, constant: -16),

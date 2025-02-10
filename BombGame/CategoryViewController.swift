@@ -42,6 +42,9 @@ class CategoryViewController: UIViewController {
     
     private func setupUI() {
         view.addSubview(collectionView)
+        view.backgroundColor = .white
+ 
+        title = "Категории"
 
         NSLayoutConstraint.activate([
             
@@ -74,7 +77,7 @@ extension CategoryViewController: UICollectionViewDelegate, UICollectionViewData
     private func createLayoutForCollection() -> UICollectionViewFlowLayout {
         
         let layout = UICollectionViewFlowLayout()
-        let basicSpacing: CGFloat = 20
+        let basicSpacing: CGFloat = 10
         let itemsPerRow: CGFloat = 2
         let paddingWidth = basicSpacing * (itemsPerRow + 1)
         let availableWidth = collectionView.bounds.width - paddingWidth
@@ -89,4 +92,4 @@ extension CategoryViewController: UICollectionViewDelegate, UICollectionViewData
     
 }
 
-#Preview {CategoryViewController () }
+//#Preview {CategoryViewController () }
