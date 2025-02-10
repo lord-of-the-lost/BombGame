@@ -27,6 +27,7 @@ class CategoryViewController: UIViewController {
         
         setupCollection()
         setupUI()
+        setupNavigationBar()
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -43,8 +44,6 @@ class CategoryViewController: UIViewController {
     private func setupUI() {
         view.addSubview(collectionView)
         view.backgroundColor = .white
- 
-        title = "Категории"
 
         NSLayoutConstraint.activate([
             
@@ -54,6 +53,23 @@ class CategoryViewController: UIViewController {
             collectionView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: 20),
         ])
     }
+    
+    private func setupNavigationBar() {
+        title = "Категории"
+        let questionButton = UIBarButtonItem(
+            image: UIImage(systemName: "questionmark.circle.fill"),
+            style: .plain,
+            target: self,
+            action: #selector(questionButtonTapped)
+        )
+        
+        questionButton.tintColor = .yellow
+        navigationItem.rightBarButtonItem = questionButton
+    }
+    
+    @objc private func questionButtonTapped() {
+     }
+    
 }
 
 extension CategoryViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {

@@ -68,8 +68,8 @@ class CategoryCell: UICollectionViewCell {
         NSLayoutConstraint.activate([
             roundedView.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
             roundedView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 20),
-            roundedView.widthAnchor.constraint(equalToConstant: 145),
-            roundedView.heightAnchor.constraint(equalToConstant: 145),
+            roundedView.widthAnchor.constraint(equalToConstant: 140),
+            roundedView.heightAnchor.constraint(equalToConstant: 140),
             
             iconView.bottomAnchor.constraint(equalTo: titleLabel.topAnchor, constant: -10),
             iconView.centerXAnchor.constraint(equalTo: roundedView.centerXAnchor),

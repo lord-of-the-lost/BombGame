@@ -16,10 +16,12 @@ enum Category: String, CaseIterable {
     case nature = "Природа"
 }
 
-enum Sports: String {
-    case sport1 = "Назовите вид зимнего спорта"
-    case sport2 = "Назовите спортивную игру с мячом"
-    case sport3 = "Назовите имя любого спортсмена"
-}
+let questions: [Category: [String]] = [
+    .sports: [
+        "Назовите вид зимнего спорта",
+        "Назовите спортивную игру с мячом",
+        "Назовите имя любого спортсмена"
+    ]
+    ]
 
 
