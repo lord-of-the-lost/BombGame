@@ -7,9 +7,9 @@
 
 import UIKit
 
-class CategoryViewController: UIViewController {
+final class CategoryViewController: UIViewController {
     
-    private var collectionView: UICollectionView = {
+    private lazy var collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
         layout.minimumLineSpacing = 10
@@ -35,46 +35,23 @@ class CategoryViewController: UIViewController {
         collectionView.collectionViewLayout = createLayoutForCollection()
     }
     
-    private func setupCollection() {
-        collectionView.delegate = self
-        collectionView.dataSource = self
-        collectionView.register(CategoryCell.self, forCellWithReuseIdentifier: CategoryCell.identifier)
-    }
-    
-    private func setupUI() {
-        view.addSubview(collectionView)
-        view.backgroundColor = .white
-
-        NSLayoutConstraint.activate([
-            
-            collectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
-            collectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
-            collectionView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20),
-            collectionView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: 20),
-        ])
-    }
-    
-    private func setupNavigationBar() {
-        title = "Категории"
-        let questionButton = UIBarButtonItem(
-            image: UIImage(systemName: "questionmark.circle.fill"),
-            style: .plain,
-            target: self,
-            action: #selector(questionButtonTapped)
-        )
-        
-        questionButton.tintColor = .yellow
-        navigationItem.rightBarButtonItem = questionButton
-    }
-    
-    @objc private func questionButtonTapped() {
-     }
     
 }
 
-extension CategoryViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+extension CategoryViewController: UICollectionViewDelegate  {
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        if let cell = collectionView.cellForItem(at: indexPath) as? CategoryCell {
+            cell.isCellSelected.toggle()
+        }
+    }
+    
+}
+
+
+extension CategoryViewController: UICollectionViewDataSource {
+    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return Category.allCases.count
+        Category.allCases.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -89,7 +66,10 @@ extension CategoryViewController: UICollectionViewDelegate, UICollectionViewData
         cell.configure(with: category)
         return cell
     }
-    
+}
+
+
+extension CategoryViewController: UICollectionViewDelegateFlowLayout {
     private func createLayoutForCollection() -> UICollectionViewFlowLayout {
         
         let layout = UICollectionViewFlowLayout()
@@ -104,8 +84,48 @@ extension CategoryViewController: UICollectionViewDelegate, UICollectionViewData
         layout.itemSize = CGSize(width: widthPerItem, height: widthPerItem)
         return layout
     }
-    
-    
 }
+
+extension CategoryViewController {
+    private func setupCollection() {
+        collectionView.delegate = self
+        collectionView.dataSource = self
+        collectionView.register(CategoryCell.self, forCellWithReuseIdentifier: CategoryCell.identifier)
+    }
+}
+
+extension CategoryViewController {
+    private func setupUI() {
+        view.addSubview(collectionView)
+        view.backgroundColor = .white
+        
+        NSLayoutConstraint.activate([
+            
+            collectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
+            collectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
+            collectionView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20),
+            collectionView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: 20),
+        ])
+    }
+}
+
+extension CategoryViewController {
+    private func setupNavigationBar() {
+        title = "Категории"
+        let questionButton = UIBarButtonItem(
+            image: UIImage(systemName: "questionmark.circle.fill"),
+            style: .plain,
+            target: self,
+            action: #selector(questionButtonTapped)
+        )
+        
+        questionButton.tintColor = .yellow
+        navigationItem.rightBarButtonItem = questionButton
+    }
+    
+    @objc private func questionButtonTapped() {
+    }
+}
+
 
 //#Preview {CategoryViewController () }

@@ -7,19 +7,28 @@
 
 import UIKit
 
-extension UIView {
-    static func makeRoundRectangle() -> UIView {
-    let view = UIView()
-    view.translatesAutoresizingMaskIntoConstraints = false
-    view.layer.cornerRadius = 20
-    view.layer.masksToBounds = false
-    view.layer.shadowOpacity = 0.3
-    view.layer.shadowOffset = CGSize(width: 0, height: 2)
-    view.layer.shadowRadius = 2
-    view.backgroundColor = .white
-    view.layer.borderColor = UIColor.systemGray.cgColor
-    view.layer.borderWidth = 1
-    return view
+final class RoundedView: UIView {
+    override init(frame: CGRect) {
+            super.init(frame: frame)
+            setupView()
+        }
+        
+        required init?(coder: NSCoder) {
+            super.init(coder: coder)
+            setupView()
+        }
+        
+        private func setupView() {
+            self.translatesAutoresizingMaskIntoConstraints = false
+            self.layer.cornerRadius = 20
+            self.layer.masksToBounds = false
+            self.layer.shadowOpacity = 0.3
+            self.layer.shadowOffset = CGSize(width: 0, height: 2)
+            self.layer.shadowRadius = 2
+            self.backgroundColor = .white
+            self.layer.borderColor = UIColor.systemGray.cgColor
+            self.layer.borderWidth = 1
+        }
 }
 
-}
+

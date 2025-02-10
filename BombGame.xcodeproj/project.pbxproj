@@ -30,7 +30,7 @@
 		6019B9D32D57E0A800E3F786 /* Palette.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Palette.swift; sourceTree = "<group>"; };
 		6019B9D52D57E0ED00E3F786 /* Fonts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Fonts.swift; sourceTree = "<group>"; };
 		6019B9DF2D57EFC500E3F786 /* CommonButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommonButton.swift; sourceTree = "<group>"; };
-		F33D64542D596B1700F3BBD7 /* CategoryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CategoryViewController.swift; path = BombGame/CategoryViewController.swift; sourceTree = SOURCE_ROOT; };
+		F33D64542D596B1700F3BBD7 /* CategoryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CategoryViewController.swift; path = BombGame/Modules/Categories/CategoryViewController.swift; sourceTree = SOURCE_ROOT; };
 		F33D64552D596B1700F3BBD7 /* CategoryCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CategoryCell.swift; path = BombGame/CommonUI/CategoryCell.swift; sourceTree = SOURCE_ROOT; };
 		F33D64582D596B2300F3BBD7 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Constants.swift; path = BombGame/Utilites/Constants.swift; sourceTree = SOURCE_ROOT; };
 		F33D645A2D596B2A00F3BBD7 /* RoundedView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RoundedView.swift; path = BombGame/CommonUI/RoundedView.swift; sourceTree = SOURCE_ROOT; };
@@ -79,7 +79,6 @@
 			isa = PBXGroup;
 			children = (
 				6019B9BA2D57DB6700E3F786 /* AppDelegate.swift */,
-				F33D64542D596B1700F3BBD7 /* CategoryViewController.swift */,
 			);
 			path = Application;
 			sourceTree = "<group>";
@@ -87,6 +86,7 @@
 		6019B9CF2D57DDC400E3F786 /* Modules */ = {
 			isa = PBXGroup;
 			children = (
+				F33D645C2D5A7A9300F3BBD7 /* Categories */,
 				6019B9D12D57DF3F00E3F786 /* MainMenu */,
 			);
 			path = Modules;
@@ -128,6 +128,14 @@
 				F33D645A2D596B2A00F3BBD7 /* RoundedView.swift */,
 			);
 			path = CommonUI;
+			sourceTree = "<group>";
+		};
+		F33D645C2D5A7A9300F3BBD7 /* Categories */ = {
+			isa = PBXGroup;
+			children = (
+				F33D64542D596B1700F3BBD7 /* CategoryViewController.swift */,
+			);
+			path = Categories;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -205,7 +213,6 @@
 				6019B9D62D57E0ED00E3F786 /* Fonts.swift in Sources */,
 				F33D64562D596B1700F3BBD7 /* CategoryViewController.swift in Sources */,
 				6019B9E02D57EFC500E3F786 /* CommonButton.swift in Sources */,
-				6019B9DA2D57E55500E3F786 /* MainMenuFactory.swift in Sources */,
 				F33D645B2D596B2A00F3BBD7 /* RoundedView.swift in Sources */,
 				6019B9D42D57E0A800E3F786 /* Palette.swift in Sources */,
 				6019B9BF2D57DB6700E3F786 /* MainMenuViewController.swift in Sources */,

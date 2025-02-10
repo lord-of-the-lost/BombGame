@@ -7,14 +7,14 @@
 
 import UIKit
 
-class CategoryCell: UICollectionViewCell {
+final class CategoryCell: UICollectionViewCell {
     
     static let identifier = "CategoryCell"
     
-    let roundedView = makeRoundRectangle()
-
+    private lazy var roundedView = RoundedView()
     
-    let iconView: UIImageView = {
+    
+    private lazy var iconView: UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFit
         imageView.translatesAutoresizingMaskIntoConstraints = false
@@ -23,7 +23,7 @@ class CategoryCell: UICollectionViewCell {
         return imageView
     }()
     
-    let checkView: UIImageView = {
+    private lazy var checkView: UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFit
         imageView.translatesAutoresizingMaskIntoConstraints = false
@@ -33,33 +33,59 @@ class CategoryCell: UICollectionViewCell {
         return imageView
     }()
     
-    let titleLabel: UILabel = {
+    private lazy var titleLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont(name: "", size: 15)
+        
+        let fontSize: CGFloat = 15
+        let systemFont = UIFont.systemFont(ofSize: fontSize, weight: .medium)
+        let font: UIFont
+        
+        if let descriptor = systemFont.fontDescriptor.withDesign(.rounded) {
+            font = UIFont(descriptor: descriptor, size: fontSize)
+        } else {
+            font = systemFont
+        }
+        label.font = font
         label.textColor = .black
         label.textAlignment = .center
-        label.adjustsFontSizeToFitWidth = true  
+        label.adjustsFontSizeToFitWidth = true
         label.minimumScaleFactor = 0.5
         label.numberOfLines = 1
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
     
-    var isCellSelected: Bool = false {
-           didSet {
-               if isCellSelected {
-                   roundedView.backgroundColor = UIColor.green
-                   checkView.isHidden = false
-               } else {
-                   roundedView.backgroundColor = .white
-                   checkView.isHidden = true
-               }
-           }
-       }
+    lazy var isCellSelected: Bool = false {
+        didSet {
+            if isCellSelected {
+                roundedView.backgroundColor = UIColor.green
+                checkView.isHidden = false
+            } else {
+                roundedView.backgroundColor = UIColor.white
+                checkView.isHidden = true
+            }
+        }
+    }
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        
+        setupUI()
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    func configure(with category: Category) {
+        iconView.image = UIImage(systemName: "figure.run")
+        titleLabel.text = category.rawValue
+    }
+    
+    
+}
+
+extension CategoryCell {
+    private func setupUI() {
         contentView.addSubview(roundedView)
         roundedView.addSubview(iconView)
         roundedView.addSubview(titleLabel)
@@ -88,19 +114,5 @@ class CategoryCell: UICollectionViewCell {
         ])
         contentView.backgroundColor = .white
     }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
-    func configure(with category: Category) {
-        iconView.image = UIImage(systemName: "figure.run")
-        titleLabel.text = category.rawValue
-    }
-    
-    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-            super.touchesBegan(touches, with: event)
-            isCellSelected.toggle()
-        }
     
 }
