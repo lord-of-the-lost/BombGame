@@ -8,7 +8,6 @@
 import UIKit
 
 final class CategoryViewController: UIViewController {
-    
     private lazy var collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
@@ -18,38 +17,37 @@ final class CategoryViewController: UIViewController {
         collectionView.backgroundColor = .clear
         collectionView.showsVerticalScrollIndicator = false
         collectionView.showsHorizontalScrollIndicator = false
+        collectionView.delegate = self
+        collectionView.dataSource = self
+        collectionView.register(CategoryCell.self, forCellWithReuseIdentifier: CategoryCell.identifier)
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         return collectionView
     }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        setupCollection()
-        setupUI()
         setupNavigationBar()
+        setupUI()
+        setupConstraints()
     }
     
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
         collectionView.collectionViewLayout = createLayoutForCollection()
     }
-    
-    
 }
 
+// MARK: - UICollectionViewDelegate
 extension CategoryViewController: UICollectionViewDelegate  {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if let cell = collectionView.cellForItem(at: indexPath) as? CategoryCell {
             cell.isCellSelected.toggle()
         }
     }
-    
 }
 
-
+// MARK: - UICollectionViewDataSource
 extension CategoryViewController: UICollectionViewDataSource {
-    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         Category.allCases.count
     }
@@ -68,10 +66,12 @@ extension CategoryViewController: UICollectionViewDataSource {
     }
 }
 
+// MARK: - UICollectionViewDelegateFlowLayout
+extension CategoryViewController: UICollectionViewDelegateFlowLayout {}
 
-extension CategoryViewController: UICollectionViewDelegateFlowLayout {
-    private func createLayoutForCollection() -> UICollectionViewFlowLayout {
-        
+// MARK: - Private Methods
+private extension CategoryViewController {
+    func createLayoutForCollection() -> UICollectionViewFlowLayout {
         let layout = UICollectionViewFlowLayout()
         let basicSpacing: CGFloat = 10
         let itemsPerRow: CGFloat = 2
@@ -84,29 +84,13 @@ extension CategoryViewController: UICollectionViewDelegateFlowLayout {
         layout.itemSize = CGSize(width: widthPerItem, height: widthPerItem)
         return layout
     }
-}
-
-extension CategoryViewController {
-    private func setupCollection() {
-        collectionView.delegate = self
-        collectionView.dataSource = self
-        collectionView.register(CategoryCell.self, forCellWithReuseIdentifier: CategoryCell.identifier)
-    }
     
-    private func setupUI() {
+    func setupUI() {
         view.addSubview(collectionView)
         view.backgroundColor = .white
-        
-        NSLayoutConstraint.activate([
-            
-            collectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
-            collectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
-            collectionView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20),
-            collectionView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: 20),
-        ])
     }
     
-    private func setupNavigationBar() {
+    func setupNavigationBar() {
         title = "Категории"
         let questionButton = UIBarButtonItem(
             image: UIImage(systemName: "questionmark.circle.fill"),
@@ -119,8 +103,16 @@ extension CategoryViewController {
         navigationItem.rightBarButtonItem = questionButton
     }
     
-    @objc private func questionButtonTapped() {
+    func setupConstraints() {
+        NSLayoutConstraint.activate([
+            collectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
+            collectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
+            collectionView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20),
+            collectionView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: 20),
+        ])
     }
+    
+    @objc func questionButtonTapped() {}
 }
 
 

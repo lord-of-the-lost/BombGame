@@ -11,15 +11,17 @@ final class CategoryCell: UICollectionViewCell {
     
     static let identifier = "CategoryCell"
     
-    private lazy var roundedView = RoundedView()
-    
+    private lazy var roundedView: RoundedView = {
+        let view = RoundedView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
     
     private lazy var iconView: UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFit
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.tintColor = UIColor.black
-        
         return imageView
     }()
     
@@ -55,7 +57,7 @@ final class CategoryCell: UICollectionViewCell {
         return label
     }()
     
-    lazy var isCellSelected: Bool = false {
+    var isCellSelected: Bool = false {
         didSet {
             if isCellSelected {
                 roundedView.backgroundColor = UIColor.green
@@ -70,6 +72,7 @@ final class CategoryCell: UICollectionViewCell {
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupUI()
+        setupConstraints()
     }
     
     required init?(coder: NSCoder) {
@@ -80,17 +83,19 @@ final class CategoryCell: UICollectionViewCell {
         iconView.image = UIImage(systemName: "figure.run")
         titleLabel.text = category.rawValue
     }
-    
-    
 }
 
-extension CategoryCell {
-    private func setupUI() {
+// MARK: - Private Methods
+private extension CategoryCell {
+     func setupUI() {
+        contentView.backgroundColor = .white
         contentView.addSubview(roundedView)
         roundedView.addSubview(iconView)
         roundedView.addSubview(titleLabel)
         roundedView.addSubview(checkView)
-        
+    }
+    
+    func setupConstraints() {
         NSLayoutConstraint.activate([
             roundedView.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
             roundedView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 20),
@@ -112,7 +117,5 @@ extension CategoryCell {
             checkView.widthAnchor.constraint(equalToConstant: 25),
             checkView.heightAnchor.constraint(equalToConstant: 25),
         ])
-        contentView.backgroundColor = .white
     }
-    
 }

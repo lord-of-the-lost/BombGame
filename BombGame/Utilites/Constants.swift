@@ -25,12 +25,4 @@ enum Category: String, CaseIterable {
     case nature = "Природа"
 }
 
-let questions: [Category: [String]] = [
-    .sports: [
-        "Назовите вид зимнего спорта",
-        "Назовите спортивную игру с мячом",
-        "Назовите имя любого спортсмена"
-    ]
-    ]
-
 
