@@ -13,9 +13,6 @@
 		6019B9C72D57DB6900E3F786 /* Base in Resources */ = {isa = PBXBuildFile; fileRef = 6019B9C62D57DB6900E3F786 /* Base */; };
 		6019B9D42D57E0A800E3F786 /* Palette.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6019B9D32D57E0A800E3F786 /* Palette.swift */; };
 		6019B9D62D57E0ED00E3F786 /* Fonts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6019B9D52D57E0ED00E3F786 /* Fonts.swift */; };
-		6019B9D82D57E3C400E3F786 /* MainMenuPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6019B9D72D57E3C400E3F786 /* MainMenuPresenter.swift */; };
-		6019B9DA2D57E55500E3F786 /* MainMenuFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6019B9D92D57E55500E3F786 /* MainMenuFactory.swift */; };
-		6019B9DD2D57E72400E3F786 /* AppRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6019B9DC2D57E72400E3F786 /* AppRouter.swift */; };
 		6019B9E02D57EFC500E3F786 /* CommonButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6019B9DF2D57EFC500E3F786 /* CommonButton.swift */; };
 		F33D64562D596B1700F3BBD7 /* CategoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F33D64542D596B1700F3BBD7 /* CategoryViewController.swift */; };
 		F33D64572D596B1700F3BBD7 /* CategoryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F33D64552D596B1700F3BBD7 /* CategoryCell.swift */; };
@@ -32,9 +29,6 @@
 		6019B9C82D57DB6900E3F786 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		6019B9D32D57E0A800E3F786 /* Palette.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Palette.swift; sourceTree = "<group>"; };
 		6019B9D52D57E0ED00E3F786 /* Fonts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Fonts.swift; sourceTree = "<group>"; };
-		6019B9D72D57E3C400E3F786 /* MainMenuPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainMenuPresenter.swift; sourceTree = "<group>"; };
-		6019B9D92D57E55500E3F786 /* MainMenuFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainMenuFactory.swift; sourceTree = "<group>"; };
-		6019B9DC2D57E72400E3F786 /* AppRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppRouter.swift; sourceTree = "<group>"; };
 		6019B9DF2D57EFC500E3F786 /* CommonButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommonButton.swift; sourceTree = "<group>"; };
 		F33D64542D596B1700F3BBD7 /* CategoryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CategoryViewController.swift; path = BombGame/CategoryViewController.swift; sourceTree = SOURCE_ROOT; };
 		F33D64552D596B1700F3BBD7 /* CategoryCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CategoryCell.swift; path = BombGame/CommonUI/CategoryCell.swift; sourceTree = SOURCE_ROOT; };
@@ -75,7 +69,6 @@
 				6019B9CE2D57DDB400E3F786 /* Application */,
 				6019B9DE2D57EFAE00E3F786 /* CommonUI */,
 				6019B9CF2D57DDC400E3F786 /* Modules */,
-				6019B9DB2D57E70E00E3F786 /* Navigation */,
 				6019B9D22D57E08200E3F786 /* Utilites */,
 				6019B9D02D57DDD400E3F786 /* Resources */,
 			);
@@ -113,8 +106,6 @@
 			isa = PBXGroup;
 			children = (
 				6019B9BE2D57DB6700E3F786 /* MainMenuViewController.swift */,
-				6019B9D72D57E3C400E3F786 /* MainMenuPresenter.swift */,
-				6019B9D92D57E55500E3F786 /* MainMenuFactory.swift */,
 			);
 			path = MainMenu;
 			sourceTree = "<group>";
@@ -127,14 +118,6 @@
 				F33D64582D596B2300F3BBD7 /* Constants.swift */,
 			);
 			path = Utilites;
-			sourceTree = "<group>";
-		};
-		6019B9DB2D57E70E00E3F786 /* Navigation */ = {
-			isa = PBXGroup;
-			children = (
-				6019B9DC2D57E72400E3F786 /* AppRouter.swift */,
-			);
-			path = Navigation;
 			sourceTree = "<group>";
 		};
 		6019B9DE2D57EFAE00E3F786 /* CommonUI */ = {
@@ -220,13 +203,11 @@
 				F33D64572D596B1700F3BBD7 /* CategoryCell.swift in Sources */,
 				6019B9BF2D57DB6700E3F786 /* MainMenuViewController.swift in Sources */,
 				6019B9D62D57E0ED00E3F786 /* Fonts.swift in Sources */,
-				6019B9D82D57E3C400E3F786 /* MainMenuPresenter.swift in Sources */,
 				F33D64562D596B1700F3BBD7 /* CategoryViewController.swift in Sources */,
 				6019B9E02D57EFC500E3F786 /* CommonButton.swift in Sources */,
 				6019B9DA2D57E55500E3F786 /* MainMenuFactory.swift in Sources */,
 				F33D645B2D596B2A00F3BBD7 /* RoundedView.swift in Sources */,
 				6019B9D42D57E0A800E3F786 /* Palette.swift in Sources */,
-				6019B9DD2D57E72400E3F786 /* AppRouter.swift in Sources */,
 				6019B9BF2D57DB6700E3F786 /* MainMenuViewController.swift in Sources */,
 				F33D64592D596B2300F3BBD7 /* Constants.swift in Sources */,
 				6019B9BB2D57DB6700E3F786 /* AppDelegate.swift in Sources */,

@@ -8,8 +8,6 @@
 import UIKit
 
 final class MainMenuViewController: UIViewController {
-    private let presenter: MainMenuPresenterProtocol
-    
     private lazy var gameTitle: UILabel = {
         let label = UILabel()
         label.text = "Бомба"
@@ -18,16 +16,6 @@ final class MainMenuViewController: UIViewController {
         return label
     }()
     
-    init(presenter: MainMenuPresenterProtocol) {
-        self.presenter = presenter
-        super.init(nibName: nil, bundle: nil)
-    }
-    
-    @available(*, unavailable, message: "use init(presenter: MainMenuPresenterProtocol) instead")
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         setupView()
@@ -35,8 +23,6 @@ final class MainMenuViewController: UIViewController {
     }
 }
 
-// MARK: - MainMenuViewProtocol
-extension MainMenuViewController: MainMenuViewProtocol {}
 
 // MARK: - Private Methods
 private extension MainMenuViewController {
