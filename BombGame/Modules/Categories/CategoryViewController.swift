@@ -92,9 +92,7 @@ extension CategoryViewController {
         collectionView.dataSource = self
         collectionView.register(CategoryCell.self, forCellWithReuseIdentifier: CategoryCell.identifier)
     }
-}
-
-extension CategoryViewController {
+    
     private func setupUI() {
         view.addSubview(collectionView)
         view.backgroundColor = .white
@@ -107,9 +105,7 @@ extension CategoryViewController {
             collectionView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: 20),
         ])
     }
-}
-
-extension CategoryViewController {
+    
     private func setupNavigationBar() {
         title = "Категории"
         let questionButton = UIBarButtonItem(
