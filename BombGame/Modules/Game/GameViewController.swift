@@ -11,11 +11,9 @@ import Lottie
 
 final class GameViewController: UIViewController {
     
-    enum ScreenState {
-        case start
-        case game
-        case final
-    }
+    private var timer: Timer?
+    private var timeLeft: Int = 5
+    private var isTimerPaused: Bool = false
     
     private lazy var textLabel: UILabel = {
         let label = UILabel()
@@ -23,6 +21,8 @@ final class GameViewController: UIViewController {
         label.font = UIFont.systemFont(ofSize: 24, weight: .medium)
         label.textAlignment = .center
         label.numberOfLines = 0
+        label.translatesAutoresizingMaskIntoConstraints = false
+
         return label
     }()
     
@@ -31,6 +31,8 @@ final class GameViewController: UIViewController {
         animation.contentMode = .scaleAspectFit
         animation.backgroundColor = .clear
         animation.loopMode = .loop
+        animation.translatesAutoresizingMaskIntoConstraints = false
+
         return animation
     }()
     
@@ -52,6 +54,8 @@ final class GameViewController: UIViewController {
         button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 18)
         button.layer.cornerRadius = 10
         button.addTarget(self, action: #selector(startPressed), for: .touchUpInside)
+        button.translatesAutoresizingMaskIntoConstraints = false
+
         return button
     }()
     
@@ -70,17 +74,16 @@ final class GameViewController: UIViewController {
     
     private lazy var punishLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont.systemFont(ofSize: 24, weight: .medium)
+        label.font = UIFont.systemFont(ofSize: 20, weight: .medium)
         label.textAlignment = .center
-        label.numberOfLines = 0
+        label.adjustsFontSizeToFitWidth = true
+        label.numberOfLines = 3
         label.isHidden = true
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
     
-    private var timer: Timer?
-    private var timeLeft: Int = 5
-    private var isTimerPaused: Bool = false
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -94,9 +97,9 @@ final class GameViewController: UIViewController {
 
 // MARK: - Private Methods
 
-extension GameViewController {
+private extension GameViewController {
     
-    private func setupUI() {
+      func setupUI() {
         view.backgroundColor = .white
         
         view.addSubview(textLabel)
@@ -105,16 +108,9 @@ extension GameViewController {
         view.addSubview(finalImageView)
         view.addSubview(punishLabel)
         view.addSubview(newPunishButton)
-        
-        animationView.stop()
-        
-        textLabel.translatesAutoresizingMaskIntoConstraints = false
-        animationView.translatesAutoresizingMaskIntoConstraints = false
-        startButton.translatesAutoresizingMaskIntoConstraints = false
-        
     }
     
-    private func setupConstraints() {
+      func setupConstraints() {
         NSLayoutConstraint.activate([
             textLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 30),
             textLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
@@ -128,62 +124,52 @@ extension GameViewController {
             
             startButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -60),
             startButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            startButton.widthAnchor.constraint(equalToConstant: 300),
+            startButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 50),
+            startButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -50),
             startButton.heightAnchor.constraint(equalToConstant: 50),
             
-            finalImageView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 50),
+            finalImageView.bottomAnchor.constraint(equalTo: punishLabel.topAnchor, constant: -20),
             finalImageView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             finalImageView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 50),
             finalImageView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -50),
             
-            punishLabel.topAnchor.constraint(equalTo: finalImageView.bottomAnchor, constant: 30),
+            punishLabel.bottomAnchor.constraint(equalTo: newPunishButton.topAnchor, constant: -10),
             punishLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             punishLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 30),
             punishLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -30),
             
             newPunishButton.bottomAnchor.constraint(equalTo: startButton.topAnchor, constant: -10),
             newPunishButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            newPunishButton.widthAnchor.constraint(equalToConstant: 300),
+            newPunishButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 50),
+            newPunishButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -50),
             newPunishButton.heightAnchor.constraint(equalToConstant: 50)
         ])
     }
     
-    private func setupGameUI() {
+      func setupGameUI() {
         animationView.play()
         startButton.isHidden = true
         newPunishButton.isHidden = true
         textLabel.text = questionsByCategory[.sports]?.randomElement()
     }
     
-    private func setupTimer() {
+      func setupTimer() {
         timer?.invalidate()
         timer = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(updateTimer), userInfo: nil, repeats: true)
     }
     
-    @objc private func updateTimer() {
-        if timeLeft > 1 {
-            timeLeft -= 1
-            print(timeLeft)
-        } else {
-            timer?.invalidate()
-            timer = nil
-            showGameOverState()
-        }
-    }
-    
-    private func pauseTimer() {
+      func pauseTimer() {
         timer?.invalidate()
         timer = nil
         isTimerPaused = true
     }
     
-    private func resumeTimer() {
+      func resumeTimer() {
         setupTimer()
         isTimerPaused = false
     }
     
-    
-    private func showGameOverState() {
+      func showGameOverState() {
         textLabel.isHidden = true
         animationView.isHidden = true
         finalImageView.isHidden = false
@@ -194,14 +180,14 @@ extension GameViewController {
         startButton.isHidden = false
         startButton.setTitle("Начать заново", for: .normal)
         timeLeft = 5
-        AudioPlayerService.shared.playSound(named: "boomOne", repeatable: false)
+        AudioPlayerService.shared.playSound(named: Sounds.Boom.one.rawValue, repeatable: false)
         
         DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
             AudioPlayerService.shared.pause()
         }
     }
     
-    private func setupNavBar() {
+      func setupNavBar() {
         title = "Игра"
         
         let pauseButton = UIBarButtonItem(
@@ -215,7 +201,18 @@ extension GameViewController {
         navigationItem.rightBarButtonItem = pauseButton
     }
     
-    @objc private func startPressed() {
+    @objc func updateTimer() {
+        if timeLeft > 1 {
+            timeLeft -= 1
+            print(timeLeft)
+        } else {
+            timer?.invalidate()
+            timer = nil
+            showGameOverState()
+        }
+    }
+   
+    @objc func startPressed() {
         textLabel.text = questionsByCategory[.sports]?.randomElement()
         textLabel.isHidden = false
         finalImageView.isHidden = true
@@ -225,11 +222,11 @@ extension GameViewController {
         
         setupTimer()
         setupGameUI()
-        AudioPlayerService.shared.playSound(named: "counterOne", repeatable: true)
+        AudioPlayerService.shared.playSound(named: Sounds.Counter.one.rawValue, repeatable: true)
         
     }
     
-    @objc private func pauseButtonTapped() {
+    @objc func pauseButtonTapped() {
         
         if !isTimerPaused {
             animationView.stop()
@@ -237,12 +234,12 @@ extension GameViewController {
             pauseTimer()
         } else {
             animationView.play()
-            AudioPlayerService.shared.playSound(named: "counterOne", repeatable: true)
+            AudioPlayerService.shared.resume()
             resumeTimer()
         }
     }
     
-    @objc private func otherPunishPressed() {
+    @objc func otherPunishPressed() {
         punishLabel.text = punishments.randomElement()
     }
 }
