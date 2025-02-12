@@ -68,7 +68,8 @@ final class GameViewController: UIViewController {
     
     
     private var timer: Timer?
-    private lazy var timeLeft: Int = 10
+    private lazy var timeLeft: Int = 5
+    private var isTimerPaused: Bool = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -146,11 +147,26 @@ extension GameViewController {
         }
     }
     
+    private func pauseTimer() {
+        timer?.invalidate()
+        timer = nil
+        isTimerPaused = true
+    }
+
+    private func resumeTimer() {
+        setupTimer()
+        isTimerPaused = false
+    }
+    
     private func showGameOverState() {
         animationView.isHidden = true
         finalImageView.isHidden = false
         title = "Конец игры"
         AudioPlayerService.shared.playSound(named: "boomOne", repeatable: false)
+
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+            AudioPlayerService.shared.pause()
+        }
     }
     
     private func setupNavBar() {
@@ -175,7 +191,17 @@ extension GameViewController {
     }
     
     @objc private func pauseButtonTapped() {
-        //timer pause, animation pause
+        
+        if !isTimerPaused {
+            animationView.stop()
+            AudioPlayerService.shared.pause()
+            pauseTimer()
+        } else {
+            animationView.play()
+            AudioPlayerService.shared.playSound(named: "counterOne", repeatable: true)
+            resumeTimer()
+        }
+
     }
 }
 
