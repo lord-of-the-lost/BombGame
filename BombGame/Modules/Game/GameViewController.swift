@@ -55,20 +55,31 @@ final class GameViewController: UIViewController {
         return button
     }()
     
-    private lazy var newGameButton: UIButton = {
+    private lazy var newPunishButton: UIButton = {
         let button = UIButton()
-        button.setTitle("Новая игра", for: .normal)
+        button.setTitle("Другое задание", for: .normal)
         button.backgroundColor = UIColor.systemYellow
         button.setTitleColor(.black, for: .normal)
         button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 18)
         button.layer.cornerRadius = 10
-        button.addTarget(self, action: #selector(startPressed), for: .touchUpInside)
+        button.isHidden = true
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.addTarget(self, action: #selector(otherPunishPressed), for: .touchUpInside)
         return button
     }()
     
+    private lazy var punishLabel: UILabel = {
+        let label = UILabel()
+        label.font = UIFont.systemFont(ofSize: 24, weight: .medium)
+        label.textAlignment = .center
+        label.numberOfLines = 0
+        label.isHidden = true
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
     
     private var timer: Timer?
-    private lazy var timeLeft: Int = 5
+    private var timeLeft: Int = 5
     private var isTimerPaused: Bool = false
     
     override func viewDidLoad() {
@@ -92,6 +103,8 @@ extension GameViewController {
         view.addSubview(animationView)
         view.addSubview(startButton)
         view.addSubview(finalImageView)
+        view.addSubview(punishLabel)
+        view.addSubview(newPunishButton)
         
         animationView.stop()
         
@@ -118,16 +131,27 @@ extension GameViewController {
             startButton.widthAnchor.constraint(equalToConstant: 300),
             startButton.heightAnchor.constraint(equalToConstant: 50),
             
-            finalImageView.bottomAnchor.constraint(equalTo: startButton.topAnchor, constant: -70),
+            finalImageView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 50),
             finalImageView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             finalImageView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 50),
             finalImageView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -50),
+            
+            punishLabel.topAnchor.constraint(equalTo: finalImageView.bottomAnchor, constant: 30),
+            punishLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            punishLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 30),
+            punishLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -30),
+            
+            newPunishButton.bottomAnchor.constraint(equalTo: startButton.topAnchor, constant: -10),
+            newPunishButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            newPunishButton.widthAnchor.constraint(equalToConstant: 300),
+            newPunishButton.heightAnchor.constraint(equalToConstant: 50)
         ])
     }
     
     private func setupGameUI() {
         animationView.play()
         startButton.isHidden = true
+        newPunishButton.isHidden = true
         textLabel.text = questionsByCategory[.sports]?.randomElement()
     }
     
@@ -152,18 +176,26 @@ extension GameViewController {
         timer = nil
         isTimerPaused = true
     }
-
+    
     private func resumeTimer() {
         setupTimer()
         isTimerPaused = false
     }
     
+    
     private func showGameOverState() {
+        textLabel.isHidden = true
         animationView.isHidden = true
         finalImageView.isHidden = false
+        punishLabel.text = punishments.randomElement()
+        punishLabel.isHidden = false
+        newPunishButton.isHidden = false
         title = "Конец игры"
+        startButton.isHidden = false
+        startButton.setTitle("Начать заново", for: .normal)
+        timeLeft = 5
         AudioPlayerService.shared.playSound(named: "boomOne", repeatable: false)
-
+        
         DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
             AudioPlayerService.shared.pause()
         }
@@ -184,6 +216,13 @@ extension GameViewController {
     }
     
     @objc private func startPressed() {
+        textLabel.text = questionsByCategory[.sports]?.randomElement()
+        textLabel.isHidden = false
+        finalImageView.isHidden = true
+        punishLabel.isHidden = true
+        animationView.isHidden = false
+        animationView.play()
+        
         setupTimer()
         setupGameUI()
         AudioPlayerService.shared.playSound(named: "counterOne", repeatable: true)
@@ -201,7 +240,10 @@ extension GameViewController {
             AudioPlayerService.shared.playSound(named: "counterOne", repeatable: true)
             resumeTimer()
         }
-
+    }
+    
+    @objc private func otherPunishPressed() {
+        punishLabel.text = punishments.randomElement()
     }
 }
 
