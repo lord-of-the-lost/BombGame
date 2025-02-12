@@ -36,7 +36,7 @@
 		6019B9EB2D5AA10B00E3F786 /* themeOne.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = themeOne.mp3; sourceTree = "<group>"; };
 		6019B9EC2D5AA10B00E3F786 /* counterOne.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = counterOne.mp3; sourceTree = "<group>"; };
 		6019B9ED2D5AA10B00E3F786 /* boomOne.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = boomOne.mp3; sourceTree = "<group>"; };
-		7C4040CB2D5C91BB00BDCEBD /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		7C4040CC2D5D1C9800BDCEBD /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		F33D64542D596B1700F3BBD7 /* CategoryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CategoryViewController.swift; path = BombGame/Modules/Categories/CategoryViewController.swift; sourceTree = SOURCE_ROOT; };
 		F33D64552D596B1700F3BBD7 /* CategoryCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CategoryCell.swift; path = BombGame/CommonUI/CategoryCell.swift; sourceTree = SOURCE_ROOT; };
 		F33D64582D596B2300F3BBD7 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Constants.swift; path = BombGame/Utilites/Constants.swift; sourceTree = SOURCE_ROOT; };
@@ -103,7 +103,7 @@
 			isa = PBXGroup;
 			children = (
 				6019B9EA2D5AA10000E3F786 /* Sounds */,
-				7C4040CB2D5C91BB00BDCEBD /* Assets.xcassets */,
+				7C4040CC2D5D1C9800BDCEBD /* Assets.xcassets */,
 				6019B9C52D57DB6900E3F786 /* LaunchScreen.storyboard */,
 				6019B9C82D57DB6900E3F786 /* Info.plist */,
 			);
