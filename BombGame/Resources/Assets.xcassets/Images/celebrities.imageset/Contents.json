@@ -1,6 +1,7 @@
 {
-  "colors" : [
+  "images" : [
     {
+      "filename" : "celebrities.pdf",
       "idiom" : "universal"
     }
   ],
