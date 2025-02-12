@@ -15,6 +15,14 @@ final class GameViewController: UIViewController {
     private var timeLeft: Int = 5
     private var isTimerPaused: Bool = false
     
+    private lazy var backgroundView: UIImageView = {
+        let imageView = UIImageView()
+        imageView.image = UIImage(named: "backgroundView")
+        imageView.contentMode = .scaleToFill
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        return imageView
+    }()
+    
     private lazy var textLabel: UILabel = {
         let label = UILabel()
         label.text = "Нажмите \"Запустить\",\nчтобы начать игру"
@@ -38,7 +46,7 @@ final class GameViewController: UIViewController {
     
     private lazy var finalImageView: UIImageView = {
         let imageView = UIImageView()
-        imageView.image = UIImage(named: "final")
+        imageView.image = UIImage(named: "explosion")
         imageView.contentMode = .scaleAspectFit
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.tintColor = UIColor.black
@@ -83,8 +91,6 @@ final class GameViewController: UIViewController {
         return label
     }()
     
-
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -102,6 +108,7 @@ private extension GameViewController {
       func setupUI() {
         view.backgroundColor = .white
         
+        view.addSubview(backgroundView)
         view.addSubview(textLabel)
         view.addSubview(animationView)
         view.addSubview(startButton)
@@ -112,6 +119,11 @@ private extension GameViewController {
     
       func setupConstraints() {
         NSLayoutConstraint.activate([
+            backgroundView.topAnchor.constraint(equalTo: view.topAnchor),
+            backgroundView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            backgroundView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            backgroundView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            
             textLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 30),
             textLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             textLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 40),
@@ -128,8 +140,8 @@ private extension GameViewController {
             startButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -50),
             startButton.heightAnchor.constraint(equalToConstant: 50),
             
+            finalImageView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 50),
             finalImageView.bottomAnchor.constraint(equalTo: punishLabel.topAnchor, constant: -20),
-            finalImageView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             finalImageView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 50),
             finalImageView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -50),
             
@@ -197,7 +209,7 @@ private extension GameViewController {
             action: #selector(pauseButtonTapped)
         )
         
-        pauseButton.tintColor = .yellow
+        pauseButton.tintColor = .black
         navigationItem.rightBarButtonItem = pauseButton
     }
     
