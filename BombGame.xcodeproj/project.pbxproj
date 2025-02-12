@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		6019B9BB2D57DB6700E3F786 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6019B9BA2D57DB6700E3F786 /* AppDelegate.swift */; };
-		6019B9C42D57DB6900E3F786 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6019B9C32D57DB6900E3F786 /* Assets.xcassets */; };
 		6019B9C72D57DB6900E3F786 /* Base in Resources */ = {isa = PBXBuildFile; fileRef = 6019B9C62D57DB6900E3F786 /* Base */; };
 		6019B9D42D57E0A800E3F786 /* Palette.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6019B9D32D57E0A800E3F786 /* Palette.swift */; };
 		6019B9D62D57E0ED00E3F786 /* Fonts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6019B9D52D57E0ED00E3F786 /* Fonts.swift */; };
@@ -28,7 +27,6 @@
 		6019B9B72D57DB6700E3F786 /* BombGame.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BombGame.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6019B9BA2D57DB6700E3F786 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		6019B9BE2D57DB6700E3F786 /* MainMenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainMenuViewController.swift; sourceTree = "<group>"; };
-		6019B9C32D57DB6900E3F786 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		6019B9C62D57DB6900E3F786 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		6019B9C82D57DB6900E3F786 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		6019B9D32D57E0A800E3F786 /* Palette.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Palette.swift; sourceTree = "<group>"; };
@@ -38,6 +36,7 @@
 		6019B9EB2D5AA10B00E3F786 /* themeOne.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = themeOne.mp3; sourceTree = "<group>"; };
 		6019B9EC2D5AA10B00E3F786 /* counterOne.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = counterOne.mp3; sourceTree = "<group>"; };
 		6019B9ED2D5AA10B00E3F786 /* boomOne.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = boomOne.mp3; sourceTree = "<group>"; };
+		7C4040CB2D5C91BB00BDCEBD /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		F33D64542D596B1700F3BBD7 /* CategoryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CategoryViewController.swift; path = BombGame/Modules/Categories/CategoryViewController.swift; sourceTree = SOURCE_ROOT; };
 		F33D64552D596B1700F3BBD7 /* CategoryCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CategoryCell.swift; path = BombGame/CommonUI/CategoryCell.swift; sourceTree = SOURCE_ROOT; };
 		F33D64582D596B2300F3BBD7 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Constants.swift; path = BombGame/Utilites/Constants.swift; sourceTree = SOURCE_ROOT; };
@@ -104,7 +103,7 @@
 			isa = PBXGroup;
 			children = (
 				6019B9EA2D5AA10000E3F786 /* Sounds */,
-				6019B9C32D57DB6900E3F786 /* Assets.xcassets */,
+				7C4040CB2D5C91BB00BDCEBD /* Assets.xcassets */,
 				6019B9C52D57DB6900E3F786 /* LaunchScreen.storyboard */,
 				6019B9C82D57DB6900E3F786 /* Info.plist */,
 			);
@@ -217,7 +216,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				6019B9EE2D5AA10B00E3F786 /* themeOne.mp3 in Resources */,
-				6019B9C42D57DB6900E3F786 /* Assets.xcassets in Resources */,
 				6019B9EF2D5AA10B00E3F786 /* counterOne.mp3 in Resources */,
 				6019B9F02D5AA10B00E3F786 /* boomOne.mp3 in Resources */,
 				6019B9C72D57DB6900E3F786 /* Base in Resources */,
