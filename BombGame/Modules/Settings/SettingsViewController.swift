@@ -51,29 +51,9 @@ class SettingsViewController: UIViewController {
     private lazy var vibrationLabel = createLabel(text: "Вибрация")
     private lazy var gameTasksLabel = createLabel(text: "Игра с заданиями")
     
-    private lazy var  soundButton: UIButton = {
-        let button = UIButton(type: .system)
-        button.setTitle("Мелодия 1 >", for: .normal)
-        button.setTitleColor(.white, for: .normal)
-        button.addTarget(self, action: #selector(showPicker(sender:)), for: .touchUpInside)
-        return button
-    }()
-    
-    private lazy var  tickButton: UIButton = {
-        let button = UIButton(type: .system)
-        button.setTitle("Часы 2 >", for: .normal)
-        button.setTitleColor(.white, for: .normal)
-        button.addTarget(self, action: #selector(showPicker(sender:)), for: .touchUpInside)
-        return button
-    }()
-    
-    private lazy var  explosionButton: UIButton = {
-        let button = UIButton(type: .system)
-        button.setTitle("Взрыв 1 >", for: .normal)
-        button.setTitleColor(.white, for: .normal)
-        button.addTarget(self, action: #selector(showPicker(sender:)), for: .touchUpInside)
-        return button
-    }()
+    private lazy var  soundButton = createPickerButton(title: "Мелодия 1")
+    private lazy var  tickButton = createPickerButton(title: "Часы 1")
+    private lazy var  explosionButton = createPickerButton(title: "Взрыв 1")
     
     private lazy var vibrationSwitch: UISwitch = {
         let toggle = UISwitch()
@@ -157,7 +137,7 @@ class SettingsViewController: UIViewController {
         setupConstraints()
         setupPickerConstraints()
         
-       
+        
     }
     
 }
@@ -176,7 +156,7 @@ private extension SettingsViewController {
         view.addSubview(firstView)
         view.addSubview(secView)
         view.addSubview(thirdView)
-       
+        
         firstView.addSubview(shortButton)
         firstView.addSubview(mediumButton)
         firstView.addSubview(longButton)
@@ -290,12 +270,12 @@ private extension SettingsViewController {
     
     func setupPickerConstraints() {
         [musicPicker, tickingPicker, explosionPicker].forEach { picker in
-                    NSLayoutConstraint.activate([
-                        picker.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
-                        picker.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-                        picker.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-                        picker.heightAnchor.constraint(equalToConstant: 150)
-                    ])
+            NSLayoutConstraint.activate([
+                picker.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
+                picker.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+                picker.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+                picker.heightAnchor.constraint(equalToConstant: 150)
+            ])
         }
     }
     
@@ -311,10 +291,28 @@ private extension SettingsViewController {
         return button
     }
     
+    func createPickerButton(title: String) -> UIButton {
+        
+        var config = UIButton.Configuration.plain()
+        config.title = title
+        config.baseForegroundColor = .systemGray
+        config.image = UIImage(systemName: "chevron.right")
+        config.imagePlacement = .trailing
+        config.imagePadding = 8
+        config.buttonSize = .small
+        
+        let button = UIButton(configuration: config, primaryAction: nil)
+        
+        button.addTarget(self, action: #selector(showPicker(sender:)), for: .touchUpInside)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        
+        return button
+    }
+    
     func createLabel(text: String) -> UILabel {
         let label = UILabel()
         label.text = text
-        label.font = Fonts.rounded(weight: 0, size: 18).font
+        label.font = Fonts.rounded(weight: 0, size: 16).font
         label.textColor = .white
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
@@ -324,7 +322,7 @@ private extension SettingsViewController {
         let stack = UIStackView(arrangedSubviews: arrangedSubviews)
         stack.axis = .horizontal
         stack.alignment = .center
-        stack.distribution = .equalSpacing
+        stack.distribution = .equalCentering
         stack.translatesAutoresizingMaskIntoConstraints = false
         return stack
     }
@@ -392,7 +390,7 @@ private extension SettingsViewController {
         
         picker.isHidden = false
         view.bringSubviewToFront(picker)
-
+        
         currentPicker = picker
     }
     
@@ -442,16 +440,16 @@ extension SettingsViewController: UIPickerViewDelegate {
         switch pickerView {
         case musicPicker:
             let selectedMusic = musicOptions[row]
-            soundButton.setTitle("\(selectedMusic) >", for: .normal)
+            soundButton.setTitle("\(selectedMusic)", for: .normal)
             print("chosen music")
         case tickingPicker:
             let selectedTick = tickingOptions[row]
-            tickButton.setTitle("\(selectedTick) >", for: .normal)
+            tickButton.setTitle("\(selectedTick)", for: .normal)
             print("chosen ticking")
             
         case explosionPicker:
             let selectedExplosion = explosionOptions[row]
-            explosionButton.setTitle("\(selectedExplosion) >", for: .normal)
+            explosionButton.setTitle("\(selectedExplosion)", for: .normal)
             print("chosen boom")
             
         default:
