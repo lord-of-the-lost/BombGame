@@ -10,15 +10,15 @@ final class RuleView: UIView {
     
     private lazy var numberLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont.systemFont(ofSize: 16, weight: .regular)
-        label.textColor = .black
+        label.font = Fonts.rounded(weight: 2, size: 16).font
+        label.textColor = Palette.textPrimary
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
     
     private lazy var circleView: UIView = {
         let view = UIView()
-        view.backgroundColor = .yellow
+        view.backgroundColor = Palette.mainBackground
         view.layer.cornerRadius = 14.5
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
@@ -26,8 +26,8 @@ final class RuleView: UIView {
     
     private lazy var ruleLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont.systemFont(ofSize: 18, weight: .medium)
-        label.textColor = .black
+        label.font = Fonts.display(size: 16).font
+        label.textColor = .textPrimary
         label.setContentHuggingPriority(.defaultHigh, for: .vertical)
         label.numberOfLines = 0
         label.translatesAutoresizingMaskIntoConstraints = false

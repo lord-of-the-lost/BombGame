@@ -22,8 +22,8 @@ final class GameRulesViewController: UIViewController {
     private lazy var rulesTitle: UILabel = {
         let title = UILabel()
         title.text = "Правила Игры"
-        title.textColor = .black
-        title.font = UIFont.systemFont(ofSize: 32, weight: .bold)
+        title.textColor = Palette.textPrimary
+        title.font = Fonts.rounded(weight: 900 , size: 32).font
         title.translatesAutoresizingMaskIntoConstraints = false
         return title
     }()
@@ -40,7 +40,7 @@ final class GameRulesViewController: UIViewController {
 // MARK: - Private Methods
 private extension GameRulesViewController {
     func setupView() {
-        view.backgroundColor = .white
+        view.backgroundColor = Palette.mainSheetBg
         view.addSubview(rulesTitle)
         view.addSubview(mainStack)
     }
