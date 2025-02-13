@@ -46,7 +46,7 @@ class SettingsViewController: UIViewController {
     private lazy var randomButton = createButton(title: "Случайное")
     
     private lazy var musicLabel = createLabel(text: "Фоновая музыка")
-    private lazy var tickingLabel = createLabel(text: "Тикание бомбы")
+    private lazy var tickingLabel = createLabel(text: "Тиканье бомбы")
     private lazy var explosionLabel = createLabel(text: "Взрыв бомбы")
     private lazy var vibrationLabel = createLabel(text: "Вибрация")
     private lazy var gameTasksLabel = createLabel(text: "Игра с заданиями")
@@ -55,7 +55,7 @@ class SettingsViewController: UIViewController {
         let button = UIButton(type: .system)
         button.setTitle("Мелодия 1 >", for: .normal)
         button.setTitleColor(.white, for: .normal)
-        button.addTarget(self, action: #selector(showPicker), for: .touchUpInside)
+        button.addTarget(self, action: #selector(showPicker(sender:)), for: .touchUpInside)
         return button
     }()
     
@@ -63,7 +63,7 @@ class SettingsViewController: UIViewController {
         let button = UIButton(type: .system)
         button.setTitle("Часы 2 >", for: .normal)
         button.setTitleColor(.white, for: .normal)
-        button.addTarget(self, action: #selector(showPicker), for: .touchUpInside)
+        button.addTarget(self, action: #selector(showPicker(sender:)), for: .touchUpInside)
         return button
     }()
     
@@ -71,7 +71,7 @@ class SettingsViewController: UIViewController {
         let button = UIButton(type: .system)
         button.setTitle("Взрыв 1 >", for: .normal)
         button.setTitleColor(.white, for: .normal)
-        button.addTarget(self, action: #selector(showPicker), for: .touchUpInside)
+        button.addTarget(self, action: #selector(showPicker(sender:)), for: .touchUpInside)
         return button
     }()
     
@@ -105,8 +105,6 @@ class SettingsViewController: UIViewController {
     private lazy var blackView4 = createBlackView()
     private lazy var blackView5 = createBlackView()
     
-    
-    
     private lazy var backgroundImage: UIImageView = {
         let imageView = UIImageView()
         imageView.image = UIImage(named: "backgroundView")
@@ -115,20 +113,47 @@ class SettingsViewController: UIViewController {
         return imageView
     }()
     
+    private lazy var musicPicker: UIPickerView = {
+            let picker = UIPickerView()
+            picker.delegate = self
+            picker.dataSource = self
+         picker.translatesAutoresizingMaskIntoConstraints = false
+            return picker
+        }()
+        
+        private lazy var tickingPicker: UIPickerView = {
+            let picker = UIPickerView()
+            picker.delegate = self
+            picker.dataSource = self
+             picker.translatesAutoresizingMaskIntoConstraints = false
+            return picker
+        }()
+        
+        private lazy var explosionPicker: UIPickerView = {
+            let picker = UIPickerView()
+            picker.delegate = self
+            picker.dataSource = self
+             picker.translatesAutoresizingMaskIntoConstraints = false
+            return picker
+        }()
+    
+    private var currentPicker: UIPickerView?
+
+    private lazy var musicOptions = ["Мелодия 1", "Мелодия 2", "Мелодия 3"]
+    private lazy var tickingOptions = ["Часы 1", "Часы 2", "Часы 3"]
+    private lazy var explosionOptions = ["Взрыв 1", "Взрыв 2", "Взрыв 3"]
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         setupUI()
         setupConstraints()
-        
+        setupPickerConstraints()
     }
     
 }
 
 private extension SettingsViewController {
-    func addActions() {
-      
-    }
     
     func setupUI() {
         title = "Настройки"
@@ -139,6 +164,10 @@ private extension SettingsViewController {
         view.addSubview(firstView)
         view.addSubview(secView)
         view.addSubview(thirdView)
+        
+        view.addSubview(musicPicker)
+        view.addSubview(tickingPicker)
+        view.addSubview(explosionPicker)
         
         firstView.addSubview(shortButton)
         firstView.addSubview(mediumButton)
@@ -158,6 +187,8 @@ private extension SettingsViewController {
         blackView3.addSubview(explosionStack)
         blackView4.addSubview(vibrationStack)
         blackView5.addSubview(gameTasksStack)
+        
+        
     }
     
     func setupConstraints() {
@@ -209,7 +240,7 @@ private extension SettingsViewController {
             blackView3.topAnchor.constraint(equalTo: blackView2.bottomAnchor, constant: 20),
             blackView3.heightAnchor.constraint(equalToConstant: 45),
             secView.bottomAnchor.constraint(equalTo: blackView3.bottomAnchor, constant: 16),
-
+            
             blackView4.leadingAnchor.constraint(equalTo: thirdView.leadingAnchor, constant: 20),
             blackView4.trailingAnchor.constraint(equalTo: thirdView.trailingAnchor, constant: -20),
             blackView4.topAnchor.constraint(equalTo: thirdView.topAnchor, constant: 20),
@@ -220,7 +251,7 @@ private extension SettingsViewController {
             blackView5.topAnchor.constraint(equalTo: blackView4.bottomAnchor, constant: 20),
             blackView5.heightAnchor.constraint(equalToConstant: 45),
             thirdView.bottomAnchor.constraint(equalTo: blackView5.bottomAnchor, constant: 16),
-
+            
             soundStack.leadingAnchor.constraint(equalTo: blackView1.leadingAnchor, constant: 10),
             soundStack.trailingAnchor.constraint(equalTo: blackView1.trailingAnchor, constant: -10),
             soundStack.centerYAnchor.constraint(equalTo: blackView1.centerYAnchor),
@@ -244,9 +275,21 @@ private extension SettingsViewController {
             backgroundImage.topAnchor.constraint(equalTo: view.topAnchor),
             backgroundImage.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             backgroundImage.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            backgroundImage.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+            backgroundImage.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            
         ])
     }
+    
+    func setupPickerConstraints() {
+            [musicPicker, tickingPicker, explosionPicker].forEach { picker in
+                NSLayoutConstraint.activate([
+                    picker.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+                    picker.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+                    picker.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+                    picker.heightAnchor.constraint(equalToConstant: 200)
+                ])
+            }
+        }
     
     func createButton(title: String) -> UIButton {
         let button = UIButton()
@@ -323,8 +366,74 @@ private extension SettingsViewController {
         }
     }
     
-    @objc private func showPicker() {
-        print("Выбор звука")
+    @objc func showPicker(sender: UIButton) {
+        currentPicker?.isHidden = true
+
+                let picker: UIPickerView
+                switch sender {
+                case soundButton:
+                    picker = musicPicker
+                case tickButton:
+                    picker = tickingPicker
+                case explosionButton:
+                    picker = explosionPicker
+                default:
+                    return
+                }
+
+                picker.isHidden = false
+                currentPicker = picker
+            }
+}
+
+extension SettingsViewController: UIPickerViewDataSource {
+    func numberOfComponents(in pickerView: UIPickerView) -> Int {
+        1
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        if pickerView == musicPicker {
+                    return musicOptions.count
+                } else if pickerView == tickingPicker {
+                    return tickingOptions.count
+                } else if pickerView == explosionPicker {
+                    return explosionOptions.count
+                }
+                return 0
+    }
+    
+}
+
+extension SettingsViewController: UIPickerViewDelegate {
+    
+    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+        if pickerView == musicPicker {
+             musicOptions[row]
+        } else if pickerView == tickingPicker {
+             tickingOptions[row]
+        } else if pickerView == explosionPicker {
+             explosionOptions[row]
+        }
+        return nil
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+      
+        switch pickerView {
+                case musicPicker:
+                    let selectedMusic = musicOptions[row]
+                    soundButton.setTitle("\(selectedMusic) >", for: .normal)
+                case tickingPicker:
+                    let selectedTick = tickingOptions[row]
+                    tickButton.setTitle("\(selectedTick) >", for: .normal)
+                case explosionPicker:
+                    let selectedExplosion = explosionOptions[row]
+                    explosionButton.setTitle("\(selectedExplosion) >", for: .normal)
+                default:
+                    break
+                }
+                
+                pickerView.isHidden = true
     }
 }
 
