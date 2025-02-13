@@ -53,14 +53,23 @@ let questionsByCategory: [Category: [String]] = [
 enum Sounds {
     enum Theme: String {
         case one = "themeOne"
+        case two = "theme2"
+        case three = "theme3"
+
     }
     
     enum Counter: String {
         case one = "counterOne"
+        case two = "counterTwo"
+        case three = "counterThree"
+
     }
     
     enum Boom: String {
         case one = "boomOne"
+        case two = "boom2"
+        case three = "boom3"
+
     }
 }
 

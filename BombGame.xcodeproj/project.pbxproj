@@ -26,6 +26,12 @@
 		F395CF762D5BB970007EED4E /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = F395CF752D5BB970007EED4E /* Lottie */; };
 		F395CF7C2D5BEA95007EED4E /* bomb2.json in Resources */ = {isa = PBXBuildFile; fileRef = F395CF7B2D5BEA95007EED4E /* bomb2.json */; };
 		F395CF812D5DC4B6007EED4E /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F395CF802D5DC4B6007EED4E /* SettingsViewController.swift */; };
+		F395CF872D5E7B66007EED4E /* counterTwo.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = F395CF852D5E7B66007EED4E /* counterTwo.mp3 */; };
+		F395CF892D5E7BB1007EED4E /* counterThree.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = F395CF882D5E7BB1007EED4E /* counterThree.mp3 */; };
+		F395CF8C2D5E7C07007EED4E /* boom2.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = F395CF8A2D5E7C07007EED4E /* boom2.mp3 */; };
+		F395CF8D2D5E7C07007EED4E /* boom3.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = F395CF8B2D5E7C07007EED4E /* boom3.mp3 */; };
+		F395CF902D5E7CE1007EED4E /* theme3.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = F395CF8E2D5E7CE1007EED4E /* theme3.mp3 */; };
+		F395CF912D5E7CE1007EED4E /* theme2.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = F395CF8F2D5E7CE1007EED4E /* theme2.mp3 */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -49,6 +55,12 @@
 		F395CF712D5BB90B007EED4E /* GameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameViewController.swift; sourceTree = "<group>"; };
 		F395CF7B2D5BEA95007EED4E /* bomb2.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = bomb2.json; sourceTree = "<group>"; };
 		F395CF802D5DC4B6007EED4E /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
+		F395CF852D5E7B66007EED4E /* counterTwo.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = counterTwo.mp3; sourceTree = "<group>"; };
+		F395CF882D5E7BB1007EED4E /* counterThree.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = counterThree.mp3; sourceTree = "<group>"; };
+		F395CF8A2D5E7C07007EED4E /* boom2.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = boom2.mp3; sourceTree = "<group>"; };
+		F395CF8B2D5E7C07007EED4E /* boom3.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = boom3.mp3; sourceTree = "<group>"; };
+		F395CF8E2D5E7CE1007EED4E /* theme3.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = theme3.mp3; sourceTree = "<group>"; };
+		F395CF8F2D5E7CE1007EED4E /* theme2.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = theme2.mp3; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -155,7 +167,13 @@
 			isa = PBXGroup;
 			children = (
 				6019B9ED2D5AA10B00E3F786 /* boomOne.mp3 */,
+				F395CF8A2D5E7C07007EED4E /* boom2.mp3 */,
+				F395CF8B2D5E7C07007EED4E /* boom3.mp3 */,
 				6019B9EC2D5AA10B00E3F786 /* counterOne.mp3 */,
+				F395CF852D5E7B66007EED4E /* counterTwo.mp3 */,
+				F395CF882D5E7BB1007EED4E /* counterThree.mp3 */,
+				F395CF8F2D5E7CE1007EED4E /* theme2.mp3 */,
+				F395CF8E2D5E7CE1007EED4E /* theme3.mp3 */,
 				6019B9EB2D5AA10B00E3F786 /* themeOne.mp3 */,
 			);
 			path = Sounds;
@@ -250,10 +268,16 @@
 			buildActionMask = 2147483647;
 			files = (
 				6019B9EE2D5AA10B00E3F786 /* themeOne.mp3 in Resources */,
+				F395CF8D2D5E7C07007EED4E /* boom3.mp3 in Resources */,
 				6019B9EF2D5AA10B00E3F786 /* counterOne.mp3 in Resources */,
+				F395CF8C2D5E7C07007EED4E /* boom2.mp3 in Resources */,
 				6019B9F02D5AA10B00E3F786 /* boomOne.mp3 in Resources */,
+				F395CF912D5E7CE1007EED4E /* theme2.mp3 in Resources */,
+				F395CF902D5E7CE1007EED4E /* theme3.mp3 in Resources */,
 				F395CF7C2D5BEA95007EED4E /* bomb2.json in Resources */,
 				6021CEBD2D5D2C45002A8D5F /* Assets.xcassets in Resources */,
+				F395CF872D5E7B66007EED4E /* counterTwo.mp3 in Resources */,
+				F395CF892D5E7BB1007EED4E /* counterThree.mp3 in Resources */,
 				6019B9C72D57DB6900E3F786 /* Base in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
