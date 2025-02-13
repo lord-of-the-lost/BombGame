@@ -30,6 +30,16 @@ class SettingsViewController: UIViewController {
         return view
     }()
     
+    private lazy var timeLabel: UILabel = {
+        let label = UILabel()
+        label.text = "ВРЕМЯ ИГРЫ"
+        label.font = Fonts.rounded(weight: 0, size: 20).font
+        label.textAlignment = .center
+        label.numberOfLines = 0
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
+    
     private lazy var shortButton = createButton(title: "Короткое")
     private lazy var mediumButton = createButton(title: "Среднее")
     private lazy var longButton = createButton(title: "Длинное")
@@ -48,9 +58,8 @@ class SettingsViewController: UIViewController {
     
     private lazy var vibrationSwitch: UISwitch = {
         let toggle = UISwitch()
-        toggle.isOn = true
+        toggle.isOn = false
         toggle.translatesAutoresizingMaskIntoConstraints = false
-
         return toggle
     }()
     
@@ -58,7 +67,7 @@ class SettingsViewController: UIViewController {
         let toggle = UISwitch()
         toggle.isOn = true
         toggle.translatesAutoresizingMaskIntoConstraints = false
-
+        
         return toggle
     }()
     
@@ -82,14 +91,14 @@ class SettingsViewController: UIViewController {
 
 private extension SettingsViewController {
     func addActions() {
-      
+        
     }
     
     func setupUI() {
         title = "Настройки"
         view.backgroundColor = UIColor(named: "MainSheetBg")
-   
-           view.addSubview(backgroundImage)
+        
+        view.addSubview(backgroundImage)
         
         view.addSubview(firstView)
         view.addSubview(secView)
@@ -99,6 +108,7 @@ private extension SettingsViewController {
         firstView.addSubview(mediumButton)
         firstView.addSubview(longButton)
         firstView.addSubview(randomButton)
+        firstView.addSubview(timeLabel)
         
         secView.addSubview(musicLabel)
         secView.addSubview(musicValueLabel)
@@ -119,19 +129,26 @@ private extension SettingsViewController {
             firstView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 16),
             firstView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
             firstView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
-            firstView.heightAnchor.constraint(equalToConstant: 100),
+            firstView.bottomAnchor.constraint(equalTo: longButton.bottomAnchor, constant: 16),
             
+            timeLabel.leadingAnchor.constraint(equalTo: firstView.leadingAnchor, constant: 16),
+            timeLabel.topAnchor.constraint(equalTo: firstView.topAnchor, constant: 10),
+
             shortButton.leadingAnchor.constraint(equalTo: firstView.leadingAnchor, constant: 16),
-            shortButton.topAnchor.constraint(equalTo: firstView.topAnchor, constant: 16),
+            shortButton.widthAnchor.constraint(equalTo: firstView.widthAnchor, multiplier: 0.4),
+            shortButton.topAnchor.constraint(equalTo: timeLabel.bottomAnchor, constant: 10),
             
             mediumButton.leadingAnchor.constraint(equalTo: shortButton.trailingAnchor, constant: 10),
-            mediumButton.topAnchor.constraint(equalTo: firstView.topAnchor, constant: 16),
+            mediumButton.widthAnchor.constraint(equalTo: firstView.widthAnchor, multiplier: 0.4),
+            mediumButton.topAnchor.constraint(equalTo: timeLabel.bottomAnchor, constant: 10),
             
             longButton.leadingAnchor.constraint(equalTo: firstView.leadingAnchor, constant: 16),
             longButton.topAnchor.constraint(equalTo: shortButton.bottomAnchor, constant: 10),
-            
+            longButton.widthAnchor.constraint(equalTo: firstView.widthAnchor, multiplier: 0.4),
+
             randomButton.leadingAnchor.constraint(equalTo: longButton.trailingAnchor, constant: 10),
             randomButton.topAnchor.constraint(equalTo: mediumButton.bottomAnchor, constant: 10),
+            randomButton.widthAnchor.constraint(equalTo: firstView.widthAnchor, multiplier: 0.4),
             
             secView.topAnchor.constraint(equalTo: firstView.bottomAnchor, constant: 16),
             secView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
@@ -174,9 +191,9 @@ private extension SettingsViewController {
             gameWithTasksSwitch.centerYAnchor.constraint(equalTo: gameWithTasksLabel.centerYAnchor),
             
             backgroundImage.topAnchor.constraint(equalTo: view.topAnchor),
-                   backgroundImage.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-                   backgroundImage.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-                   backgroundImage.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+            backgroundImage.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            backgroundImage.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            backgroundImage.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         ])
     }
     
@@ -185,8 +202,8 @@ private extension SettingsViewController {
         button.setTitle(title, for: .normal)
         button.setTitleColor(.white, for: .normal)
         button.backgroundColor = UIColor(named: "TextPrimary")
-        button.layer.cornerRadius = 8
-        button.titleLabel?.font = UIFont.systemFont(ofSize: 16, weight: .medium)
+        button.layer.cornerRadius = 15
+        button.titleLabel?.font = Fonts.rounded(weight: 10, size: 16).font
         button.translatesAutoresizingMaskIntoConstraints = false
         button.addTarget(self, action: #selector(chooseLength(sender:)), for: .touchUpInside)
         return button
