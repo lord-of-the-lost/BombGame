@@ -87,8 +87,8 @@ final class CategoryCell: UICollectionViewCell {
 
 // MARK: - Private Methods
 private extension CategoryCell {
-     func setupUI() {
-        contentView.backgroundColor = .white
+    func setupUI() {
+        contentView.backgroundColor = .clear
         contentView.addSubview(roundedView)
         roundedView.addSubview(iconView)
         roundedView.addSubview(titleLabel)
