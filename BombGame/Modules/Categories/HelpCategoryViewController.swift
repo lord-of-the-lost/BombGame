@@ -18,7 +18,6 @@ final class HelpCategoryViewController: UIViewController {
         collectionView.backgroundColor = .clear
         collectionView.showsVerticalScrollIndicator = false
         collectionView.showsHorizontalScrollIndicator = false
-        //collectionView.delegate = self
         collectionView.dataSource = self
         collectionView.register(CategoryCell.self, forCellWithReuseIdentifier: CategoryCell.identifier)
         collectionView.translatesAutoresizingMaskIntoConstraints = false
@@ -29,6 +28,7 @@ final class HelpCategoryViewController: UIViewController {
     private lazy var helpCategoryTitle: UILabel = {
         let label = UILabel()
         label.text = "Правила Игры"
+        label.textColor = Palette.textPrimary
         label.font = Fonts.rounded(weight: 900 , size: 30).font
         label.textAlignment = .center
         label.numberOfLines = 0
@@ -39,6 +39,7 @@ final class HelpCategoryViewController: UIViewController {
     private lazy var categoryDescription: UILabel = {
         let label = UILabel()
         label.text = "В игре доступно 6 категорий и более 90 вопросов."
+        label.textColor = Palette.textPrimary
         label.font = Fonts.rounded(weight: 2, size: 24).font
         label.textAlignment = .center
         label.numberOfLines = 0
@@ -49,6 +50,7 @@ final class HelpCategoryViewController: UIViewController {
     private lazy var categoryRule: UILabel = {
         let label = UILabel()
         label.text = "Можно выбрать сразу несколько категорий для игры."
+        label.textColor = Palette.textPrimary
         label.font = Fonts.display(size: 24).font
         label.textAlignment = .center
         label.numberOfLines = 0

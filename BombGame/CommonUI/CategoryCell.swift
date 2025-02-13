@@ -48,7 +48,7 @@ final class CategoryCell: UICollectionViewCell {
             font = systemFont
         }
         label.font = font
-        label.textColor = .black
+        label.textColor = Palette.textPrimary
         label.textAlignment = .center
         label.adjustsFontSizeToFitWidth = true
         label.minimumScaleFactor = 0.5
@@ -60,10 +60,10 @@ final class CategoryCell: UICollectionViewCell {
     var isCellSelected: Bool = false {
         didSet {
             if isCellSelected {
-                roundedView.backgroundColor = UIColor.green
+                roundedView.backgroundColor = Palette.accentColor
                 checkView.isHidden = false
             } else {
-                roundedView.backgroundColor = UIColor.white
+                roundedView.backgroundColor = Palette.categoryCellBg
                 checkView.isHidden = true
             }
         }

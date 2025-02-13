@@ -22,7 +22,7 @@ final class RoundedView: UIView {
 // MARK: - Private Methods
 private extension RoundedView {
     func setupView() {
-        backgroundColor = .white
+        backgroundColor = Palette.categoryCellBg
         layer.cornerRadius = 20
         layer.masksToBounds = false
         layer.shadowOpacity = 0.3
