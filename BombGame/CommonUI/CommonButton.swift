@@ -9,14 +9,11 @@
 import UIKit
 
 final class CommonButton: UIButton {
-
     init(title: String, backgroundColor: UIColor) {
         super.init(frame: .zero)
-        setTitle(title, for: .normal)
-        setTitleColor(.black, for: .normal)
-        titleLabel?.font = UIFont.systemFont(ofSize: 20, weight: .bold)
         self.backgroundColor = backgroundColor
         layer.cornerRadius = 10
+        setupTitle(title)
     }
     
     required init?(coder: NSCoder) {
@@ -24,3 +21,11 @@ final class CommonButton: UIButton {
     }
 }
 
+// MARK: - Private Methods
+private extension CommonButton {
+    func setupTitle(_ title: String) {
+        setTitle(title, for: .normal)
+        setTitleColor(.black, for: .normal)
+        titleLabel?.font = Fonts.display(size: 20).font
+    }
+}

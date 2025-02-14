@@ -12,13 +12,13 @@ final class MainMenuViewController: UIViewController {
     private lazy var gameTitle: UILabel = {
         let label = UILabel()
         label.text = "Бомба"
-        label.font = Fonts.sfProRounded48
+        label.font = Fonts.rounded(weight: 900, size: 48).font
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
     
     private lazy var button: CommonButton = {
-        let button = CommonButton (title: "Начать игру", backgroundColor: .red)
+        let button = CommonButton(title: "Начать игру", backgroundColor: .red)
         button.translatesAutoresizingMaskIntoConstraints = false
         button.addTarget(self, action: #selector(startGame), for: .touchUpInside)
         return button
