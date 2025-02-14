@@ -11,7 +11,7 @@ final class RuleView: UIView {
     private lazy var numberLabel: UILabel = {
         let label = UILabel()
         label.font = Fonts.rounded(weight: 2, size: 16).font
-        label.textColor = Palette.textPrimary
+//        label.textColor = Palette.textPrimary
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()

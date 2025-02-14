@@ -7,7 +7,7 @@
 
 import UIKit
 
-class SettingsViewController: UIViewController {
+final class SettingsViewController: UIViewController {
     
     private lazy var firstView: RoundedView = {
         let view = RoundedView()
@@ -51,9 +51,9 @@ class SettingsViewController: UIViewController {
     private lazy var vibrationLabel = createLabel(text: "Вибрация")
     private lazy var gameTasksLabel = createLabel(text: "Игра с заданиями")
     
-    private lazy var  soundButton = createPickerButton(title: "Мелодия 1")
-    private lazy var  tickButton = createPickerButton(title: "Часы 1")
-    private lazy var  explosionButton = createPickerButton(title: "Взрыв 1")
+    private lazy var soundButton = createPickerButton(title: "Мелодия 1")
+    private lazy var tickButton = createPickerButton(title: "Часы 1")
+    private lazy var explosionButton = createPickerButton(title: "Взрыв 1")
     
     private lazy var vibrationSwitch: UISwitch = {
         let toggle = UISwitch()
@@ -189,21 +189,21 @@ private extension SettingsViewController {
             timeLabel.leadingAnchor.constraint(equalTo: firstView.leadingAnchor, constant: 16),
             timeLabel.topAnchor.constraint(equalTo: firstView.topAnchor, constant: 10),
             
-            shortButton.leadingAnchor.constraint(equalTo: firstView.leadingAnchor, constant: 16),
+            shortButton.leadingAnchor.constraint(equalTo: firstView.leadingAnchor, constant: 15),
             shortButton.widthAnchor.constraint(equalTo: firstView.widthAnchor, multiplier: 0.4),
             shortButton.topAnchor.constraint(equalTo: timeLabel.bottomAnchor, constant: 10),
             
-            mediumButton.leadingAnchor.constraint(equalTo: shortButton.trailingAnchor, constant: 10),
             mediumButton.widthAnchor.constraint(equalTo: firstView.widthAnchor, multiplier: 0.4),
             mediumButton.topAnchor.constraint(equalTo: timeLabel.bottomAnchor, constant: 10),
+            mediumButton.trailingAnchor.constraint(equalTo: firstView.trailingAnchor, constant: -15),
             
-            longButton.leadingAnchor.constraint(equalTo: firstView.leadingAnchor, constant: 16),
+            longButton.leadingAnchor.constraint(equalTo: firstView.leadingAnchor, constant: 15),
             longButton.topAnchor.constraint(equalTo: shortButton.bottomAnchor, constant: 10),
             longButton.widthAnchor.constraint(equalTo: firstView.widthAnchor, multiplier: 0.4),
             
-            randomButton.leadingAnchor.constraint(equalTo: longButton.trailingAnchor, constant: 10),
             randomButton.topAnchor.constraint(equalTo: mediumButton.bottomAnchor, constant: 10),
             randomButton.widthAnchor.constraint(equalTo: firstView.widthAnchor, multiplier: 0.4),
+            randomButton.trailingAnchor.constraint(equalTo: firstView.trailingAnchor, constant: -15),
             
             secView.topAnchor.constraint(equalTo: firstView.bottomAnchor, constant: 16),
             secView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
@@ -213,29 +213,29 @@ private extension SettingsViewController {
             thirdView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
             thirdView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
             
-            blackView1.leadingAnchor.constraint(equalTo: secView.leadingAnchor, constant: 20),
-            blackView1.trailingAnchor.constraint(equalTo: secView.trailingAnchor, constant: -20),
+            blackView1.leadingAnchor.constraint(equalTo: secView.leadingAnchor, constant: 15),
+            blackView1.trailingAnchor.constraint(equalTo: secView.trailingAnchor, constant: -15),
             blackView1.topAnchor.constraint(equalTo: secView.topAnchor, constant: 20),
             blackView1.heightAnchor.constraint(equalToConstant: 45),
             
-            blackView2.leadingAnchor.constraint(equalTo: secView.leadingAnchor, constant: 20),
-            blackView2.trailingAnchor.constraint(equalTo: secView.trailingAnchor, constant: -20),
+            blackView2.leadingAnchor.constraint(equalTo: secView.leadingAnchor, constant: 15),
+            blackView2.trailingAnchor.constraint(equalTo: secView.trailingAnchor, constant: -15),
             blackView2.topAnchor.constraint(equalTo: blackView1.bottomAnchor, constant: 20),
             blackView2.heightAnchor.constraint(equalToConstant: 45),
             
-            blackView3.leadingAnchor.constraint(equalTo: secView.leadingAnchor, constant: 20),
-            blackView3.trailingAnchor.constraint(equalTo: secView.trailingAnchor, constant: -20),
+            blackView3.leadingAnchor.constraint(equalTo: secView.leadingAnchor, constant: 15),
+            blackView3.trailingAnchor.constraint(equalTo: secView.trailingAnchor, constant: -15),
             blackView3.topAnchor.constraint(equalTo: blackView2.bottomAnchor, constant: 20),
             blackView3.heightAnchor.constraint(equalToConstant: 45),
             secView.bottomAnchor.constraint(equalTo: blackView3.bottomAnchor, constant: 16),
             
-            blackView4.leadingAnchor.constraint(equalTo: thirdView.leadingAnchor, constant: 20),
-            blackView4.trailingAnchor.constraint(equalTo: thirdView.trailingAnchor, constant: -20),
+            blackView4.leadingAnchor.constraint(equalTo: thirdView.leadingAnchor, constant: 15),
+            blackView4.trailingAnchor.constraint(equalTo: thirdView.trailingAnchor, constant: -15),
             blackView4.topAnchor.constraint(equalTo: thirdView.topAnchor, constant: 20),
             blackView4.heightAnchor.constraint(equalToConstant: 45),
             
-            blackView5.leadingAnchor.constraint(equalTo: thirdView.leadingAnchor, constant: 20),
-            blackView5.trailingAnchor.constraint(equalTo: thirdView.trailingAnchor, constant: -20),
+            blackView5.leadingAnchor.constraint(equalTo: thirdView.leadingAnchor, constant: 15),
+            blackView5.trailingAnchor.constraint(equalTo: thirdView.trailingAnchor, constant: -15),
             blackView5.topAnchor.constraint(equalTo: blackView4.bottomAnchor, constant: 20),
             blackView5.heightAnchor.constraint(equalToConstant: 45),
             thirdView.bottomAnchor.constraint(equalTo: blackView5.bottomAnchor, constant: 16),
@@ -284,7 +284,7 @@ private extension SettingsViewController {
         button.setTitle(title, for: .normal)
         button.setTitleColor(.white, for: .normal)
         button.backgroundColor = UIColor(named: "TextPrimary")
-        button.layer.cornerRadius = 13
+        button.layer.cornerRadius = 12
         button.titleLabel?.font = Fonts.rounded(weight: 10, size: 16).font
         button.translatesAutoresizingMaskIntoConstraints = false
         button.addTarget(self, action: #selector(chooseLength(sender:)), for: .touchUpInside)
