@@ -33,14 +33,16 @@ final class RuleView: UIView {
         label.textColor = .textPrimary
         label.setContentHuggingPriority(.defaultHigh, for: .vertical)
         label.numberOfLines = 0
+//        label.textAlignment
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
     
-    init(number: String, text: String) {
+    init(number: Int, text: String, aligment: NSTextAlignment) {
         super.init(frame: .zero)
-        self.numberLabel.text = number
+        self.numberLabel.text = "\(number)"
         self.ruleLabel.text = text
+        self.ruleLabel.textAlignment = aligment
         setupView()
         setupConstraints()
     }

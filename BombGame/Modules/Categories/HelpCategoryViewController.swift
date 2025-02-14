@@ -98,7 +98,7 @@ private extension HelpCategoryViewController {
     func setupConstraints() {
         NSLayoutConstraint.activate([
             helpCategoryTitle.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            helpCategoryTitle.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            helpCategoryTitle.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 30),
             
             categoryDescription.topAnchor.constraint(equalTo: helpCategoryTitle.bottomAnchor, constant: 10),
             categoryDescription.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 37),
