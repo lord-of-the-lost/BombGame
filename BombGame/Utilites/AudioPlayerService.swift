@@ -8,10 +8,9 @@
 import AVFoundation
 
 final class AudioPlayerService {
-    
-    static let shared = AudioPlayerService()
     private var audioPlayer: AVAudioPlayer?
-    
+    static let shared = AudioPlayerService()
+   
     private init() {}
     
     /// Воспроизведение звука
@@ -25,7 +24,7 @@ final class AudioPlayerService {
             audioPlayer = try AVAudioPlayer(contentsOf: url)
             audioPlayer?.prepareToPlay()
             audioPlayer?.play()
-            audioPlayer?.numberOfLoops = repeatable ? -1 : 1
+            audioPlayer?.numberOfLoops = repeatable ? -1 : 0
         } catch {
             print("Ошибка при воспроизведении звука: \(error.localizedDescription)")
         }
@@ -47,3 +46,4 @@ final class AudioPlayerService {
         audioPlayer = nil
     }
 }
+

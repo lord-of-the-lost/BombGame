@@ -12,7 +12,7 @@ final class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        let rootViewController = SettingsViewController()
+        let rootViewController = MainMenuViewController()
         let navigationController = UINavigationController(rootViewController: rootViewController)
         window = UIWindow(frame: UIScreen.main.bounds)
         window?.rootViewController = navigationController
@@ -25,7 +25,7 @@ final class AppDelegate: UIResponder, UIApplicationDelegate {
 // MARK: - Private Methods
 private extension AppDelegate {
     func startMusic() {
-        AudioPlayerService.shared.playSound(named: Sounds.Theme.one.rawValue, repeatable: true)
+        AudioPlayerService.shared.playSound(named: GameModel.Settings.Sounds.Theme.one.rawValue, repeatable: true)
     }
 }
 

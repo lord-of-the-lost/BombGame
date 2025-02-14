@@ -10,9 +10,7 @@ import Lottie
 
 
 final class GameViewController: UIViewController {
-    private var timer: Timer?
-    private var timeLeft: Int = 5
-    private var isTimerPaused: Bool = false
+    private let timer = TimerService()
     
     private lazy var backgroundView: UIImageView = {
         let imageView = UIImageView()
@@ -34,7 +32,7 @@ final class GameViewController: UIViewController {
     }()
     
     private lazy var animationView: LottieAnimationView = {
-        let animation = LottieAnimationView(name: "bomb2")
+        let animation = LottieAnimationView(name: "bomb")
         animation.contentMode = .scaleAspectFit
         animation.backgroundColor = .clear
         animation.loopMode = .loop
@@ -92,12 +90,27 @@ final class GameViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         setupUI()
         setupConstraints()
         setupNavBar()
+        timer.delegate = self
     }
     
+}
+
+extension GameViewController: TimerDelegate {
+    func timerIsFinished() {
+        textLabel.isHidden = true
+        animationView.isHidden = true
+        finalImageView.isHidden = false
+        punishLabel.text = punishments.randomElement()
+        punishLabel.isHidden = false
+        newPunishButton.isHidden = false
+        title = "Конец игры"
+        startButton.isHidden = false
+        startButton.setTitle("Начать заново", for: .normal)
+        AudioPlayerService.shared.playSound(named: GameModel.Settings.Sounds.Boom.one.rawValue, repeatable: false)
+    }
 }
 
 // MARK: - Private Methods
@@ -161,41 +174,7 @@ private extension GameViewController {
         animationView.play()
         startButton.isHidden = true
         newPunishButton.isHidden = true
-        textLabel.text = questionsByCategory[.sports]?.randomElement()
-    }
-    
-      func setupTimer() {
-        timer?.invalidate()
-        timer = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(updateTimer), userInfo: nil, repeats: true)
-    }
-    
-      func pauseTimer() {
-        timer?.invalidate()
-        timer = nil
-        isTimerPaused = true
-    }
-    
-      func resumeTimer() {
-        setupTimer()
-        isTimerPaused = false
-    }
-    
-      func showGameOverState() {
-        textLabel.isHidden = true
-        animationView.isHidden = true
-        finalImageView.isHidden = false
-        punishLabel.text = punishments.randomElement()
-        punishLabel.isHidden = false
-        newPunishButton.isHidden = false
-        title = "Конец игры"
-        startButton.isHidden = false
-        startButton.setTitle("Начать заново", for: .normal)
-        timeLeft = 5
-        AudioPlayerService.shared.playSound(named: Sounds.Boom.one.rawValue, repeatable: false)
-        
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
-            AudioPlayerService.shared.pause()
-        }
+        textLabel.text = DataService.shared.getRandomQuestion()
     }
     
       func setupNavBar() {
@@ -211,42 +190,28 @@ private extension GameViewController {
         pauseButton.tintColor = .black
         navigationItem.rightBarButtonItem = pauseButton
     }
-    
-    @objc func updateTimer() {
-        if timeLeft > 1 {
-            timeLeft -= 1
-            print(timeLeft)
-        } else {
-            timer?.invalidate()
-            timer = nil
-            showGameOverState()
-        }
-    }
    
     @objc func startPressed() {
-        textLabel.text = questionsByCategory[.sports]?.randomElement()
+        textLabel.text = DataService.shared.getRandomQuestion()
         textLabel.isHidden = false
         finalImageView.isHidden = true
         punishLabel.isHidden = true
         animationView.isHidden = false
         animationView.play()
-        
-        setupTimer()
         setupGameUI()
-        AudioPlayerService.shared.playSound(named: Sounds.Counter.one.rawValue, repeatable: true)
+        timer.startTimer()
+        AudioPlayerService.shared.playSound(named: GameModel.Settings.Sounds.Counter.one.rawValue, repeatable: true)
         
     }
     
     @objc func pauseButtonTapped() {
-        
-        if !isTimerPaused {
+        timer.togglePause()
+        if timer.isPaused {
             animationView.stop()
             AudioPlayerService.shared.pause()
-            pauseTimer()
         } else {
             animationView.play()
             AudioPlayerService.shared.resume()
-            resumeTimer()
         }
     }
     
