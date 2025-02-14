@@ -126,7 +126,7 @@ private extension HelpCategoryViewController {
 // MARK: - UICollectionViewDataSource
 extension HelpCategoryViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 4
+        return 2 // pfменить на 4 когда будут категории
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -137,8 +137,8 @@ extension HelpCategoryViewController: UICollectionViewDataSource {
             return UICollectionViewCell()
         }
         
-        let category = Category.allCases[indexPath.item]
-        cell.configure(with: category)
+        let category = DataService.shared.getAllCategories()[indexPath.item].category
+        cell.configure(with: category, needCheckmark: true)
         return cell
     }
 }

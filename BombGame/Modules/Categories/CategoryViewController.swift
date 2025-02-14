@@ -43,6 +43,7 @@ extension CategoryViewController: UICollectionViewDelegate  {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if let cell = collectionView.cellForItem(at: indexPath) as? CategoryCell {
             cell.isCellSelected.toggle()
+            DataService.shared.gameModel.categories[indexPath.item].isSelected.toggle()
         }
     }
 }
@@ -50,7 +51,7 @@ extension CategoryViewController: UICollectionViewDelegate  {
 // MARK: - UICollectionViewDataSource
 extension CategoryViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        Category.allCases.count
+        DataService.shared.getAllCategories().count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -61,8 +62,10 @@ extension CategoryViewController: UICollectionViewDataSource {
             return UICollectionViewCell()
         }
         
-        let category = Category.allCases[indexPath.item]
-        cell.configure(with: category)
+        let category = DataService.shared.getAllCategories()[indexPath.item].category
+       
+        cell.configure(with: category, needCheckmark: false)
+        cell.isCellSelected = DataService.shared.getAllCategories()[indexPath.item].isSelected
         return cell
     }
 }
@@ -113,7 +116,16 @@ private extension CategoryViewController {
         ])
     }
     
-    @objc func questionButtonTapped() {}
+    @objc func questionButtonTapped() {
+        let modalViewController = HelpCategoryViewController()
+        
+        if let sheet = modalViewController.sheetPresentationController {
+            sheet.detents = [.custom { _ in UIScreen.main.bounds.height * 0.75 }]
+            sheet.prefersGrabberVisible = true
+            sheet.preferredCornerRadius = 20
+        }
+        present(modalViewController, animated: true)
+    }
 }
 
 

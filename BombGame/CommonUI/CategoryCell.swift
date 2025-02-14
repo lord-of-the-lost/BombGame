@@ -11,6 +11,12 @@ final class CategoryCell: UICollectionViewCell {
     
     static let identifier = "CategoryCell"
     
+    var isCellSelected: Bool = false {
+        didSet {
+            updateCellState()
+        }
+    }
+    
     private lazy var roundedView: RoundedView = {
         let view = RoundedView()
         view.translatesAutoresizingMaskIntoConstraints = false
@@ -37,16 +43,6 @@ final class CategoryCell: UICollectionViewCell {
     
     private lazy var titleLabel: UILabel = {
         let label = UILabel()
-        
-        let fontSize: CGFloat = 15
-        let systemFont = UIFont.systemFont(ofSize: fontSize, weight: .medium)
-        let font: UIFont
-        
-        if let descriptor = systemFont.fontDescriptor.withDesign(.rounded) {
-            font = UIFont(descriptor: descriptor, size: fontSize)
-        } else {
-            font = systemFont
-        }
         label.font = Fonts.rounded(weight: 2, size: 15).font
         label.textColor = Palette.textPrimary
         label.textAlignment = .center
@@ -56,18 +52,6 @@ final class CategoryCell: UICollectionViewCell {
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
-    
-    var isCellSelected: Bool = false {
-        didSet {
-            if isCellSelected {
-                roundedView.backgroundColor = Palette.accentColor
-                checkView.isHidden = false
-            } else {
-                roundedView.backgroundColor = Palette.categoryCellBg
-                checkView.isHidden = true
-            }
-        }
-    }
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -79,9 +63,10 @@ final class CategoryCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func configure(with category: Category) {
+    func configure(with category: GameModel.CategoryModel.Category, needCheckmark: Bool) {
         iconView.image = category.image
         titleLabel.text = category.rawValue
+        checkView.isHidden = !needCheckmark
     }
 }
 
@@ -93,6 +78,16 @@ private extension CategoryCell {
         roundedView.addSubview(iconView)
         roundedView.addSubview(titleLabel)
         roundedView.addSubview(checkView)
+    }
+    
+    func updateCellState() {
+        if isCellSelected {
+            roundedView.backgroundColor = Palette.greenSelection
+            checkView.isHidden = false
+        } else {
+            roundedView.backgroundColor = Palette.categoryCellBg
+            checkView.isHidden = true
+        }
     }
     
     func setupConstraints() {

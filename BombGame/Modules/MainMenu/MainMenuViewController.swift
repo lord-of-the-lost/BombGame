@@ -12,7 +12,7 @@ final class MainMenuViewController: UIViewController {
     
     private lazy var backgroundView: UIImageView = {
         let imageView = UIImageView()
-        imageView.image = UIImage(named: "backgroundView")
+        imageView.image = UIImage(named: "backgroundView")?.withTintColor(.textureStroke, renderingMode: .alwaysOriginal)
         imageView.contentMode = .scaleToFill
         imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView
@@ -20,19 +20,16 @@ final class MainMenuViewController: UIViewController {
     
     
     private lazy var settingsButton: UIButton = {
-        let button = UIButton(type: .system)
-        button.setImage(UIImage(named: "settingsIcon"), for: .normal)
-        button.translatesAutoresizingMaskIntoConstraints = false
-        button.addTarget(self, action: #selector(startGame), for: .touchUpInside)
+        let button = UIButton(frame: .init(x: 0, y: 0, width: 35, height: 35))
+        button.setBackgroundImage(UIImage(resource: .settingsIcon), for: .normal)
+        button.addTarget(self, action: #selector(settingsButtonTapped), for: .touchUpInside)
         return button
     }()
     
-    
-    private lazy var questionButton: UIButton = {
-        let button = UIButton(type: .system)
-        button.setImage(UIImage(named: "questionIcon"), for: .normal)
-        button.translatesAutoresizingMaskIntoConstraints = false
-        button.addTarget(self, action: #selector(category), for: .touchUpInside)
+    private lazy var helpButton: UIButton = {
+        let button = UIButton(frame: .init(x: 0, y: 0, width: 35, height: 35))
+        button.setBackgroundImage(UIImage(resource: .questionIcon), for: .normal)
+        button.addTarget(self, action: #selector(helpButtonTapped), for: .touchUpInside)
         return button
     }()
     
@@ -44,7 +41,6 @@ final class MainMenuViewController: UIViewController {
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
-    
     
     private lazy var gameTitle: UILabel = {
         let label = UILabel()
@@ -63,26 +59,23 @@ final class MainMenuViewController: UIViewController {
         return imageView
     }()
     
-    //Цвет кнопки поменять
     private lazy var startButton: CommonButton = {
         let button = CommonButton(title: "Старт игры", backgroundColor: UIColor(named: "MainViewButton") ?? .white)
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.addTarget(self, action: #selector(startGame), for: .touchUpInside)
+        button.addTarget(self, action: #selector(startGameButtonTapped), for: .touchUpInside)
         return button
     }()
-    
-    //Цвет кнопки поменять
-    //Действие поменять
     
     private lazy var categoryButton: CommonButton = {
         let button = CommonButton(title: "Категории", backgroundColor: UIColor(named: "MainViewButton") ?? .white)
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.addTarget(self, action: #selector(category), for: .touchUpInside)
+        button.addTarget(self, action: #selector(categoryButtonTapped), for: .touchUpInside)
         return button
     }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        setupNavigationBar()
         setupView()
         setupConstraints()
     }
@@ -94,13 +87,20 @@ private extension MainMenuViewController {
     func setupView() {
         view.backgroundColor = Palette.mainBackground
         view.addSubview(backgroundView)
-        view.addSubview(settingsButton)
-        view.addSubview(questionButton)
         view.addSubview(gameDescription)
         view.addSubview(gameTitle)
         view.addSubview(bombImageView)
         view.addSubview(startButton)
         view.addSubview(categoryButton)
+    }
+    
+    func setupNavigationBar() {
+        let settingsButton = UIBarButtonItem(customView: settingsButton)
+        
+        let helpButton = UIBarButtonItem(customView: helpButton)
+        
+        navigationItem.leftBarButtonItem = settingsButton
+        navigationItem.rightBarButtonItem = helpButton
     }
     
     func setupConstraints() {
@@ -109,16 +109,6 @@ private extension MainMenuViewController {
             backgroundView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: 0),
             backgroundView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 0),
             backgroundView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: 0),
-
-            settingsButton.heightAnchor.constraint(equalToConstant: 35),
-            settingsButton.widthAnchor.constraint(equalToConstant: 35),
-            settingsButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 37),
-            settingsButton.topAnchor.constraint(equalTo: view.topAnchor, constant: 48),
-            
-            questionButton.heightAnchor.constraint(equalToConstant: 35),
-            questionButton.widthAnchor.constraint(equalToConstant: 35),
-            questionButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -37),
-            questionButton.topAnchor.constraint(equalTo: view.topAnchor, constant: 48),
             
             gameDescription.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             gameDescription.topAnchor.constraint(equalTo: view.topAnchor, constant: 126),
@@ -144,18 +134,29 @@ private extension MainMenuViewController {
     }
     
     
-    @objc func startGame() {
+    @objc func startGameButtonTapped() {
         let controller = GameViewController()
-        controller.view.backgroundColor = .white
-        present(controller, animated: true)
+        navigationController?.pushViewController(controller, animated: true)
     }
     
-    
-    @objc func category() {
+    @objc func categoryButtonTapped() {
         let controller = CategoryViewController()
-        controller.view.backgroundColor = .white
-        present(controller, animated: true)
+        navigationController?.pushViewController(controller, animated: true)
     }
     
+    @objc func settingsButtonTapped() {
+        let controller = SettingsViewController()
+        navigationController?.pushViewController(controller, animated: true)
+    }
+    
+    @objc func helpButtonTapped() {
+        let modalViewController = GameRulesViewController()
+        
+        if let sheet = modalViewController.sheetPresentationController {
+            sheet.detents = [.custom { _ in UIScreen.main.bounds.height * 0.75 }]
+            sheet.prefersGrabberVisible = true
+            sheet.preferredCornerRadius = 20
+        }
+        present(modalViewController, animated: true)
+    }
 }
-

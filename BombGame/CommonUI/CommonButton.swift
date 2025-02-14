@@ -13,6 +13,7 @@ final class CommonButton: UIButton {
         super.init(frame: .zero)
         self.backgroundColor = backgroundColor
         layer.cornerRadius = 10
+        addTarget(self, action: #selector(touchAction), for: .touchDown)
         setupTitle(title)
     }
     
@@ -27,5 +28,10 @@ private extension CommonButton {
         setTitle(title, for: .normal)
         setTitleColor(.black, for: .normal)
         titleLabel?.font = Fonts.display(size: 20).font
+    }
+    
+    @objc func touchAction() {
+        guard DataService.shared.getSettings().vibrationIsOn else { return }
+        UIImpactFeedbackGenerator(style: .light).impactOccurred()
     }
 }
