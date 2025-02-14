@@ -28,7 +28,7 @@ private extension RoundedView {
         layer.shadowOpacity = 0.3
         layer.shadowOffset = CGSize(width: 0, height: 2)
         layer.shadowRadius = 2
-        layer.borderColor = UIColor.black.cgColor
+        layer.borderColor = UIColor(named: "TextPrimary")?.cgColor
         layer.borderWidth = 1
     }
 }
