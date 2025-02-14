@@ -46,7 +46,6 @@
                         <constraints>
                             <constraint firstItem="sfs-E8-TyZ" firstAttribute="leading" secondItem="Ze5-6b-2t3" secondAttribute="leading" id="MKX-NX-RyO"/>
                             <constraint firstAttribute="bottom" secondItem="sfs-E8-TyZ" secondAttribute="bottom" id="NhS-tF-pp8"/>
-                            <constraint firstItem="r8h-J0-J0e" firstAttribute="top" secondItem="3Lc-kj-AgX" secondAttribute="bottom" constant="15" id="Q9f-kl-XU1"/>
                             <constraint firstItem="sfs-E8-TyZ" firstAttribute="leading" secondItem="Ze5-6b-2t3" secondAttribute="leading" id="Rfk-zh-Bwm"/>
                             <constraint firstAttribute="bottom" secondItem="sfs-E8-TyZ" secondAttribute="bottom" id="SKS-jZ-MsS"/>
                             <constraint firstItem="DF6-Vy-2eE" firstAttribute="centerY" secondItem="Ze5-6b-2t3" secondAttribute="centerY" id="SOu-H5-buS"/>
@@ -56,6 +55,7 @@
                             <constraint firstItem="3Lc-kj-AgX" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="58" id="e1k-hR-Ttg"/>
                             <constraint firstAttribute="trailing" secondItem="sfs-E8-TyZ" secondAttribute="trailing" id="edK-95-6KP"/>
                             <constraint firstItem="r8h-J0-J0e" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="120" id="edc-k2-LtN"/>
+                            <constraint firstItem="r8h-J0-J0e" firstAttribute="top" secondItem="3Lc-kj-AgX" secondAttribute="bottom" constant="15" id="fJx-JE-KRv"/>
                             <constraint firstItem="sfs-E8-TyZ" firstAttribute="top" secondItem="Ze5-6b-2t3" secondAttribute="top" id="iiP-Ej-kez"/>
                             <constraint firstItem="sfs-E8-TyZ" firstAttribute="top" secondItem="Ze5-6b-2t3" secondAttribute="top" id="n6B-vw-OGj"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="3Lc-kj-AgX" secondAttribute="trailing" constant="58" id="oiw-uF-POg"/>
