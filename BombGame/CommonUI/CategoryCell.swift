@@ -47,8 +47,8 @@ final class CategoryCell: UICollectionViewCell {
         } else {
             font = systemFont
         }
-        label.font = font
-        label.textColor = .black
+        label.font = Fonts.rounded(weight: 2, size: 15).font
+        label.textColor = Palette.textPrimary
         label.textAlignment = .center
         label.adjustsFontSizeToFitWidth = true
         label.minimumScaleFactor = 0.5
@@ -60,10 +60,10 @@ final class CategoryCell: UICollectionViewCell {
     var isCellSelected: Bool = false {
         didSet {
             if isCellSelected {
-                roundedView.backgroundColor = UIColor.green
+                roundedView.backgroundColor = Palette.accentColor
                 checkView.isHidden = false
             } else {
-                roundedView.backgroundColor = UIColor.white
+                roundedView.backgroundColor = Palette.categoryCellBg
                 checkView.isHidden = true
             }
         }
@@ -80,15 +80,15 @@ final class CategoryCell: UICollectionViewCell {
     }
     
     func configure(with category: Category) {
-        iconView.image = UIImage(systemName: "figure.run")
+        iconView.image = category.image
         titleLabel.text = category.rawValue
     }
 }
 
 // MARK: - Private Methods
 private extension CategoryCell {
-     func setupUI() {
-        contentView.backgroundColor = .white
+    func setupUI() {
+        contentView.backgroundColor = .clear
         contentView.addSubview(roundedView)
         roundedView.addSubview(iconView)
         roundedView.addSubview(titleLabel)
