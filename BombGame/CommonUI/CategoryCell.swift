@@ -47,7 +47,7 @@ final class CategoryCell: UICollectionViewCell {
         } else {
             font = systemFont
         }
-        label.font = font
+        label.font = Fonts.rounded(weight: 2, size: 15).font
         label.textColor = Palette.textPrimary
         label.textAlignment = .center
         label.adjustsFontSizeToFitWidth = true
