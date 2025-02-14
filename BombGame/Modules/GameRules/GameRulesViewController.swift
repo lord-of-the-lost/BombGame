@@ -15,6 +15,7 @@ final class GameRulesViewController: UIViewController {
         stack.spacing = 16
         stack.alignment = .top
         stack.distribution = .fill
+        stack.alignment = .leading
         stack.translatesAutoresizingMaskIntoConstraints = false
         return stack
     }()
@@ -25,7 +26,7 @@ final class GameRulesViewController: UIViewController {
         stack.axis = .horizontal
         stack.spacing = 0
         stack.alignment = .center
-        stack.distribution = .fill
+        stack.distribution = .equalCentering
         stack.translatesAutoresizingMaskIntoConstraints = false
         stack.addArrangedSubview(button)
         return stack
@@ -65,11 +66,16 @@ final class GameRulesViewController: UIViewController {
         return imageView
     }()
     
+    private lazy var spacerView = UIView()
+
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setupView()
-        setupConstraints()
         addRules()
+        setConstr()
+        setupConstraints()
+
     }
 }
 
@@ -80,7 +86,10 @@ private extension GameRulesViewController {
         view.addSubview(backgroundImageView)
         view.addSubview(rulesTitle)
         view.addSubview(mainStack)
-//          view.addSubview(horizontalStack)
+        
+        view.addSubview(horizontalStack)
+        view.bringSubviewToFront(horizontalStack)
+
     }
     
     func addRules() {
@@ -90,9 +99,13 @@ private extension GameRulesViewController {
             let aligment: NSTextAlignment = index == 1 ? .center : .left
             let rules = RuleView(number: number, text: name, aligment: aligment)
             if index == 2 {
-                mainStack.addArrangedSubview(horizontalStack)
+                spacerView.translatesAutoresizingMaskIntoConstraints = false
+                spacerView.heightAnchor.constraint(equalToConstant: 35).isActive = true
+                mainStack.addArrangedSubview(spacerView)
+                        
             }
             mainStack.addArrangedSubview(rules)
+         
         }
     }
     
@@ -104,6 +117,7 @@ private extension GameRulesViewController {
             mainStack.topAnchor.constraint(equalTo: rulesTitle.bottomAnchor, constant: 16),
             mainStack.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 30),
             mainStack.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -21),
+
             
             backgroundImageView.topAnchor.constraint(equalTo: view.topAnchor),
             backgroundImageView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
@@ -111,6 +125,15 @@ private extension GameRulesViewController {
             backgroundImageView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             
         ])
+    }
+    
+    func setConstr() {
+        NSLayoutConstraint.activate([
+            horizontalStack.topAnchor.constraint(equalTo: spacerView.topAnchor, constant: 3),
+                horizontalStack.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 70),
+                horizontalStack.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -70),
+                horizontalStack.centerXAnchor.constraint(equalTo: view.centerXAnchor)
+            ])
     }
 }
 
