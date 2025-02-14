@@ -8,6 +8,7 @@
 import UIKit
 
 final class CategoryViewController: UIViewController {
+    
     private lazy var collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
