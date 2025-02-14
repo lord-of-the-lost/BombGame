@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		47BDA93C2D5A28AE00A43D29 /* GameRulesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47BDA93B2D5A28AE00A43D29 /* GameRulesViewController.swift */; };
+		47BDA9402D5E915B00A43D29 /* RuleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47BDA93F2D5E915A00A43D29 /* RuleView.swift */; };
 		6019B9BB2D57DB6700E3F786 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6019B9BA2D57DB6700E3F786 /* AppDelegate.swift */; };
 		6019B9C72D57DB6900E3F786 /* Base in Resources */ = {isa = PBXBuildFile; fileRef = 6019B9C62D57DB6900E3F786 /* Base */; };
 		6019B9D42D57E0A800E3F786 /* Palette.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6019B9D32D57E0A800E3F786 /* Palette.swift */; };
@@ -28,6 +30,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		47BDA93B2D5A28AE00A43D29 /* GameRulesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameRulesViewController.swift; sourceTree = "<group>"; };
+		47BDA93F2D5E915A00A43D29 /* RuleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RuleView.swift; sourceTree = "<group>"; };
 		6019B9B72D57DB6700E3F786 /* BombGame.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BombGame.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6019B9BA2D57DB6700E3F786 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		6019B9BE2D57DB6700E3F786 /* MainMenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainMenuViewController.swift; sourceTree = "<group>"; };
@@ -61,6 +65,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		47BDA93A2D5A282E00A43D29 /* GameRules */ = {
+			isa = PBXGroup;
+			children = (
+				47BDA93B2D5A28AE00A43D29 /* GameRulesViewController.swift */,
+			);
+			path = GameRules;
+			sourceTree = "<group>";
+		};
 		6019B9AE2D57DB6700E3F786 = {
 			isa = PBXGroup;
 			children = (
@@ -100,6 +112,7 @@
 		6019B9CF2D57DDC400E3F786 /* Modules */ = {
 			isa = PBXGroup;
 			children = (
+				47BDA93A2D5A282E00A43D29 /* GameRules */,
 				F33D645C2D5A7A9300F3BBD7 /* Categories */,
 				6019B9D12D57DF3F00E3F786 /* MainMenu */,
 				F395CF732D5BB910007EED4E /* Game */,
@@ -144,6 +157,7 @@
 				6019B9DF2D57EFC500E3F786 /* CommonButton.swift */,
 				F33D64552D596B1700F3BBD7 /* CategoryCell.swift */,
 				F33D645A2D596B2A00F3BBD7 /* RoundedView.swift */,
+				47BDA93F2D5E915A00A43D29 /* RuleView.swift */,
 			);
 			path = CommonUI;
 			sourceTree = "<group>";
@@ -258,10 +272,12 @@
 				F33D64572D596B1700F3BBD7 /* CategoryCell.swift in Sources */,
 				6019B9D62D57E0ED00E3F786 /* Fonts.swift in Sources */,
 				F33D64562D596B1700F3BBD7 /* CategoryViewController.swift in Sources */,
+				47BDA9402D5E915B00A43D29 /* RuleView.swift in Sources */,
 				6019B9E02D57EFC500E3F786 /* CommonButton.swift in Sources */,
 				6019B9E92D5A9DA000E3F786 /* AudioPlayerService.swift in Sources */,
 				F33D645B2D596B2A00F3BBD7 /* RoundedView.swift in Sources */,
 				6019B9D42D57E0A800E3F786 /* Palette.swift in Sources */,
+				47BDA93C2D5A28AE00A43D29 /* GameRulesViewController.swift in Sources */,
 				F33D64592D596B2300F3BBD7 /* Constants.swift in Sources */,
 				F395CF722D5BB90B007EED4E /* GameViewController.swift in Sources */,
 				6019B9BB2D57DB6700E3F786 /* AppDelegate.swift in Sources */,
