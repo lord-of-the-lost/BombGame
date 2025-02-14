@@ -80,7 +80,7 @@ final class CategoryCell: UICollectionViewCell {
     }
     
     func configure(with category: Category) {
-        iconView.image = UIImage(systemName: "figure.run")
+        iconView.image = category.image
         titleLabel.text = category.rawValue
     }
 }

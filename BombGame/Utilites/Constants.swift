@@ -5,7 +5,7 @@
 //  Created by Anna Melekhina on 09.02.2025.
 //
 
-import Foundation
+import UIKit
 
 struct GameModel {
     let categories: [CategoryModel]
@@ -23,6 +23,24 @@ enum Category: String, CaseIterable {
     case celebs = "Знаменитости"
     case art = "Искусство и кино"
     case nature = "Природа"
+    
+    var image: UIImage {
+        switch self {
+        case .sports:
+            return UIImage(resource: ImageResource.sportsAndHobbies)
+        case .other:
+            return UIImage(resource: ImageResource.others)
+        case .life:
+            return UIImage(resource: ImageResource.life)
+        case .celebs:
+            return UIImage(resource: ImageResource.celebrities)
+        case .art:
+            return UIImage(resource: ImageResource.artAndCinema)
+        case .nature:
+            return UIImage(resource: ImageResource.nature)
+       
+        }
+    }
 }
 
 let questionsByCategory: [Category: [String]] = [

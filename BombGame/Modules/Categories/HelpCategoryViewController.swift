@@ -90,17 +90,17 @@ private extension HelpCategoryViewController {
             helpCategoryTitle.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             helpCategoryTitle.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
             
-            categoryDescription.topAnchor.constraint(equalTo: helpCategoryTitle.bottomAnchor, constant: 30),
+            categoryDescription.topAnchor.constraint(equalTo: helpCategoryTitle.bottomAnchor, constant: 10),
             categoryDescription.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 37),
             categoryDescription.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -38),
             
-            categoryRule.topAnchor.constraint(equalTo: categoryDescription.bottomAnchor, constant: 30),
+            categoryRule.topAnchor.constraint(equalTo: categoryDescription.bottomAnchor, constant: 50),
             categoryRule.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 37),
             categoryRule.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -38),
             
             collectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 30),
             collectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -30),
-            collectionView.topAnchor.constraint(equalTo: categoryRule.bottomAnchor, constant: 20),
+            collectionView.topAnchor.constraint(equalTo: categoryRule.bottomAnchor, constant: 0),
             collectionView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
             
             
