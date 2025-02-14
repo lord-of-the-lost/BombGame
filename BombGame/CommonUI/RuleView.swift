@@ -20,6 +20,9 @@ final class RuleView: UIView {
         let view = UIView()
         view.backgroundColor = Palette.mainBackground
         view.layer.cornerRadius = 14.5
+        view.layer.shadowOpacity = 0.3
+        view.layer.shadowOffset = CGSize(width: 0, height: 2)
+        view.layer.shadowRadius = 2
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()

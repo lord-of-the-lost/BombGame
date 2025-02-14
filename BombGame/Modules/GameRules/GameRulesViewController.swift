@@ -27,7 +27,18 @@ final class GameRulesViewController: UIViewController {
         title.translatesAutoresizingMaskIntoConstraints = false
         return title
     }()
-
+    
+    private lazy var backgroundImageView: UIImageView = {
+        let imageView = UIImageView()
+        imageView.image = UIImage(resource: ImageResource.backgroundView)
+        imageView.contentMode = .scaleToFill
+        imageView.image = imageView.image?.withRenderingMode(.alwaysTemplate)
+        imageView.tintColor = Palette.mainBackground
+        imageView.alpha = 0.2
+        imageView.clipsToBounds = true
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        return imageView
+    }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -41,6 +52,7 @@ final class GameRulesViewController: UIViewController {
 private extension GameRulesViewController {
     func setupView() {
         view.backgroundColor = Palette.mainSheetBg
+        view.addSubview(backgroundImageView)
         view.addSubview(rulesTitle)
         view.addSubview(mainStack)
     }
@@ -62,6 +74,11 @@ private extension GameRulesViewController {
             mainStack.topAnchor.constraint(equalTo: rulesTitle.bottomAnchor, constant: 16),
             mainStack.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 30),
             mainStack.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -21),
+            
+            backgroundImageView.topAnchor.constraint(equalTo: view.topAnchor),
+            backgroundImageView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            backgroundImageView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            backgroundImageView.trailingAnchor.constraint(equalTo: view.trailingAnchor)
         ])
     }
 }
