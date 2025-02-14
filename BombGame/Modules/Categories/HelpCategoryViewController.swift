@@ -8,7 +8,7 @@
 import UIKit
 
 final class HelpCategoryViewController: UIViewController {
-   
+    
     private lazy var collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
@@ -59,6 +59,16 @@ final class HelpCategoryViewController: UIViewController {
     }()
     
     
+    private lazy var backgroundImageView: UIImageView = {
+        let imageView = UIImageView()
+        imageView.image = UIImage(resource: ImageResource.backgroundView)
+        imageView.contentMode = .scaleToFill
+        imageView.alpha = 0.5
+        imageView.clipsToBounds = true
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        return imageView
+    }()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setupView()
@@ -78,17 +88,17 @@ final class HelpCategoryViewController: UIViewController {
 private extension HelpCategoryViewController {
     func setupView() {
         view.backgroundColor = Palette.categorySheetBg
+        view.addSubview(backgroundImageView)
         view.addSubview(helpCategoryTitle)
         view.addSubview(categoryDescription)
         view.addSubview(categoryRule)
         view.addSubview(collectionView)
-        
     }
     
     func setupConstraints() {
         NSLayoutConstraint.activate([
             helpCategoryTitle.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            helpCategoryTitle.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            helpCategoryTitle.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 30),
             
             categoryDescription.topAnchor.constraint(equalTo: helpCategoryTitle.bottomAnchor, constant: 10),
             categoryDescription.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 37),
@@ -101,9 +111,12 @@ private extension HelpCategoryViewController {
             collectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 30),
             collectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -30),
             collectionView.topAnchor.constraint(equalTo: categoryRule.bottomAnchor, constant: 0),
-            collectionView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
+            collectionView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
             
-            
+            backgroundImageView.topAnchor.constraint(equalTo: view.topAnchor),
+            backgroundImageView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            backgroundImageView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            backgroundImageView.trailingAnchor.constraint(equalTo: view.trailingAnchor)
         ])
     }
 }

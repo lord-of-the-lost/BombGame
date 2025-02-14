@@ -20,6 +20,9 @@ final class RuleView: UIView {
         let view = UIView()
         view.backgroundColor = Palette.mainBackground
         view.layer.cornerRadius = 14.5
+        view.layer.shadowOpacity = 0.3
+        view.layer.shadowOffset = CGSize(width: 0, height: 2)
+        view.layer.shadowRadius = 2
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
@@ -30,14 +33,16 @@ final class RuleView: UIView {
         label.textColor = .textPrimary
         label.setContentHuggingPriority(.defaultHigh, for: .vertical)
         label.numberOfLines = 0
+//        label.textAlignment
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
     
-    init(number: String, text: String) {
+    init(number: Int, text: String, aligment: NSTextAlignment) {
         super.init(frame: .zero)
-        self.numberLabel.text = number
+        self.numberLabel.text = "\(number)"
         self.ruleLabel.text = text
+        self.ruleLabel.textAlignment = aligment
         setupView()
         setupConstraints()
     }
