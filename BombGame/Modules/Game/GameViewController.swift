@@ -10,7 +10,6 @@ import Lottie
 
 
 final class GameViewController: UIViewController {
-    
     private var timer: Timer?
     private var timeLeft: Int = 5
     private var isTimerPaused: Bool = false
