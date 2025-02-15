@@ -99,18 +99,18 @@ private extension CategoryCell {
             
             iconView.bottomAnchor.constraint(equalTo: titleLabel.topAnchor, constant: -10),
             iconView.centerXAnchor.constraint(equalTo: roundedView.centerXAnchor),
-            iconView.widthAnchor.constraint(equalToConstant: 80),
-            iconView.heightAnchor.constraint(equalToConstant: 80),
+            iconView.widthAnchor.constraint(equalToConstant: 60),
+            iconView.heightAnchor.constraint(equalToConstant: 60),
             
             titleLabel.centerXAnchor.constraint(equalTo: roundedView.centerXAnchor),
-            titleLabel.bottomAnchor.constraint(equalTo: roundedView.bottomAnchor, constant: -16),
+            titleLabel.bottomAnchor.constraint(equalTo: roundedView.bottomAnchor, constant: -20),
             titleLabel.leadingAnchor.constraint(equalTo: roundedView.leadingAnchor, constant: 4),
             titleLabel.trailingAnchor.constraint(equalTo: roundedView.trailingAnchor, constant: -4),
             
-            checkView.leadingAnchor.constraint(equalTo: roundedView.leadingAnchor, constant: 14),
-            checkView.topAnchor.constraint(equalTo: roundedView.topAnchor, constant: 14),
-            checkView.widthAnchor.constraint(equalToConstant: 25),
-            checkView.heightAnchor.constraint(equalToConstant: 25),
+            checkView.leadingAnchor.constraint(equalTo: roundedView.leadingAnchor, constant: 5),
+            checkView.topAnchor.constraint(equalTo: roundedView.topAnchor, constant: 7),
+            checkView.widthAnchor.constraint(equalToConstant: 20),
+            checkView.heightAnchor.constraint(equalToConstant: 20),
         ])
     }
 }
