@@ -98,7 +98,11 @@ final class GameViewController: UIViewController {
         super.viewDidLoad()
         setupUI()
         setupConstraints()
-        setupNavBar()
+
+        setupNavigationBar(title: "Игра",
+                           rightIcon: UIImage(named: "pause"),
+                           rightAction: #selector(pauseButtonTapped)
+        )
         timer.delegate = self
     }
     
@@ -112,7 +116,9 @@ extension GameViewController: TimerDelegate {
         punishLabel.text = punishments.randomElement()
         punishLabel.isHidden = false
         newPunishButton.isHidden = false
-        title = "Конец игры"
+        setupNavigationBar(title: "Конец игры")
+        navigationItem.rightBarButtonItem?.isHidden = true
+        navigationItem.hidesBackButton = true
         startButton.isHidden = false
         startButton.setTitle("Начать заново", for: .normal)
         AudioPlayerService.shared.playSound(named: GameModel.Settings.Sounds.Boom.one.rawValue, repeatable: false)
@@ -208,6 +214,10 @@ private extension GameViewController {
         finalImageView.isHidden = true
         punishLabel.isHidden = true
         animationView.isHidden = false
+        navigationItem.rightBarButtonItem?.isHidden = false
+        setupNavigationBar(title: "Игра")
+        navigationItem.hidesBackButton = false
+
         animationView.play()
         setupGameUI()
         timer.startTimer()
@@ -216,13 +226,18 @@ private extension GameViewController {
     }
     
     @objc func pauseButtonTapped() {
-        timer.togglePause()
-        if timer.isPaused {
-            animationView.stop()
-            AudioPlayerService.shared.pause()
+        
+        if !startButton.isHidden {
+            return
         } else {
-            animationView.play()
-            AudioPlayerService.shared.resume()
+            timer.togglePause()
+            if timer.isPaused {
+                animationView.stop()
+                AudioPlayerService.shared.pause()
+            } else {
+                animationView.play()
+                AudioPlayerService.shared.resume()
+            }
         }
     }
     

@@ -37,6 +37,7 @@
 		F395CF8D2D5E7C07007EED4E /* boomThree.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = F395CF8B2D5E7C07007EED4E /* boomThree.mp3 */; };
 		F395CF902D5E7CE1007EED4E /* themeThree.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = F395CF8E2D5E7CE1007EED4E /* themeThree.mp3 */; };
 		F395CF912D5E7CE1007EED4E /* themeTwo.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = F395CF8F2D5E7CE1007EED4E /* themeTwo.mp3 */; };
+		F395CF932D600544007EED4E /* NavBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = F395CF922D600544007EED4E /* NavBar.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -71,6 +72,7 @@
 		F395CF8B2D5E7C07007EED4E /* boomThree.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = boomThree.mp3; sourceTree = "<group>"; };
 		F395CF8E2D5E7CE1007EED4E /* themeThree.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = themeThree.mp3; sourceTree = "<group>"; };
 		F395CF8F2D5E7CE1007EED4E /* themeTwo.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = themeTwo.mp3; sourceTree = "<group>"; };
+		F395CF922D600544007EED4E /* NavBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavBar.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -181,6 +183,7 @@
 				F33D64552D596B1700F3BBD7 /* CategoryCell.swift */,
 				F33D645A2D596B2A00F3BBD7 /* RoundedView.swift */,
 				47BDA93F2D5E915A00A43D29 /* RuleView.swift */,
+				F395CF922D600544007EED4E /* NavBar.swift */,
 			);
 			path = CommonUI;
 			sourceTree = "<group>";
@@ -355,6 +358,7 @@
 				F33D645B2D596B2A00F3BBD7 /* RoundedView.swift in Sources */,
 				6019B9D42D57E0A800E3F786 /* Palette.swift in Sources */,
 				47BDA93C2D5A28AE00A43D29 /* GameRulesViewController.swift in Sources */,
+				F395CF932D600544007EED4E /* NavBar.swift in Sources */,
 				F33D64592D596B2300F3BBD7 /* Constants.swift in Sources */,
 				F395CF722D5BB90B007EED4E /* GameViewController.swift in Sources */,
 				6019B9BB2D57DB6700E3F786 /* AppDelegate.swift in Sources */,
@@ -511,7 +515,7 @@
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
-				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -543,7 +547,7 @@
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
-				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

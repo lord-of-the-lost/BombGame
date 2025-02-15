@@ -47,6 +47,15 @@ final class RuleView: UIView {
         setupConstraints()
     }
     
+    init(number: Int, attributedText: NSAttributedString, alignment: NSTextAlignment) {
+            super.init(frame: .zero)
+            self.numberLabel.text = "\(number)"
+            self.ruleLabel.attributedText = attributedText
+            self.ruleLabel.textAlignment = alignment
+            setupView()
+            setupConstraints()
+        }
+    
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
