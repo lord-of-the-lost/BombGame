@@ -126,7 +126,7 @@ private extension HelpCategoryViewController {
 // MARK: - UICollectionViewDataSource
 extension HelpCategoryViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 2 // pfменить на 4 когда будут категории
+        return 4 // pfменить на 4 когда будут категории
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {

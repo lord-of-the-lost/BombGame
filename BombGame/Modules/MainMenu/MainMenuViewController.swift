@@ -63,6 +63,9 @@ final class MainMenuViewController: UIViewController {
         let button = CommonButton(title: "Старт игры", backgroundColor: UIColor(named: "MainViewButton") ?? .white)
         button.translatesAutoresizingMaskIntoConstraints = false
         button.addTarget(self, action: #selector(startGameButtonTapped), for: .touchUpInside)
+        button.layer.shadowOpacity = 0.3
+        button.layer.shadowOffset = CGSize(width: 0, height: 2)
+        button.layer.shadowRadius = 2
         return button
     }()
     
@@ -70,6 +73,9 @@ final class MainMenuViewController: UIViewController {
         let button = CommonButton(title: "Категории", backgroundColor: UIColor(named: "MainViewButton") ?? .white)
         button.translatesAutoresizingMaskIntoConstraints = false
         button.addTarget(self, action: #selector(categoryButtonTapped), for: .touchUpInside)
+        button.layer.shadowOpacity = 0.3
+        button.layer.shadowOffset = CGSize(width: 0, height: 2)
+        button.layer.shadowRadius = 2
         return button
     }()
     

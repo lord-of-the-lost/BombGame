@@ -23,7 +23,7 @@ final class GameViewController: UIViewController {
     private lazy var textLabel: UILabel = {
         let label = UILabel()
         label.text = "Нажмите \"Запустить\",\nчтобы начать игру"
-        label.font = UIFont.systemFont(ofSize: 24, weight: .medium)
+        label.font = Fonts.rounded(weight: 1, size: 28).font
         label.textAlignment = .center
         label.numberOfLines = 0
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -56,8 +56,11 @@ final class GameViewController: UIViewController {
         button.setTitle("Запустить", for: .normal)
         button.backgroundColor = UIColor.systemYellow
         button.setTitleColor(.black, for: .normal)
-        button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 18)
+        button.titleLabel?.font = Fonts.display(size: 20).font
         button.layer.cornerRadius = 10
+        button.layer.shadowOpacity = 0.3
+        button.layer.shadowOffset = CGSize(width: 0, height: 2)
+        button.layer.shadowRadius = 2
         button.addTarget(self, action: #selector(startPressed), for: .touchUpInside)
         button.translatesAutoresizingMaskIntoConstraints = false
         
@@ -69,8 +72,11 @@ final class GameViewController: UIViewController {
         button.setTitle("Другое задание", for: .normal)
         button.backgroundColor = UIColor.systemYellow
         button.setTitleColor(.black, for: .normal)
-        button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 18)
+        button.titleLabel?.font = Fonts.display(size: 20).font
         button.layer.cornerRadius = 10
+        button.layer.shadowOpacity = 0.3
+        button.layer.shadowOffset = CGSize(width: 0, height: 2)
+        button.layer.shadowRadius = 2
         button.isHidden = true
         button.translatesAutoresizingMaskIntoConstraints = false
         button.addTarget(self, action: #selector(otherPunishPressed), for: .touchUpInside)
@@ -79,10 +85,10 @@ final class GameViewController: UIViewController {
     
     private lazy var punishLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont.systemFont(ofSize: 20, weight: .medium)
+        label.font = Fonts.rounded(weight: 0, size: 28).font
         label.textAlignment = .center
         label.adjustsFontSizeToFitWidth = true
-        label.numberOfLines = 3
+        label.numberOfLines = 0
         label.isHidden = true
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
@@ -163,11 +169,11 @@ private extension GameViewController {
             startButton.heightAnchor.constraint(equalToConstant: 50),
             
             finalImageView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 50),
-            finalImageView.bottomAnchor.constraint(equalTo: punishLabel.topAnchor, constant: -20),
+            finalImageView.heightAnchor.constraint(equalToConstant: 300),
             finalImageView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 50),
             finalImageView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -50),
             
-            punishLabel.bottomAnchor.constraint(equalTo: newPunishButton.topAnchor, constant: -10),
+            punishLabel.bottomAnchor.constraint(equalTo: newPunishButton.topAnchor, constant: -40),
             punishLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             punishLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 30),
             punishLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -30),
