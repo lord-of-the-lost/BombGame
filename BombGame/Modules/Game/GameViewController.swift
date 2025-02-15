@@ -194,19 +194,29 @@ private extension GameViewController {
     }
     
     @objc func startPressed() {
-        textLabel.text = DataService.shared.getRandomQuestion()
-        textLabel.isHidden = false
+        setupNavigationBar(title: "Игра")
+        navigationItem.rightBarButtonItem?.isHidden = false
         finalImageView.isHidden = true
         punishLabel.isHidden = true
+        textLabel.isHidden = false
         animationView.isHidden = false
-        navigationItem.rightBarButtonItem?.isHidden = false
-        setupNavigationBar(title: "Игра")
-        navigationItem.hidesBackButton = false
-        
-        animationView.play()
-        setupGameUI()
-        timer.startTimer()
-        AudioPlayerService.shared.playSound(named: DataService.shared.gameModel.settings.counterSound.rawValue, repeatable: true)
+
+        if startButton.currentTitle == "Запустить"{
+            textLabel.text = DataService.shared.getRandomQuestion()
+            navigationItem.hidesBackButton = false
+            
+            animationView.play()
+            setupGameUI()
+            timer.startTimer()
+            AudioPlayerService.shared.playSound(named: DataService.shared.gameModel.settings.counterSound.rawValue, repeatable: true)
+        } else {
+            startButton.setTitle("Запустить", for: .normal)
+            animationView.stop()
+            AudioPlayerService.shared.stop()
+            textLabel.text = "Нажмите запустить, чтобы начать"
+            newPunishButton.isHidden = true
+            
+        }
     }
     
     @objc func pauseButtonTapped() {
