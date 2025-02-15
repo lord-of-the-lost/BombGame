@@ -18,7 +18,7 @@ final class RuleView: UIView {
     
     private lazy var circleView: UIView = {
         let view = UIView()
-        view.backgroundColor = Palette.mainBackground
+        view.backgroundColor = Palette.categorySheetBg
         view.layer.cornerRadius = 14.5
         view.layer.shadowOpacity = 0.3
         view.layer.shadowOffset = CGSize(width: 0, height: 2)
@@ -46,6 +46,15 @@ final class RuleView: UIView {
         setupView()
         setupConstraints()
     }
+    
+    init(number: Int, attributedText: NSAttributedString, alignment: NSTextAlignment) {
+            super.init(frame: .zero)
+            self.numberLabel.text = "\(number)"
+            self.ruleLabel.attributedText = attributedText
+            self.ruleLabel.textAlignment = alignment
+            setupView()
+            setupConstraints()
+        }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
