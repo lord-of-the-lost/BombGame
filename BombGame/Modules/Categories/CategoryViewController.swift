@@ -27,9 +27,13 @@ final class CategoryViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        setupNavigationBar()
+        setupNavBar()
         setupUI()
         setupConstraints()
+        
+        setupNavigationBar(title: "Категории",
+                           rightIcon: UIImage(named: "questYellow"),
+                           rightAction: #selector(questionButtonTapped))
     }
     
     override func viewDidLayoutSubviews() {
@@ -92,19 +96,20 @@ private extension CategoryViewController {
     func setupUI() {
         view.addSubview(collectionView)
         view.backgroundColor = .white
+        navigationItem.backButtonDisplayMode = .minimal
     }
     
-    func setupNavigationBar() {
-        title = "Категории"
-        let questionButton = UIBarButtonItem(
-            image: UIImage(systemName: "questionmark.circle.fill"),
-            style: .plain,
-            target: self,
-            action: #selector(questionButtonTapped)
-        )
-        
-        questionButton.tintColor = .yellow
-        navigationItem.rightBarButtonItem = questionButton
+    func setupNavBar() {
+//        title = "Категории"
+//        let questionButton = UIBarButtonItem(
+//            image: UIImage(systemName: "questionmark.circle.fill"),
+//            style: .plain,
+//            target: self,
+//            action: #selector(questionButtonTapped)
+//        )
+//        
+//        questionButton.tintColor = .yellow
+//        navigationItem.rightBarButtonItem = questionButton
     }
     
     func setupConstraints() {

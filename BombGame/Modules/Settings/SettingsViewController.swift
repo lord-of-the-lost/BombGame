@@ -118,6 +118,7 @@ final class SettingsViewController: UIViewController {
         setupConstraints()
         setupPickerConstraints()
         
+        setupNavigationBar(title: "Настройки")
         
     }
     
@@ -126,8 +127,9 @@ final class SettingsViewController: UIViewController {
 private extension SettingsViewController {
     
     func setupUI() {
-        title = "Настройки"
         view.backgroundColor = UIColor(named: "MainSheetBg")
+        navigationItem.backButtonDisplayMode = .minimal
+
         
         view.addSubview(backgroundImage)
         view.addSubview(musicPicker)
