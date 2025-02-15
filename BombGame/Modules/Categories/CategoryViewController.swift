@@ -27,7 +27,6 @@ final class CategoryViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        setupNavBar()
         setupUI()
         setupConstraints()
         
@@ -99,18 +98,7 @@ private extension CategoryViewController {
         navigationItem.backButtonDisplayMode = .minimal
     }
     
-    func setupNavBar() {
-//        title = "Категории"
-//        let questionButton = UIBarButtonItem(
-//            image: UIImage(systemName: "questionmark.circle.fill"),
-//            style: .plain,
-//            target: self,
-//            action: #selector(questionButtonTapped)
-//        )
-//        
-//        questionButton.tintColor = .yellow
-//        navigationItem.rightBarButtonItem = questionButton
-    }
+
     
     func setupConstraints() {
         NSLayoutConstraint.activate([
