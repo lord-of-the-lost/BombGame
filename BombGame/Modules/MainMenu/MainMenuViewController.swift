@@ -18,7 +18,6 @@ final class MainMenuViewController: UIViewController {
         return imageView
     }()
     
-    
     private lazy var settingsButton: UIButton = {
         let button = UIButton(frame: .init(x: 0, y: 0, width: 35, height: 35))
         button.setBackgroundImage(UIImage(resource: .settingsIcon), for: .normal)
@@ -85,6 +84,11 @@ final class MainMenuViewController: UIViewController {
         setupView()
         setupConstraints()
     }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        playThemeSound()
+    }
 }
 
 
@@ -107,6 +111,10 @@ private extension MainMenuViewController {
         
         navigationItem.leftBarButtonItem = settingsButton
         navigationItem.rightBarButtonItem = helpButton
+    }
+    
+    func playThemeSound() {
+        AudioPlayerService.shared.playSound(named: DataService.shared.gameModel.settings.themeSound.rawValue, repeatable: true)
     }
     
     func setupConstraints() {

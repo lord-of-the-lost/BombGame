@@ -334,6 +334,10 @@ private extension SettingsViewController {
         }
     }
     
+    func playThemeSound() {
+        AudioPlayerService.shared.playSound(named: DataService.shared.gameModel.settings.themeSound.rawValue, repeatable: true)
+    }
+    
     @objc func chooseLength(sender: UIButton) {
         shortButton.isSelected = false
         mediumButton.isSelected = false
@@ -423,6 +427,7 @@ extension SettingsViewController: UIPickerViewDelegate {
         case soundButton:
             if let theme = GameModel.Settings.Sounds.Theme.allCases.first(where: { $0.description == selectedDescription }) {
                 DataService.shared.gameModel.settings.themeSound = theme
+                playThemeSound()
             }
         case tickButton:
             if let counter = GameModel.Settings.Sounds.Counter.allCases.first(where: { $0.description == selectedDescription }) {

@@ -17,7 +17,6 @@ final class TimerService {
     var timeLeft = 0
     var isPaused = false
     
-    
     private var timer: Timer?
     
     func startTimer() {
