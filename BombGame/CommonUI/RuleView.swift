@@ -18,7 +18,7 @@ final class RuleView: UIView {
     
     private lazy var circleView: UIView = {
         let view = UIView()
-        view.backgroundColor = Palette.mainBackground
+        view.backgroundColor = Palette.gameViewButton
         view.layer.cornerRadius = 14.5
         view.layer.shadowOpacity = 0.3
         view.layer.shadowOffset = CGSize(width: 0, height: 2)
