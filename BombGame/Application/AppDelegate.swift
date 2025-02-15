@@ -25,7 +25,7 @@ final class AppDelegate: UIResponder, UIApplicationDelegate {
 // MARK: - Private Methods
 private extension AppDelegate {
     func startMusic() {
-        AudioPlayerService.shared.playSound(named: GameModel.Settings.Sounds.Theme.one.rawValue, repeatable: true)
+        AudioPlayerService.shared.playSound(named: DataService.shared.gameModel.settings.themeSound.rawValue, repeatable: true)
     }
 }
 
