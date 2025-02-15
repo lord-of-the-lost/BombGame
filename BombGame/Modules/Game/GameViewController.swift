@@ -27,7 +27,7 @@ final class GameViewController: UIViewController {
         label.textAlignment = .center
         label.numberOfLines = 0
         label.translatesAutoresizingMaskIntoConstraints = false
-
+        
         return label
     }()
     
@@ -37,7 +37,7 @@ final class GameViewController: UIViewController {
         animation.backgroundColor = .clear
         animation.loopMode = .loop
         animation.translatesAutoresizingMaskIntoConstraints = false
-
+        
         return animation
     }()
     
@@ -60,7 +60,7 @@ final class GameViewController: UIViewController {
         button.layer.cornerRadius = 10
         button.addTarget(self, action: #selector(startPressed), for: .touchUpInside)
         button.translatesAutoresizingMaskIntoConstraints = false
-
+        
         return button
     }()
     
@@ -92,7 +92,7 @@ final class GameViewController: UIViewController {
         super.viewDidLoad()
         setupUI()
         setupConstraints()
-
+        
         setupNavigationBar(title: "Игра",
                            rightIcon: UIImage(named: "pause"),
                            rightAction: #selector(pauseButtonTapped)
@@ -107,23 +107,20 @@ extension GameViewController: TimerDelegate {
         textLabel.isHidden = true
         animationView.isHidden = true
         finalImageView.isHidden = false
-        punishLabel.text = punishments.randomElement()
-        punishLabel.isHidden = false
-        newPunishButton.isHidden = false
+        showPunishIfNeeded()
         setupNavigationBar(title: "Конец игры")
         navigationItem.rightBarButtonItem?.isHidden = true
         navigationItem.hidesBackButton = true
         startButton.isHidden = false
         startButton.setTitle("Начать заново", for: .normal)
-        AudioPlayerService.shared.playSound(named: GameModel.Settings.Sounds.Boom.one.rawValue, repeatable: false)
+        AudioPlayerService.shared.playSound(named: DataService.shared.gameModel.settings.boomSound.rawValue, repeatable: false)
     }
 }
 
 // MARK: - Private Methods
 
 private extension GameViewController {
-    
-      func setupUI() {
+    func setupUI() {
         view.backgroundColor = .white
         
         view.addSubview(backgroundView)
@@ -135,7 +132,14 @@ private extension GameViewController {
         view.addSubview(newPunishButton)
     }
     
-      func setupConstraints() {
+    func showPunishIfNeeded() {
+        guard DataService.shared.gameModel.settings.punishmentsIsOn else { return }
+        punishLabel.text = punishments.randomElement()
+        punishLabel.isHidden = false
+        newPunishButton.isHidden = false
+    }
+    
+    func setupConstraints() {
         NSLayoutConstraint.activate([
             backgroundView.topAnchor.constraint(equalTo: view.topAnchor),
             backgroundView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
@@ -176,15 +180,13 @@ private extension GameViewController {
         ])
     }
     
-      func setupGameUI() {
+    func setupGameUI() {
         animationView.play()
         startButton.isHidden = true
         newPunishButton.isHidden = true
         textLabel.text = DataService.shared.getRandomQuestion()
     }
     
-
-   
     @objc func startPressed() {
         textLabel.text = DataService.shared.getRandomQuestion()
         textLabel.isHidden = false
@@ -194,12 +196,11 @@ private extension GameViewController {
         navigationItem.rightBarButtonItem?.isHidden = false
         setupNavigationBar(title: "Игра")
         navigationItem.hidesBackButton = false
-
+        
         animationView.play()
         setupGameUI()
         timer.startTimer()
-        AudioPlayerService.shared.playSound(named: GameModel.Settings.Sounds.Counter.one.rawValue, repeatable: true)
-        
+        AudioPlayerService.shared.playSound(named: DataService.shared.gameModel.settings.counterSound.rawValue, repeatable: true)
     }
     
     @objc func pauseButtonTapped() {

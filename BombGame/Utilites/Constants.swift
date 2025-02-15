@@ -11,7 +11,7 @@ struct GameModel {
     let rules: [String]
     var categories: [CategoryModel]
     let punishments: [String]
-    let settings: Settings
+    var settings: Settings
     
     struct CategoryModel {
         var isSelected: Bool
@@ -41,30 +41,67 @@ struct GameModel {
     }
     
     struct Settings {
-        var gameTime: UInt
+        var gameTime: GameTime
         var themeSound: Sounds.Theme
         var counterSound: Sounds.Counter
         var boomSound: Sounds.Boom
         var vibrationIsOn: Bool
-        var withPunishments: Bool
+        var punishmentsIsOn: Bool
+        
+        enum GameTime {
+            case short, middle, long, random
+            
+            var value: Int {
+                switch self {
+                case .short: 10
+                case .middle: 20
+                case .long: 45
+                case .random: Int.random(in: 10...45)
+                }
+            }
+        }
         
         enum Sounds {
-            enum Theme: String {
+            enum Theme: String, CaseIterable {
                 case one = "themeOne"
-                case two = "theme2"
-                case three = "theme3"
+                case two = "themeTwo"
+                case three = "themeThree"
+                
+                var description: String {
+                    switch self {
+                    case .one: "Мелодия 1"
+                    case .two: "Мелодия 2"
+                    case .three: "Мелодия 3"
+                    }
+                }
             }
             
-            enum Counter: String {
+            enum Counter: String, CaseIterable {
                 case one = "counterOne"
                 case two = "counterTwo"
                 case three = "counterThree"
+                
+                var description: String {
+                    switch self {
+                    case .one: "Часы 1"
+                    case .two: "Часы 2"
+                    case .three: "Часы 3"
+                    }
+                }
             }
             
-            enum Boom: String {
+            enum Boom: String, CaseIterable {
                 case one = "boomOne"
-                case two = "boom2"
-                case three = "boom3"
+                case two = "boomTwo"
+                case three = "boomThree"
+                
+                var description: String {
+                    switch self {
+                    case .one: "Взрыв 1"
+                    case .two: "Взрыв 2"
+                    case .three: "Взрыв 3"
+                    }
+                }
             }
         }
     }

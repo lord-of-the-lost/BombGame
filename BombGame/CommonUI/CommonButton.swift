@@ -31,7 +31,7 @@ private extension CommonButton {
     }
     
     @objc func touchAction() {
-        guard DataService.shared.getSettings().vibrationIsOn else { return }
+        guard DataService.shared.gameModel.settings.vibrationIsOn else { return }
         UIImpactFeedbackGenerator(style: .light).impactOccurred()
     }
 }

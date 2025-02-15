@@ -51,13 +51,13 @@ final class SettingsViewController: UIViewController {
     private lazy var vibrationLabel = createLabel(text: "Вибрация")
     private lazy var gameTasksLabel = createLabel(text: "Игра с заданиями")
     
-    private lazy var soundButton = createPickerButton(title: "Мелодия 1")
-    private lazy var tickButton = createPickerButton(title: "Часы 1")
-    private lazy var explosionButton = createPickerButton(title: "Взрыв 1")
+    private lazy var soundButton = createPickerButton(title: DataService.shared.gameModel.settings.themeSound.description)
+    private lazy var tickButton = createPickerButton(title: DataService.shared.gameModel.settings.counterSound.description)
+    private lazy var explosionButton = createPickerButton(title: DataService.shared.gameModel.settings.boomSound.description)
     
     private lazy var vibrationSwitch: UISwitch = {
         let toggle = UISwitch()
-        toggle.isOn = false
+        toggle.isOn = DataService.shared.gameModel.settings.vibrationIsOn
         toggle.onTintColor = UIColor(named: "GameViewButton")
         toggle.translatesAutoresizingMaskIntoConstraints = false
         toggle.addTarget(self, action: #selector(switchVibrationOn), for: .valueChanged)
@@ -66,7 +66,7 @@ final class SettingsViewController: UIViewController {
     
     private lazy var gameTasksSwitch: UISwitch = {
         let toggle = UISwitch()
-        toggle.isOn = true
+        toggle.isOn = DataService.shared.gameModel.settings.punishmentsIsOn
         toggle.onTintColor = UIColor(named: "GameViewButton")
         toggle.translatesAutoresizingMaskIntoConstraints = false
         toggle.addTarget(self, action: #selector(switchTasksOn), for: .valueChanged)
@@ -107,21 +107,26 @@ final class SettingsViewController: UIViewController {
     private var currentButton: UIButton?
     private var currentOptions: [String] = []
     
-    private lazy var musicOptions = ["Мелодия 1", "Мелодия 2", "Мелодия 3"]
-    private lazy var tickingOptions = ["Часы 1", "Часы 2", "Часы 3"]
-    private lazy var explosionOptions = ["Взрыв 1", "Взрыв 2", "Взрыв 3"]
+    private var musicOptions: [String] {
+        GameModel.Settings.Sounds.Theme.allCases.map { $0.description }
+    }
+    
+    private var tickingOptions: [String] {
+        GameModel.Settings.Sounds.Counter.allCases.map { $0.description }
+    }
+    
+    private var explosionOptions: [String] {
+        GameModel.Settings.Sounds.Boom.allCases.map { $0.description }
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         setupUI()
+        initialSetupTimeButtons()
         setupConstraints()
         setupPickerConstraints()
-        
         setupNavigationBar(title: "Настройки")
-        
     }
-    
 }
 
 private extension SettingsViewController {
@@ -315,6 +320,20 @@ private extension SettingsViewController {
         return view
     }
     
+    func initialSetupTimeButtons() {
+        let timeSettings = DataService.shared.gameModel.settings.gameTime
+        switch timeSettings {
+        case .short:
+            shortButton.backgroundColor = UIColor(named: "GameViewButton")
+        case .middle:
+            mediumButton.backgroundColor = UIColor(named: "GameViewButton")
+        case .long:
+            longButton.backgroundColor = UIColor(named: "GameViewButton")
+        case .random:
+            randomButton.backgroundColor = UIColor(named: "GameViewButton")
+        }
+    }
+    
     @objc func chooseLength(sender: UIButton) {
         shortButton.isSelected = false
         mediumButton.isSelected = false
@@ -326,28 +345,25 @@ private extension SettingsViewController {
         
         switch sender {
         case shortButton:
-            
             mediumButton.backgroundColor = UIColor(named: "TextPrimary")
             randomButton.backgroundColor = UIColor(named: "TextPrimary")
             longButton.backgroundColor = UIColor(named: "TextPrimary")
-            
+            DataService.shared.gameModel.settings.gameTime = .short
         case mediumButton:
-            
             shortButton.backgroundColor = UIColor(named: "TextPrimary")
             randomButton.backgroundColor = UIColor(named: "TextPrimary")
             longButton.backgroundColor = UIColor(named: "TextPrimary")
-            
-            
+            DataService.shared.gameModel.settings.gameTime = .middle
         case longButton:
-            
             mediumButton.backgroundColor = UIColor(named: "TextPrimary")
             shortButton.backgroundColor = UIColor(named: "TextPrimary")
             randomButton.backgroundColor = UIColor(named: "TextPrimary")
-            
+            DataService.shared.gameModel.settings.gameTime = .long
         default:
             mediumButton.backgroundColor = UIColor(named: "TextPrimary")
             shortButton.backgroundColor = UIColor(named: "TextPrimary")
             longButton.backgroundColor = UIColor(named: "TextPrimary")
+            DataService.shared.gameModel.settings.gameTime = .random
         }
     }
     
@@ -374,11 +390,11 @@ private extension SettingsViewController {
     }
     
     @objc func switchTasksOn() {
-        print("tasks on")
+        DataService.shared.togglePunishmentSettings()
     }
     
     @objc func switchVibrationOn() {
-        print("vibro on")
+        DataService.shared.toggleVibrationSettings()
     }
     
 }
@@ -391,7 +407,6 @@ extension SettingsViewController: UIPickerViewDataSource {
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
         currentOptions.count
     }
-    
 }
 
 extension SettingsViewController: UIPickerViewDelegate {
@@ -401,11 +416,27 @@ extension SettingsViewController: UIPickerViewDelegate {
     }
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        guard let currentButton else { return }
+        let selectedDescription = currentOptions[row]
         
-        let selectedOption = currentOptions[row]
-        currentButton?.setTitle(selectedOption, for: .normal)
-        print("Выбрано: \(selectedOption)")
+        switch currentButton {
+        case soundButton:
+            if let theme = GameModel.Settings.Sounds.Theme.allCases.first(where: { $0.description == selectedDescription }) {
+                DataService.shared.gameModel.settings.themeSound = theme
+            }
+        case tickButton:
+            if let counter = GameModel.Settings.Sounds.Counter.allCases.first(where: { $0.description == selectedDescription }) {
+                DataService.shared.gameModel.settings.counterSound = counter
+            }
+        case explosionButton:
+            if let boom = GameModel.Settings.Sounds.Boom.allCases.first(where: { $0.description == selectedDescription }) {
+                DataService.shared.gameModel.settings.boomSound = boom
+            }
+        default:
+            break
+        }
         
+        currentButton.setTitle(selectedDescription, for: .normal)
         pickerView.isHidden = true
     }
 }

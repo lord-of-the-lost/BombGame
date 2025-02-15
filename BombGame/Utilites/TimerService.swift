@@ -22,7 +22,7 @@ final class TimerService {
     
     func startTimer() {
         timer?.invalidate()
-        timeLeft = 5
+        timeLeft = DataService.shared.gameModel.settings.gameTime.value
         isPaused = false
         timer = Timer.scheduledTimer(
             timeInterval: 1,
@@ -51,6 +51,7 @@ final class TimerService {
         guard !isPaused else { return }
         if timeLeft > 0 {
             timeLeft -= 1
+            print(timeLeft)
         } else {
             handleTimerIsFinished()
         }

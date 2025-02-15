@@ -70,12 +70,12 @@ final class DataService {
                 "В следующем раунде все ответы говорить с серьёзным лицом, даже если это шутка."
             ],
             settings: GameModel.Settings(
-                gameTime: 5,
-                themeSound: .one,
+                gameTime: .short,
+                themeSound: .two,
                 counterSound: .one,
                 boomSound: .one,
                 vibrationIsOn: true,
-                withPunishments: true
+                punishmentsIsOn: true
             )
         )
     }
@@ -109,7 +109,11 @@ final class DataService {
         gameModel.rules
     }
     
-    func getSettings() -> GameModel.Settings {
-        gameModel.settings
+    func toggleVibrationSettings() {
+        gameModel.settings.vibrationIsOn.toggle()
+    }
+    
+    func togglePunishmentSettings() {
+        gameModel.settings.punishmentsIsOn.toggle()
     }
 }
