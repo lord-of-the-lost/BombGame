@@ -84,11 +84,6 @@ final class MainMenuViewController: UIViewController {
         setupView()
         setupConstraints()
     }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        playThemeSound()
-    }
 }
 
 
@@ -111,10 +106,6 @@ private extension MainMenuViewController {
         
         navigationItem.leftBarButtonItem = settingsButton
         navigationItem.rightBarButtonItem = helpButton
-    }
-    
-    func playThemeSound() {
-        AudioPlayerService.shared.playSound(named: DataService.shared.gameModel.settings.themeSound.rawValue, repeatable: true)
     }
     
     func setupConstraints() {

@@ -8,6 +8,21 @@
 import UIKit
 
 final class SettingsViewController: UIViewController {
+    private var currentButton: UIButton?
+    private var currentOptions: [String] = []
+    
+    private var musicOptions: [String] {
+        GameModel.Settings.Sounds.Theme.allCases.map { $0.description }
+    }
+    
+    private var tickingOptions: [String] {
+        GameModel.Settings.Sounds.Counter.allCases.map { $0.description }
+    }
+    
+    private var explosionOptions: [String] {
+        GameModel.Settings.Sounds.Boom.allCases.map { $0.description }
+    }
+    
     private lazy var soundStack = createStackView(with: [musicLabel, soundButton])
     private lazy var tickStack = createStackView(with: [tickingLabel, tickButton])
     private lazy var explosionStack = createStackView(with: [explosionLabel, explosionButton])
@@ -35,39 +50,24 @@ final class SettingsViewController: UIViewController {
     private lazy var tickButton = createPickerButton(title: DataService.shared.gameModel.settings.counterSound.description)
     private lazy var explosionButton = createPickerButton(title: DataService.shared.gameModel.settings.boomSound.description)
     
-    private var currentButton: UIButton?
-    private var currentOptions: [String] = []
-    
-    private var musicOptions: [String] {
-        GameModel.Settings.Sounds.Theme.allCases.map { $0.description }
-    }
-    
-    private var tickingOptions: [String] {
-        GameModel.Settings.Sounds.Counter.allCases.map { $0.description }
-    }
-    
-    private var explosionOptions: [String] {
-        GameModel.Settings.Sounds.Boom.allCases.map { $0.description }
-    }
-    
     private lazy var firstView: RoundedView = {
         let view = RoundedView()
+        view.backgroundColor = Palette.categoryCellBg
         view.translatesAutoresizingMaskIntoConstraints = false
-        view.backgroundColor = UIColor(named: "CategoryCellBg")
         return view
     }()
     
     private lazy var secView: RoundedView = {
         let view = RoundedView()
-        view.translatesAutoresizingMaskIntoConstraints = false
         view.backgroundColor = UIColor(named: "CategoryCellBg")
+        view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
     
     private lazy var thirdView: RoundedView = {
         let view = RoundedView()
-        view.translatesAutoresizingMaskIntoConstraints = false
         view.backgroundColor = UIColor(named: "CategoryCellBg")
+        view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
     
@@ -85,18 +85,18 @@ final class SettingsViewController: UIViewController {
     private lazy var vibrationSwitch: UISwitch = {
         let toggle = UISwitch()
         toggle.isOn = DataService.shared.gameModel.settings.vibrationIsOn
-        toggle.onTintColor = UIColor(named: "GameViewButton")
-        toggle.translatesAutoresizingMaskIntoConstraints = false
+        toggle.onTintColor = Palette.gameViewButton
         toggle.addTarget(self, action: #selector(switchVibrationOn), for: .valueChanged)
+        toggle.translatesAutoresizingMaskIntoConstraints = false
         return toggle
     }()
     
     private lazy var gameTasksSwitch: UISwitch = {
         let toggle = UISwitch()
         toggle.isOn = DataService.shared.gameModel.settings.punishmentsIsOn
-        toggle.onTintColor = UIColor(named: "GameViewButton")
-        toggle.translatesAutoresizingMaskIntoConstraints = false
+        toggle.onTintColor = Palette.gameViewButton
         toggle.addTarget(self, action: #selector(switchTasksOn), for: .valueChanged)
+        toggle.translatesAutoresizingMaskIntoConstraints = false
         return toggle
     }()
     
@@ -123,21 +123,17 @@ final class SettingsViewController: UIViewController {
         setupUI()
         initialSetupTimeButtons()
         setupConstraints()
-        setupPickerConstraints()
         setupNavigationBar(title: "Настройки")
     }
 }
 
+// MARK: - Private Methods
 private extension SettingsViewController {
-    
     func setupUI() {
-        view.backgroundColor = UIColor(named: "MainSheetBg")
-        navigationItem.backButtonDisplayMode = .minimal
-
+        view.backgroundColor = Palette.mainSheetBg
         
         view.addSubview(backgroundImage)
         view.addSubview(musicPicker)
-        
         view.addSubview(firstView)
         view.addSubview(secView)
         view.addSubview(thirdView)
@@ -160,6 +156,81 @@ private extension SettingsViewController {
         blackView3.addSubview(explosionStack)
         blackView4.addSubview(vibrationStack)
         blackView5.addSubview(gameTasksStack)
+    }
+    
+    func createButton(title: String) -> UIButton {
+        let button = UIButton()
+        button.setTitle(title, for: .normal)
+        button.setTitleColor(.white, for: .normal)
+        button.backgroundColor = Palette.textPrimary
+        button.layer.cornerRadius = 12
+        button.titleLabel?.font = Fonts.rounded(weight: 900, size: 16).font
+        button.addTarget(self, action: #selector(chooseLength), for: .touchUpInside)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        return button
+    }
+    
+    func createPickerButton(title: String) -> UIButton {
+        var config = UIButton.Configuration.plain()
+        config.title = title
+        config.baseForegroundColor = .systemGray
+        config.image = UIImage(systemName: "chevron.right")
+        config.imagePlacement = .trailing
+        config.imagePadding = 8
+        config.buttonSize = .small
+        let button = UIButton(configuration: config, primaryAction: nil)
+        button.addTarget(self, action: #selector(showPicker), for: .touchUpInside)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        return button
+    }
+    
+    func createLabel(text: String) -> UILabel {
+        let label = UILabel()
+        label.text = text
+        label.font = Fonts.rounded(weight: 900, size: 16).font
+        label.textColor = Palette.textSecondary
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }
+    
+    func createStackView(with arrangedSubviews: [UIView]) -> UIStackView {
+        let stack = UIStackView(arrangedSubviews: arrangedSubviews)
+        stack.axis = .horizontal
+        stack.alignment = .center
+        stack.distribution = .equalCentering
+        stack.translatesAutoresizingMaskIntoConstraints = false
+        return stack
+    }
+    
+    func createBlackView() -> UIView {
+        let view = RoundedView()
+        view.backgroundColor = Palette.textPrimary
+        view.layer.shadowOpacity = 0
+        view.layer.cornerRadius = 12
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }
+    
+    func initialSetupTimeButtons() {
+        let timeSettings = DataService.shared.gameModel.settings.gameTime
+        switch timeSettings {
+        case .short:
+            shortButton.backgroundColor = Palette.gameViewButton
+        case .middle:
+            mediumButton.backgroundColor = Palette.gameViewButton
+        case .long:
+            longButton.backgroundColor = Palette.gameViewButton
+        case .random:
+            randomButton.backgroundColor = Palette.gameViewButton
+        }
+    }
+    
+    func playThemeSound() {
+        AudioPlayerService.shared.playSound(
+            named: DataService.shared.gameModel.settings.themeSound.rawValue,
+            type: .background,
+            repeatable: true
+        )
     }
     
     func setupConstraints() {
@@ -248,87 +319,11 @@ private extension SettingsViewController {
             backgroundImage.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             backgroundImage.bottomAnchor.constraint(equalTo: view.bottomAnchor),
             
-        ])
-    }
-    
-    func setupPickerConstraints() {
-        NSLayoutConstraint.activate([
             musicPicker.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
             musicPicker.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             musicPicker.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             musicPicker.heightAnchor.constraint(equalToConstant: 150)
         ])
-    }
-    
-    func createButton(title: String) -> UIButton {
-        let button = UIButton()
-        button.setTitle(title, for: .normal)
-        button.setTitleColor(.white, for: .normal)
-        button.backgroundColor = Palette.textPrimary
-        button.layer.cornerRadius = 12
-        button.titleLabel?.font = Fonts.rounded(weight: 900, size: 16).font
-        button.addTarget(self, action: #selector(chooseLength), for: .touchUpInside)
-        button.translatesAutoresizingMaskIntoConstraints = false
-        return button
-    }
-    
-    func createPickerButton(title: String) -> UIButton {
-        var config = UIButton.Configuration.plain()
-        config.title = title
-        config.baseForegroundColor = .systemGray
-        config.image = UIImage(systemName: "chevron.right")
-        config.imagePlacement = .trailing
-        config.imagePadding = 8
-        config.buttonSize = .small
-        let button = UIButton(configuration: config, primaryAction: nil)
-        button.addTarget(self, action: #selector(showPicker), for: .touchUpInside)
-        button.translatesAutoresizingMaskIntoConstraints = false
-        return button
-    }
-    
-    func createLabel(text: String) -> UILabel {
-        let label = UILabel()
-        label.text = text
-        label.font = Fonts.rounded(weight: 900, size: 16).font
-        label.textColor = Palette.textSecondary
-        label.translatesAutoresizingMaskIntoConstraints = false
-        return label
-    }
-    
-    func createStackView(with arrangedSubviews: [UIView]) -> UIStackView {
-        let stack = UIStackView(arrangedSubviews: arrangedSubviews)
-        stack.axis = .horizontal
-        stack.alignment = .center
-        stack.distribution = .equalCentering
-        stack.translatesAutoresizingMaskIntoConstraints = false
-        return stack
-    }
-    
-    func createBlackView() -> UIView {
-        let view = RoundedView()
-        view.backgroundColor = Palette.textPrimary
-        view.layer.shadowOpacity = 0
-        view.layer.cornerRadius = 12
-        view.translatesAutoresizingMaskIntoConstraints = false
-        return view
-    }
-    
-    func initialSetupTimeButtons() {
-        let timeSettings = DataService.shared.gameModel.settings.gameTime
-        switch timeSettings {
-        case .short:
-            shortButton.backgroundColor = Palette.gameViewButton
-        case .middle:
-            mediumButton.backgroundColor = Palette.gameViewButton
-        case .long:
-            longButton.backgroundColor = Palette.gameViewButton
-        case .random:
-            randomButton.backgroundColor = Palette.gameViewButton
-        }
-    }
-    
-    func playThemeSound() {
-        AudioPlayerService.shared.playSound(named: DataService.shared.gameModel.settings.themeSound.rawValue, repeatable: true)
     }
     
     @objc func chooseLength(sender: UIButton) {
@@ -380,9 +375,7 @@ private extension SettingsViewController {
         
         musicPicker.reloadAllComponents()
         musicPicker.isHidden = false
-        
         view.bringSubviewToFront(musicPicker)
-        
     }
     
     @objc func switchTasksOn() {
@@ -406,7 +399,6 @@ extension SettingsViewController: UIPickerViewDataSource {
 }
 
 extension SettingsViewController: UIPickerViewDelegate {
-    
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
         currentOptions[row]
     }

@@ -8,9 +8,9 @@
 import UIKit
 import Lottie
 
-
 final class GameViewController: UIViewController {
     private let timer = TimerService()
+    private let player = AudioPlayerService.shared
     
     private lazy var backgroundView: UIImageView = {
         let imageView = UIImageView()
@@ -23,7 +23,8 @@ final class GameViewController: UIViewController {
     private lazy var textLabel: UILabel = {
         let label = UILabel()
         label.text = "Нажмите \"Запустить\",\nчтобы начать игру"
-        label.font = Fonts.rounded(weight: 1, size: 28).font
+        label.font = Fonts.rounded(weight: 500, size: 28).font
+        label.textColor = Palette.textPrimary
         label.textAlignment = .center
         label.numberOfLines = 0
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -43,7 +44,7 @@ final class GameViewController: UIViewController {
     
     private lazy var finalImageView: UIImageView = {
         let imageView = UIImageView()
-        imageView.image = UIImage(named: "explosion")
+        imageView.image = UIImage(resource: .explosion)
         imageView.contentMode = .scaleAspectFit
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.tintColor = UIColor.black
@@ -51,41 +52,25 @@ final class GameViewController: UIViewController {
         return imageView
     }()
     
-    private lazy var startButton: UIButton = {
-        let button = UIButton()
-        button.setTitle("Запустить", for: .normal)
-        button.backgroundColor = UIColor.systemYellow
-        button.setTitleColor(.black, for: .normal)
-        button.titleLabel?.font = Fonts.display(size: 20).font
-        button.layer.cornerRadius = 10
-        button.layer.shadowOpacity = 0.3
-        button.layer.shadowOffset = CGSize(width: 0, height: 2)
-        button.layer.shadowRadius = 2
+    private lazy var startButton: CommonButton = {
+        let button = CommonButton(title: "Запустить", backgroundColor: Palette.gameViewButton)
         button.addTarget(self, action: #selector(startPressed), for: .touchUpInside)
         button.translatesAutoresizingMaskIntoConstraints = false
-        
         return button
     }()
     
-    private lazy var newPunishButton: UIButton = {
-        let button = UIButton()
-        button.setTitle("Другое задание", for: .normal)
-        button.backgroundColor = UIColor.systemYellow
-        button.setTitleColor(.black, for: .normal)
-        button.titleLabel?.font = Fonts.display(size: 20).font
-        button.layer.cornerRadius = 10
-        button.layer.shadowOpacity = 0.3
-        button.layer.shadowOffset = CGSize(width: 0, height: 2)
-        button.layer.shadowRadius = 2
+    private lazy var newPunishButton: CommonButton = {
+        let button = CommonButton(title: "Другое задание", backgroundColor: Palette.gameViewButton)
         button.isHidden = true
-        button.translatesAutoresizingMaskIntoConstraints = false
         button.addTarget(self, action: #selector(otherPunishPressed), for: .touchUpInside)
+        button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
     
     private lazy var punishLabel: UILabel = {
         let label = UILabel()
-        label.font = Fonts.rounded(weight: 0, size: 28).font
+        label.font = Fonts.rounded(weight: 600, size: 28).font
+        label.textColor = Palette.textPrimary
         label.textAlignment = .center
         label.adjustsFontSizeToFitWidth = true
         label.numberOfLines = 0
@@ -99,13 +84,19 @@ final class GameViewController: UIViewController {
         setupUI()
         setupConstraints()
         
-        setupNavigationBar(title: "Игра",
-                           rightIcon: UIImage(named: "pause"),
-                           rightAction: #selector(pauseButtonTapped)
+        setupNavigationBar(
+            title: "Игра",
+            rightIcon: UIImage(named: "pause"),
+            rightAction: #selector(pauseButtonTapped)
         )
         timer.delegate = self
     }
     
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        player.stop()
+        timer.stopTimer()
+    }
 }
 
 extension GameViewController: TimerDelegate {
@@ -119,7 +110,7 @@ extension GameViewController: TimerDelegate {
         navigationItem.hidesBackButton = true
         startButton.isHidden = false
         startButton.setTitle("Начать заново", for: .normal)
-        AudioPlayerService.shared.playSound(named: DataService.shared.gameModel.settings.boomSound.rawValue, repeatable: false)
+        player.playSound(named: DataService.shared.gameModel.settings.boomSound.rawValue, repeatable: false)
     }
 }
 
@@ -153,7 +144,6 @@ private extension GameViewController {
             backgroundView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
             
             textLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 30),
-            textLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             textLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 40),
             textLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -40),
             
@@ -162,10 +152,9 @@ private extension GameViewController {
             animationView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 40),
             animationView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -40),
             
-            startButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -60),
-            startButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            startButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 50),
-            startButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -50),
+            startButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -16),
+            startButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 30),
+            startButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -30),
             startButton.heightAnchor.constraint(equalToConstant: 50),
             
             finalImageView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 50),
@@ -174,14 +163,13 @@ private extension GameViewController {
             finalImageView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -50),
             
             punishLabel.bottomAnchor.constraint(equalTo: newPunishButton.topAnchor, constant: -40),
-            punishLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             punishLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 30),
             punishLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -30),
+            punishLabel.topAnchor.constraint(equalTo: finalImageView.bottomAnchor, constant: 10),
             
             newPunishButton.bottomAnchor.constraint(equalTo: startButton.topAnchor, constant: -10),
-            newPunishButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            newPunishButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 50),
-            newPunishButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -50),
+            newPunishButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 30),
+            newPunishButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -30),
             newPunishButton.heightAnchor.constraint(equalToConstant: 50)
         ])
     }
@@ -202,36 +190,37 @@ private extension GameViewController {
         animationView.isHidden = false
         navigationItem.hidesBackButton = false
 
-        if startButton.currentTitle == "Запустить"{
+        if startButton.currentTitle == "Запустить" {
             textLabel.text = DataService.shared.getRandomQuestion()
             navigationItem.hidesBackButton = false
             
             animationView.play()
             setupGameUI()
             timer.startTimer()
-            AudioPlayerService.shared.playSound(named: DataService.shared.gameModel.settings.counterSound.rawValue, repeatable: true)
+            player.playSound(
+                named: DataService.shared.gameModel.settings.counterSound.rawValue,
+                repeatable: true
+            )
         } else {
             startButton.setTitle("Запустить", for: .normal)
             animationView.stop()
-            AudioPlayerService.shared.stop()
+            player.stop()
             textLabel.text = "Нажмите запустить, чтобы начать"
             newPunishButton.isHidden = true
-            
         }
     }
     
     @objc func pauseButtonTapped() {
-        
         if !startButton.isHidden {
             return
         } else {
             timer.togglePause()
             if timer.isPaused {
                 animationView.stop()
-                AudioPlayerService.shared.pause()
+                player.pause()
             } else {
                 animationView.play()
-                AudioPlayerService.shared.resume()
+                player.resume()
             }
         }
     }
@@ -240,5 +229,3 @@ private extension GameViewController {
         punishLabel.text = punishments.randomElement()
     }
 }
-
-//#Preview { GameViewController() }
