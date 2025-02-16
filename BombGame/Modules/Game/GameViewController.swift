@@ -14,7 +14,7 @@ final class GameViewController: UIViewController {
     
     private lazy var backgroundView: UIImageView = {
         let imageView = UIImageView()
-        imageView.image = UIImage(named: "backgroundView")
+        imageView.image = UIImage(resource: .backgroundView)
         imageView.contentMode = .scaleToFill
         imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView

@@ -9,6 +9,14 @@ import UIKit
 
 final class CategoryViewController: UIViewController {
     
+    private lazy var backgroundImage: UIImageView = {
+        let imageView = UIImageView()
+        imageView.image = UIImage(resource: .backgroundView)
+        imageView.contentMode = .scaleAspectFill
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        return imageView
+    }()
+    
     private lazy var collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
@@ -30,9 +38,11 @@ final class CategoryViewController: UIViewController {
         setupUI()
         setupConstraints()
         
-        setupNavigationBar(title: "Категории",
-                           rightIcon: UIImage(named: "questYellow"),
-                           rightAction: #selector(questionButtonTapped))
+        setupNavigationBar(
+            title: "Категории",
+            rightIcon: UIImage(named: "questYellow"),
+            rightAction: #selector(questionButtonTapped)
+        )
     }
     
     override func viewDidLayoutSubviews() {
@@ -66,7 +76,7 @@ extension CategoryViewController: UICollectionViewDataSource {
         }
         
         let category = DataService.shared.getAllCategories()[indexPath.item].category
-       
+        
         cell.configure(with: category, needCheckmark: false)
         cell.isCellSelected = DataService.shared.getAllCategories()[indexPath.item].isSelected
         return cell
@@ -93,15 +103,18 @@ private extension CategoryViewController {
     }
     
     func setupUI() {
+        view.addSubview(backgroundImage)
         view.addSubview(collectionView)
         view.backgroundColor = .white
-        navigationItem.backButtonDisplayMode = .minimal
     }
-    
-
     
     func setupConstraints() {
         NSLayoutConstraint.activate([
+            backgroundImage.topAnchor.constraint(equalTo: view.topAnchor),
+            backgroundImage.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            backgroundImage.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            backgroundImage.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            
             collectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
             collectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
             collectionView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20),
@@ -120,6 +133,3 @@ private extension CategoryViewController {
         present(modalViewController, animated: true)
     }
 }
-
-
-//#Preview {CategoryViewController () }
