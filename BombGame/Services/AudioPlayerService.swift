@@ -21,7 +21,7 @@ final class AudioPlayerService {
     
     func playSound(named fileName: String, type: AudioPlayerType = .game, repeatable: Bool = false) {
         guard let url = Bundle.main.url(forResource: fileName, withExtension: "mp3") else {
-            print("Файл \(fileName) не найден")
+            ConsoleLogger.i("Файл \(fileName) не найден")
             return
         }
         
@@ -40,7 +40,7 @@ final class AudioPlayerService {
                 gamePlayer?.play()
             }
         } catch {
-            print("Ошибка при воспроизведении звука: \(error.localizedDescription)")
+            ConsoleLogger.i("Ошибка при воспроизведении звука: \(error.localizedDescription)")
         }
     }
     

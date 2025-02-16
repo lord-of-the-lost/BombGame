@@ -7,12 +7,10 @@
 
 import UIKit
 
-
 final class MainMenuViewController: UIViewController {
-    
     private lazy var backgroundView: UIImageView = {
         let imageView = UIImageView()
-        imageView.image = UIImage(named: "backgroundView")?.withTintColor(.textureStroke, renderingMode: .alwaysOriginal)
+        imageView.image = UIImage(resource: .backgroundView).withTintColor(.textureStroke, renderingMode: .alwaysOriginal)
         imageView.contentMode = .scaleToFill
         imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView
@@ -36,7 +34,7 @@ final class MainMenuViewController: UIViewController {
         let label = UILabel()
         label.text = "ИГРА ДЛЯ КОМПАНИИ"
         label.font = Fonts.rounded(weight: 500, size: 28).font
-        label.textColor = UIColor(named: "TextPrimary")
+        label.textColor = Palette.textPrimary
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -45,7 +43,7 @@ final class MainMenuViewController: UIViewController {
         let label = UILabel()
         label.text = "БОМБА"
         label.font = Fonts.rounded(weight: 900, size: 48).font
-        label.textColor = UIColor(named: "TextPrimary")
+        label.textColor = Palette.textPrimary
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -101,7 +99,6 @@ private extension MainMenuViewController {
     
     func setupNavigationBar() {
         let settingsButton = UIBarButtonItem(customView: settingsButton)
-        
         let helpButton = UIBarButtonItem(customView: helpButton)
         
         navigationItem.leftBarButtonItem = settingsButton

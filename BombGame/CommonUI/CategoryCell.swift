@@ -8,7 +8,6 @@
 import UIKit
 
 final class CategoryCell: UICollectionViewCell {
-    
     static let identifier = "CategoryCell"
     
     var isCellSelected: Bool = false {

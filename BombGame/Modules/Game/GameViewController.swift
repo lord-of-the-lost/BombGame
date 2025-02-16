@@ -107,7 +107,7 @@ extension GameViewController: TimerDelegate {
         showPunishIfNeeded()
         setupNavigationBar(title: "Конец игры")
         navigationItem.rightBarButtonItem?.isHidden = true
-        navigationItem.hidesBackButton = true
+        navigationItem.leftBarButtonItem?.isHidden = true
         startButton.isHidden = false
         startButton.setTitle("Начать заново", for: .normal)
         player.playSound(named: DataService.shared.gameModel.settings.boomSound.rawValue, repeatable: false)
@@ -131,7 +131,7 @@ private extension GameViewController {
     
     func showPunishIfNeeded() {
         guard DataService.shared.gameModel.settings.punishmentsIsOn else { return }
-        punishLabel.text = punishments.randomElement()
+        punishLabel.text = DataService.shared.getRandomPunishment()
         punishLabel.isHidden = false
         newPunishButton.isHidden = false
     }
@@ -184,11 +184,11 @@ private extension GameViewController {
     @objc func startPressed() {
         setupNavigationBar(title: "Игра")
         navigationItem.rightBarButtonItem?.isHidden = false
+        navigationItem.leftBarButtonItem?.isHidden = false
         finalImageView.isHidden = true
         punishLabel.isHidden = true
         textLabel.isHidden = false
         animationView.isHidden = false
-        navigationItem.hidesBackButton = false
 
         if startButton.currentTitle == "Запустить" {
             textLabel.text = DataService.shared.getRandomQuestion()
@@ -226,6 +226,6 @@ private extension GameViewController {
     }
     
     @objc func otherPunishPressed() {
-        punishLabel.text = punishments.randomElement()
+        punishLabel.text = DataService.shared.getRandomPunishment()
     }
 }

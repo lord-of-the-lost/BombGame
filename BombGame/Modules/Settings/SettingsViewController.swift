@@ -233,6 +233,10 @@ private extension SettingsViewController {
         )
     }
     
+    func indexForCurrentValue(in options: [String], currentValue: String) -> Int {
+        options.firstIndex(of: currentValue) ?? 0
+    }
+    
     func setupConstraints() {
         NSLayoutConstraint.activate([
             firstView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 16),
@@ -365,10 +369,25 @@ private extension SettingsViewController {
         switch sender {
         case soundButton:
             currentOptions = musicOptions
+            let currentTheme = DataService.shared.gameModel.settings.themeSound.description
+            if let index = currentOptions.firstIndex(of: currentTheme) {
+                musicPicker.selectRow(index, inComponent: 0, animated: false)
+            }
+            
         case tickButton:
             currentOptions = tickingOptions
+            let currentCounter = DataService.shared.gameModel.settings.counterSound.description
+            if let index = currentOptions.firstIndex(of: currentCounter) {
+                musicPicker.selectRow(index, inComponent: 0, animated: false)
+            }
+            
         case explosionButton:
             currentOptions = explosionOptions
+            let currentBoom = DataService.shared.gameModel.settings.boomSound.description
+            if let index = currentOptions.firstIndex(of: currentBoom) {
+                musicPicker.selectRow(index, inComponent: 0, animated: false)
+            }
+            
         default:
             return
         }

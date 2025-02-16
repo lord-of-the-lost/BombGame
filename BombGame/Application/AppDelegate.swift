@@ -19,7 +19,17 @@ final class AppDelegate: UIResponder, UIApplicationDelegate {
         window?.overrideUserInterfaceStyle = .dark
         window?.makeKeyAndVisible()
         playThemeSound()
+        
         return true
+    }
+    
+    func applicationDidEnterBackground(_ application: UIApplication) {
+        AudioPlayerService.shared.pause(type: .background)
+        AudioPlayerService.shared.pause(type: .game)
+    }
+    
+    func applicationWillEnterForeground(_ application: UIApplication) {
+        AudioPlayerService.shared.resume(type: .background)
     }
 }
 

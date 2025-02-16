@@ -84,6 +84,7 @@ private extension GameRulesViewController {
     }
     
     func addRules() {
+        let rules = DataService.shared.getRules()
         for (index, element) in rules.enumerated() {
             let number = index + 1
             let alignment: NSTextAlignment = index == 1 ? .center : .left
