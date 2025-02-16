@@ -25,9 +25,10 @@
 		60409E222D5F8B1B005430DD /* DataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60409E212D5F8B1B005430DD /* DataService.swift */; };
 		60409E252D61C1F5005430DD /* UIViewController+extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60409E242D61C1F5005430DD /* UIViewController+extension.swift */; };
 		60409E2B2D61DD62005430DD /* launchScreen.png in Resources */ = {isa = PBXBuildFile; fileRef = 60409E2A2D61DD62005430DD /* launchScreen.png */; };
+		60409E2F2D61F8D4005430DD /* ConsoleLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60409E2E2D61F8D4005430DD /* ConsoleLogger.swift */; };
 		F33D64562D596B1700F3BBD7 /* CategoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F33D64542D596B1700F3BBD7 /* CategoryViewController.swift */; };
 		F33D64572D596B1700F3BBD7 /* CategoryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F33D64552D596B1700F3BBD7 /* CategoryCell.swift */; };
-		F33D64592D596B2300F3BBD7 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = F33D64582D596B2300F3BBD7 /* Constants.swift */; };
+		F33D64592D596B2300F3BBD7 /* GameModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F33D64582D596B2300F3BBD7 /* GameModel.swift */; };
 		F33D645B2D596B2A00F3BBD7 /* RoundedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F33D645A2D596B2A00F3BBD7 /* RoundedView.swift */; };
 		F395CF722D5BB90B007EED4E /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F395CF712D5BB90B007EED4E /* GameViewController.swift */; };
 		F395CF762D5BB970007EED4E /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = F395CF752D5BB970007EED4E /* Lottie */; };
@@ -61,10 +62,11 @@
 		60409E212D5F8B1B005430DD /* DataService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataService.swift; sourceTree = "<group>"; };
 		60409E242D61C1F5005430DD /* UIViewController+extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+extension.swift"; sourceTree = "<group>"; };
 		60409E2A2D61DD62005430DD /* launchScreen.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = launchScreen.png; sourceTree = "<group>"; };
+		60409E2E2D61F8D4005430DD /* ConsoleLogger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConsoleLogger.swift; sourceTree = "<group>"; };
 		7C4040CC2D5D1C9800BDCEBD /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		F33D64542D596B1700F3BBD7 /* CategoryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CategoryViewController.swift; path = BombGame/Modules/Categories/CategoryViewController.swift; sourceTree = SOURCE_ROOT; };
 		F33D64552D596B1700F3BBD7 /* CategoryCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CategoryCell.swift; path = BombGame/CommonUI/CategoryCell.swift; sourceTree = SOURCE_ROOT; };
-		F33D64582D596B2300F3BBD7 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Constants.swift; path = BombGame/Utilites/Constants.swift; sourceTree = SOURCE_ROOT; };
+		F33D64582D596B2300F3BBD7 /* GameModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = GameModel.swift; path = BombGame/Services/Data/GameModel.swift; sourceTree = SOURCE_ROOT; };
 		F33D645A2D596B2A00F3BBD7 /* RoundedView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RoundedView.swift; path = BombGame/CommonUI/RoundedView.swift; sourceTree = SOURCE_ROOT; };
 		F395CF712D5BB90B007EED4E /* GameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameViewController.swift; sourceTree = "<group>"; };
 		F395CF7B2D5BEA95007EED4E /* bomb.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = bomb.json; sourceTree = "<group>"; };
@@ -120,6 +122,7 @@
 				6019B9DE2D57EFAE00E3F786 /* CommonUI */,
 				60409E232D61C1DF005430DD /* Extensions */,
 				6019B9CF2D57DDC400E3F786 /* Modules */,
+				60409E2C2D61F4A5005430DD /* Services */,
 				6019B9D22D57E08200E3F786 /* Utilites */,
 				6019B9D02D57DDD400E3F786 /* Resources */,
 			);
@@ -172,10 +175,7 @@
 			children = (
 				6019B9D32D57E0A800E3F786 /* Palette.swift */,
 				6019B9D52D57E0ED00E3F786 /* Fonts.swift */,
-				F33D64582D596B2300F3BBD7 /* Constants.swift */,
-				6019B9E82D5A9DA000E3F786 /* AudioPlayerService.swift */,
-				60409E1F2D5F8AF2005430DD /* TimerService.swift */,
-				60409E212D5F8B1B005430DD /* DataService.swift */,
+				60409E2E2D61F8D4005430DD /* ConsoleLogger.swift */,
 			);
 			path = Utilites;
 			sourceTree = "<group>";
@@ -245,6 +245,25 @@
 				60409E242D61C1F5005430DD /* UIViewController+extension.swift */,
 			);
 			path = Extensions;
+			sourceTree = "<group>";
+		};
+		60409E2C2D61F4A5005430DD /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				6019B9E82D5A9DA000E3F786 /* AudioPlayerService.swift */,
+				60409E1F2D5F8AF2005430DD /* TimerService.swift */,
+				60409E2D2D61F4C0005430DD /* Data */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+		60409E2D2D61F4C0005430DD /* Data */ = {
+			isa = PBXGroup;
+			children = (
+				F33D64582D596B2300F3BBD7 /* GameModel.swift */,
+				60409E212D5F8B1B005430DD /* DataService.swift */,
+			);
+			path = Data;
 			sourceTree = "<group>";
 		};
 		F33D645C2D5A7A9300F3BBD7 /* Categories */ = {
@@ -371,7 +390,8 @@
 				F33D645B2D596B2A00F3BBD7 /* RoundedView.swift in Sources */,
 				6019B9D42D57E0A800E3F786 /* Palette.swift in Sources */,
 				47BDA93C2D5A28AE00A43D29 /* GameRulesViewController.swift in Sources */,
-				F33D64592D596B2300F3BBD7 /* Constants.swift in Sources */,
+				F33D64592D596B2300F3BBD7 /* GameModel.swift in Sources */,
+				60409E2F2D61F8D4005430DD /* ConsoleLogger.swift in Sources */,
 				F395CF722D5BB90B007EED4E /* GameViewController.swift in Sources */,
 				6019B9BB2D57DB6700E3F786 /* AppDelegate.swift in Sources */,
 				F395CF812D5DC4B6007EED4E /* SettingsViewController.swift in Sources */,

@@ -76,7 +76,6 @@ extension CategoryViewController: UICollectionViewDataSource {
         }
         
         let category = DataService.shared.getAllCategories()[indexPath.item].category
-        
         cell.configure(with: category, needCheckmark: false)
         cell.isCellSelected = DataService.shared.getAllCategories()[indexPath.item].isSelected
         return cell

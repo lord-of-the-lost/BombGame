@@ -14,9 +14,9 @@ protocol TimerDelegate: AnyObject {
 final class TimerService {
     weak var delegate: TimerDelegate?
     
-    var timeLeft = 0
     var isPaused = false
     
+    private var timeLeft = 0
     private var timer: Timer?
     
     func startTimer() {
@@ -50,7 +50,7 @@ final class TimerService {
         guard !isPaused else { return }
         if timeLeft > 0 {
             timeLeft -= 1
-            print(timeLeft)
+            ConsoleLogger.i(timeLeft)
         } else {
             handleTimerIsFinished()
         }
