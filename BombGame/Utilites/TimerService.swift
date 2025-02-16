@@ -36,7 +36,7 @@ final class TimerService {
         isPaused.toggle()
     }
     
-    private func stopTimer() {
+    func stopTimer() {
         timer?.invalidate()
         timer = nil
     }

@@ -8,43 +8,68 @@
 import AVFoundation
 
 final class AudioPlayerService {
-    private var audioPlayer: AVAudioPlayer?
+    enum AudioPlayerType {
+        case background
+        case game
+    }
+    
     static let shared = AudioPlayerService()
-   
+    private var backgroundPlayer: AVAudioPlayer?
+    private var gamePlayer: AVAudioPlayer?
+    
     private init() {}
     
-    /// Воспроизведение звука
-    func playSound(named fileName: String, repeatable: Bool = false) {
-        
+    func playSound(named fileName: String, type: AudioPlayerType = .game, repeatable: Bool = false) {
         guard let url = Bundle.main.url(forResource: fileName, withExtension: "mp3") else {
             print("Файл \(fileName) не найден")
             return
         }
         
         do {
-            audioPlayer = try AVAudioPlayer(contentsOf: url)
-            audioPlayer?.prepareToPlay()
-            audioPlayer?.play()
-            audioPlayer?.numberOfLoops = repeatable ? -1 : 0
+            switch type {
+            case .background:
+                backgroundPlayer = try AVAudioPlayer(contentsOf: url)
+                backgroundPlayer?.numberOfLoops = repeatable ? -1 : 0
+                backgroundPlayer?.prepareToPlay()
+                backgroundPlayer?.play()
+                
+            case .game:
+                gamePlayer = try AVAudioPlayer(contentsOf: url)
+                gamePlayer?.numberOfLoops = repeatable ? -1 : 0
+                gamePlayer?.prepareToPlay()
+                gamePlayer?.play()
+            }
         } catch {
             print("Ошибка при воспроизведении звука: \(error.localizedDescription)")
         }
     }
     
-    /// Пауза
-    func pause() {
-        audioPlayer?.pause()
+    func pause(type: AudioPlayerType = .game) {
+        switch type {
+        case .background:
+            backgroundPlayer?.pause()
+        case .game:
+            gamePlayer?.pause()
+        }
     }
     
-    /// Продолжить воспроизведение
-    func resume() {
-        audioPlayer?.play()
+    func resume(type: AudioPlayerType = .game) {
+        switch type {
+        case .background:
+            backgroundPlayer?.play()
+        case .game:
+            gamePlayer?.play()
+        }
     }
     
-    /// Остановить воспроизведение
-    func stop() {
-        audioPlayer?.stop()
-        audioPlayer = nil
+    func stop(type: AudioPlayerType = .game) {
+        switch type {
+        case .background:
+            backgroundPlayer?.stop()
+            backgroundPlayer = nil
+        case .game:
+            gamePlayer?.stop()
+            gamePlayer = nil
+        }
     }
 }
-

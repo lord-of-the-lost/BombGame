@@ -16,7 +16,20 @@ final class AppDelegate: UIResponder, UIApplicationDelegate {
         let navigationController = UINavigationController(rootViewController: rootViewController)
         window = UIWindow(frame: UIScreen.main.bounds)
         window?.rootViewController = navigationController
+        window?.overrideUserInterfaceStyle = .dark
         window?.makeKeyAndVisible()
+        playThemeSound()
         return true
+    }
+}
+
+// MARK: - Private Methods
+private extension AppDelegate {
+    func playThemeSound() {
+        AudioPlayerService.shared.playSound(
+            named: DataService.shared.gameModel.settings.themeSound.rawValue,
+            type: .background,
+            repeatable: true
+        )
     }
 }
