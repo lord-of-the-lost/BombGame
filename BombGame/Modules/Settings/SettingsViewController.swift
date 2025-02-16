@@ -113,8 +113,8 @@ final class SettingsViewController: UIViewController {
         picker.delegate = self
         picker.dataSource = self
         picker.isHidden = true
+        picker.backgroundColor = Palette.mainSheetBg
         picker.translatesAutoresizingMaskIntoConstraints = false
-        picker.backgroundColor = UIColor(named: "MainSheetBg")
         return picker
     }()
     
@@ -319,7 +319,7 @@ private extension SettingsViewController {
             backgroundImage.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             backgroundImage.bottomAnchor.constraint(equalTo: view.bottomAnchor),
             
-            musicPicker.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
+            musicPicker.bottomAnchor.constraint(equalTo: view.bottomAnchor),
             musicPicker.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             musicPicker.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             musicPicker.heightAnchor.constraint(equalToConstant: 150)
@@ -399,8 +399,12 @@ extension SettingsViewController: UIPickerViewDataSource {
 }
 
 extension SettingsViewController: UIPickerViewDelegate {
-    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        currentOptions[row]
+    func pickerView(_ pickerView: UIPickerView, viewForRow row: Int, forComponent component: Int, reusing view: UIView?) -> UIView {
+        let label = UILabel()
+        label.textColor = Palette.textPrimary
+        label.text = currentOptions[row]
+        label.textAlignment = .center
+        return label
     }
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
