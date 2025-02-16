@@ -8,6 +8,47 @@
 import UIKit
 
 final class SettingsViewController: UIViewController {
+    private lazy var soundStack = createStackView(with: [musicLabel, soundButton])
+    private lazy var tickStack = createStackView(with: [tickingLabel, tickButton])
+    private lazy var explosionStack = createStackView(with: [explosionLabel, explosionButton])
+    private lazy var vibrationStack = createStackView(with: [vibrationLabel, vibrationSwitch])
+    private lazy var gameTasksStack = createStackView(with: [gameTasksLabel, gameTasksSwitch])
+    
+    private lazy var blackView1 = createBlackView()
+    private lazy var blackView2 = createBlackView()
+    private lazy var blackView3 = createBlackView()
+    private lazy var blackView4 = createBlackView()
+    private lazy var blackView5 = createBlackView()
+    
+    private lazy var shortButton = createButton(title: "Короткое")
+    private lazy var mediumButton = createButton(title: "Среднее")
+    private lazy var longButton = createButton(title: "Длинное")
+    private lazy var randomButton = createButton(title: "Случайное")
+    
+    private lazy var musicLabel = createLabel(text: "Фоновая музыка")
+    private lazy var tickingLabel = createLabel(text: "Тиканье бомбы")
+    private lazy var explosionLabel = createLabel(text: "Взрыв бомбы")
+    private lazy var vibrationLabel = createLabel(text: "Вибрация")
+    private lazy var gameTasksLabel = createLabel(text: "Игра с заданиями")
+    
+    private lazy var soundButton = createPickerButton(title: DataService.shared.gameModel.settings.themeSound.description)
+    private lazy var tickButton = createPickerButton(title: DataService.shared.gameModel.settings.counterSound.description)
+    private lazy var explosionButton = createPickerButton(title: DataService.shared.gameModel.settings.boomSound.description)
+    
+    private var currentButton: UIButton?
+    private var currentOptions: [String] = []
+    
+    private var musicOptions: [String] {
+        GameModel.Settings.Sounds.Theme.allCases.map { $0.description }
+    }
+    
+    private var tickingOptions: [String] {
+        GameModel.Settings.Sounds.Counter.allCases.map { $0.description }
+    }
+    
+    private var explosionOptions: [String] {
+        GameModel.Settings.Sounds.Boom.allCases.map { $0.description }
+    }
     
     private lazy var firstView: RoundedView = {
         let view = RoundedView()
@@ -33,27 +74,13 @@ final class SettingsViewController: UIViewController {
     private lazy var timeLabel: UILabel = {
         let label = UILabel()
         label.text = "ВРЕМЯ ИГРЫ"
-        label.font = Fonts.rounded(weight: 0, size: 20).font
+        label.font = Fonts.rounded(weight: 700, size: 20).font
+        label.textColor = Palette.textPrimary
         label.textAlignment = .center
         label.numberOfLines = 0
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
-    
-    private lazy var shortButton = createButton(title: "Короткое")
-    private lazy var mediumButton = createButton(title: "Среднее")
-    private lazy var longButton = createButton(title: "Длинное")
-    private lazy var randomButton = createButton(title: "Случайное")
-    
-    private lazy var musicLabel = createLabel(text: "Фоновая музыка")
-    private lazy var tickingLabel = createLabel(text: "Тиканье бомбы")
-    private lazy var explosionLabel = createLabel(text: "Взрыв бомбы")
-    private lazy var vibrationLabel = createLabel(text: "Вибрация")
-    private lazy var gameTasksLabel = createLabel(text: "Игра с заданиями")
-    
-    private lazy var soundButton = createPickerButton(title: DataService.shared.gameModel.settings.themeSound.description)
-    private lazy var tickButton = createPickerButton(title: DataService.shared.gameModel.settings.counterSound.description)
-    private lazy var explosionButton = createPickerButton(title: DataService.shared.gameModel.settings.boomSound.description)
     
     private lazy var vibrationSwitch: UISwitch = {
         let toggle = UISwitch()
@@ -73,21 +100,9 @@ final class SettingsViewController: UIViewController {
         return toggle
     }()
     
-    private lazy var soundStack = createStackView(with: [musicLabel, soundButton])
-    private lazy var tickStack = createStackView(with: [tickingLabel, tickButton])
-    private lazy var explosionStack = createStackView(with: [explosionLabel, explosionButton])
-    private lazy var vibrationStack = createStackView(with: [vibrationLabel, vibrationSwitch])
-    private lazy var gameTasksStack = createStackView(with: [gameTasksLabel, gameTasksSwitch])
-    
-    private lazy var blackView1 = createBlackView()
-    private lazy var blackView2 = createBlackView()
-    private lazy var blackView3 = createBlackView()
-    private lazy var blackView4 = createBlackView()
-    private lazy var blackView5 = createBlackView()
-    
     private lazy var backgroundImage: UIImageView = {
         let imageView = UIImageView()
-        imageView.image = UIImage(named: "backgroundView")
+        imageView.image = UIImage(resource: .backgroundView)
         imageView.contentMode = .scaleAspectFill
         imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView
@@ -102,22 +117,6 @@ final class SettingsViewController: UIViewController {
         picker.backgroundColor = UIColor(named: "MainSheetBg")
         return picker
     }()
-    
-    
-    private var currentButton: UIButton?
-    private var currentOptions: [String] = []
-    
-    private var musicOptions: [String] {
-        GameModel.Settings.Sounds.Theme.allCases.map { $0.description }
-    }
-    
-    private var tickingOptions: [String] {
-        GameModel.Settings.Sounds.Counter.allCases.map { $0.description }
-    }
-    
-    private var explosionOptions: [String] {
-        GameModel.Settings.Sounds.Boom.allCases.map { $0.description }
-    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -161,8 +160,6 @@ private extension SettingsViewController {
         blackView3.addSubview(explosionStack)
         blackView4.addSubview(vibrationStack)
         blackView5.addSubview(gameTasksStack)
-        
-        
     }
     
     func setupConstraints() {
@@ -267,16 +264,15 @@ private extension SettingsViewController {
         let button = UIButton()
         button.setTitle(title, for: .normal)
         button.setTitleColor(.white, for: .normal)
-        button.backgroundColor = UIColor(named: "TextPrimary")
+        button.backgroundColor = Palette.textPrimary
         button.layer.cornerRadius = 12
-        button.titleLabel?.font = Fonts.rounded(weight: 10, size: 16).font
-        button.translatesAutoresizingMaskIntoConstraints = false
+        button.titleLabel?.font = Fonts.rounded(weight: 900, size: 16).font
         button.addTarget(self, action: #selector(chooseLength), for: .touchUpInside)
+        button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }
     
     func createPickerButton(title: String) -> UIButton {
-        
         var config = UIButton.Configuration.plain()
         config.title = title
         config.baseForegroundColor = .systemGray
@@ -284,20 +280,17 @@ private extension SettingsViewController {
         config.imagePlacement = .trailing
         config.imagePadding = 8
         config.buttonSize = .small
-        
         let button = UIButton(configuration: config, primaryAction: nil)
-        
         button.addTarget(self, action: #selector(showPicker), for: .touchUpInside)
         button.translatesAutoresizingMaskIntoConstraints = false
-        
         return button
     }
     
     func createLabel(text: String) -> UILabel {
         let label = UILabel()
         label.text = text
-        label.font = Fonts.rounded(weight: 0, size: 16).font
-        label.textColor = .white
+        label.font = Fonts.rounded(weight: 900, size: 16).font
+        label.textColor = Palette.textSecondary
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }
@@ -313,7 +306,7 @@ private extension SettingsViewController {
     
     func createBlackView() -> UIView {
         let view = RoundedView()
-        view.backgroundColor = UIColor(named: "TextPrimary")
+        view.backgroundColor = Palette.textPrimary
         view.layer.shadowOpacity = 0
         view.layer.cornerRadius = 12
         view.translatesAutoresizingMaskIntoConstraints = false
@@ -324,13 +317,13 @@ private extension SettingsViewController {
         let timeSettings = DataService.shared.gameModel.settings.gameTime
         switch timeSettings {
         case .short:
-            shortButton.backgroundColor = UIColor(named: "GameViewButton")
+            shortButton.backgroundColor = Palette.gameViewButton
         case .middle:
-            mediumButton.backgroundColor = UIColor(named: "GameViewButton")
+            mediumButton.backgroundColor = Palette.gameViewButton
         case .long:
-            longButton.backgroundColor = UIColor(named: "GameViewButton")
+            longButton.backgroundColor = Palette.gameViewButton
         case .random:
-            randomButton.backgroundColor = UIColor(named: "GameViewButton")
+            randomButton.backgroundColor = Palette.gameViewButton
         }
     }
     
@@ -345,34 +338,33 @@ private extension SettingsViewController {
         randomButton.isSelected = false
         
         sender.isSelected = true
-        sender.backgroundColor = sender.isSelected ? UIColor(named: "GameViewButton") : UIColor(named: "TextPrimary")
+        sender.backgroundColor = sender.isSelected ? Palette.gameViewButton : Palette.textPrimary
         
         switch sender {
         case shortButton:
-            mediumButton.backgroundColor = UIColor(named: "TextPrimary")
-            randomButton.backgroundColor = UIColor(named: "TextPrimary")
-            longButton.backgroundColor = UIColor(named: "TextPrimary")
+            mediumButton.backgroundColor = Palette.textPrimary
+            randomButton.backgroundColor = Palette.textPrimary
+            longButton.backgroundColor = Palette.textPrimary
             DataService.shared.gameModel.settings.gameTime = .short
         case mediumButton:
-            shortButton.backgroundColor = UIColor(named: "TextPrimary")
-            randomButton.backgroundColor = UIColor(named: "TextPrimary")
-            longButton.backgroundColor = UIColor(named: "TextPrimary")
+            shortButton.backgroundColor = Palette.textPrimary
+            randomButton.backgroundColor = Palette.textPrimary
+            longButton.backgroundColor = Palette.textPrimary
             DataService.shared.gameModel.settings.gameTime = .middle
         case longButton:
-            mediumButton.backgroundColor = UIColor(named: "TextPrimary")
-            shortButton.backgroundColor = UIColor(named: "TextPrimary")
-            randomButton.backgroundColor = UIColor(named: "TextPrimary")
+            mediumButton.backgroundColor = Palette.textPrimary
+            shortButton.backgroundColor = Palette.textPrimary
+            randomButton.backgroundColor = Palette.textPrimary
             DataService.shared.gameModel.settings.gameTime = .long
         default:
-            mediumButton.backgroundColor = UIColor(named: "TextPrimary")
-            shortButton.backgroundColor = UIColor(named: "TextPrimary")
-            longButton.backgroundColor = UIColor(named: "TextPrimary")
+            mediumButton.backgroundColor = Palette.textPrimary
+            shortButton.backgroundColor = Palette.textPrimary
+            longButton.backgroundColor = Palette.textPrimary
             DataService.shared.gameModel.settings.gameTime = .random
         }
     }
     
     @objc func showPicker(sender: UIButton) {
-        
         currentButton = sender
         
         switch sender {
@@ -445,5 +437,3 @@ extension SettingsViewController: UIPickerViewDelegate {
         pickerView.isHidden = true
     }
 }
-
-//#Preview { SettingsViewController() }

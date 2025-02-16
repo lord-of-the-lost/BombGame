@@ -12,8 +12,7 @@ final class CommonButton: UIButton {
     init(title: String, backgroundColor: UIColor) {
         super.init(frame: .zero)
         self.backgroundColor = backgroundColor
-        layer.cornerRadius = 10
-        addTarget(self, action: #selector(touchAction), for: .touchDown)
+        setupButton()
         setupTitle(title)
     }
     
@@ -24,6 +23,14 @@ final class CommonButton: UIButton {
 
 // MARK: - Private Methods
 private extension CommonButton {
+    func setupButton() {
+        layer.shadowOpacity = 0.3
+        layer.shadowOffset = CGSize(width: 0, height: 2)
+        layer.shadowRadius = 2
+        layer.cornerRadius = 10
+        addTarget(self, action: #selector(touchAction), for: .touchDown)
+    }
+    
     func setupTitle(_ title: String) {
         setTitle(title, for: .normal)
         setTitleColor(.black, for: .normal)

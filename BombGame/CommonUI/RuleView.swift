@@ -6,8 +6,8 @@
 //
 
 import UIKit
+
 final class RuleView: UIView {
-    
     private lazy var numberLabel: UILabel = {
         let label = UILabel()
         label.font = Fonts.rounded(weight: 2, size: 16).font
@@ -33,43 +33,32 @@ final class RuleView: UIView {
         label.textColor = .textPrimary
         label.setContentHuggingPriority(.defaultHigh, for: .vertical)
         label.numberOfLines = 0
-//        label.textAlignment
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
     
-    init(number: Int, text: String, aligment: NSTextAlignment) {
+    init(number: Int, attributedText: NSAttributedString, alignment: NSTextAlignment) {
         super.init(frame: .zero)
         self.numberLabel.text = "\(number)"
-        self.ruleLabel.text = text
-        self.ruleLabel.textAlignment = aligment
+        self.ruleLabel.attributedText = attributedText
+        self.ruleLabel.textAlignment = alignment
         setupView()
         setupConstraints()
     }
     
-    init(number: Int, attributedText: NSAttributedString, alignment: NSTextAlignment) {
-            super.init(frame: .zero)
-            self.numberLabel.text = "\(number)"
-            self.ruleLabel.attributedText = attributedText
-            self.ruleLabel.textAlignment = alignment
-            setupView()
-            setupConstraints()
-        }
-    
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
 }
-    // MARK: - Private Methods
-    private extension RuleView {
-    private func setupView() {
+// MARK: - Private Methods
+private extension RuleView {
+    func setupView() {
         addSubview(circleView)
         circleView.addSubview(numberLabel)
         addSubview(ruleLabel)
     }
     
-    private func setupConstraints() {
+    func setupConstraints() {
         NSLayoutConstraint.activate([
             circleView.widthAnchor.constraint(equalToConstant: 29),
             circleView.heightAnchor.constraint(equalToConstant: 29),
