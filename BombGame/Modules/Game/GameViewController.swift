@@ -200,6 +200,7 @@ private extension GameViewController {
         punishLabel.isHidden = true
         textLabel.isHidden = false
         animationView.isHidden = false
+        navigationItem.hidesBackButton = false
 
         if startButton.currentTitle == "Запустить"{
             textLabel.text = DataService.shared.getRandomQuestion()
