@@ -223,7 +223,7 @@ let gameModelMock = GameModel(
     ],
     settings: GameModel.Settings(
         gameTime: .short,
-        themeSound: .two,
+        themeSound: .one,
         counterSound: .one,
         boomSound: .one,
         vibrationIsOn: true,
